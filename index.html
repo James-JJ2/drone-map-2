@@ -8,7 +8,6 @@
     <meta name="robots" content="index,follow">
     <link rel="canonical" href="https://james-jj2.github.io/drone-map-2/">
     <style>
-        /* 支援系統自動深色/淺色模式的 CSS 變數 */
         :root {
             --primary-color: #2563eb;
             --primary-dark: #1d4ed8;
@@ -94,7 +93,6 @@
             backdrop-filter: blur(4px);
         }
 
-        /* 篩選按鈕列 */
         .filters {
             display: flex;
             gap: 10px;
@@ -124,7 +122,6 @@
             border-color: var(--primary-color);
         }
 
-        /* 三欄式網格佈局 */
         .grid-container {
             display: grid;
             grid-template-columns: repeat(3, 1fr);
@@ -143,7 +140,6 @@
             }
         }
 
-        /* 景點卡片 (壓縮列高與框框) */
         .card {
             background: var(--card-bg);
             border-radius: 8px;
@@ -221,7 +217,6 @@
         .dot-yellow { background-color: #f59e0b; color: #f59e0b; }
         .dot-red { background-color: #ef4444; color: #ef4444; }
 
-        /* 滑鼠懸停浮動大卡片 (>150字極致美學敘述) */
         .hover-tooltip {
             visibility: hidden;
             opacity: 0;
@@ -247,7 +242,6 @@
             opacity: 1;
         }
 
-        /* 詳情收合區塊 */
         .details-content {
             display: none;
             margin-top: 8px;
@@ -297,7 +291,7 @@
     <header>
         <div>
             <h1>臺灣空拍景點智慧審查與收集資料庫</h1>
-            <div class="subtitle">專為 傅子名 (James) 量身打造 | 全臺 40 處頂級航拍秘境</div>
+            <div class="subtitle">全臺 40 處頂級航拍秘境</div>
         </div>
         <div class="badge-status">總收錄：40 筆景點 | 手風琴自動收合模式</div>
     </header>
@@ -311,8 +305,6 @@
     </div>
 
     <div class="grid-container" id="cardGrid">
-        <!-- 40 筆精選景點 -->
-
         <!-- 東臺灣與離島 (8) -->
         <div class="card" data-region="east">
             <div class="card-header">
@@ -1241,23 +1233,19 @@
 </div>
 
 <script>
-    // 手風琴展開/收合互動邏輯：點擊時自動關閉其他已展開卡片
     function toggleCard(element) {
         const card = element.closest('.card');
         const isOpen = card.classList.contains('expanded');
 
-        // 將所有卡片的 expanded 狀態移除（自動縮回原本小格子）
         document.querySelectorAll('.card').forEach(c => {
             c.classList.remove('expanded');
         });
 
-        // 如果點擊的卡片原本是關閉的，則將它展開；若原本就是打開的則保持關閉
         if (!isOpen) {
             card.classList.add('expanded');
         }
     }
 
-    // 區域篩選功能
     function filterRegion(region) {
         const cards = document.querySelectorAll('.card');
         const buttons = document.querySelectorAll('.filter-btn');
@@ -1274,7 +1262,6 @@
         });
     }
 </script>
-
 <script>
 // 外部縮圖失效時顯示備援圖，避免公開頁面破圖。
 const imageFallback = 'data:image/svg+xml;charset=utf-8,' + encodeURIComponent('<svg xmlns="http://www.w3.org/2000/svg" width="150" height="150" viewBox="0 0 150 150"><rect width="150" height="150" fill="#1e3a5f"/><path d="M0 120L45 65L75 95L105 50L150 120Z" fill="#38bdf8" opacity=".65"/><circle cx="42" cy="35" r="12" fill="#f8fafc"/><text x="75" y="140" text-anchor="middle" font-size="13" fill="#f8fafc">空拍景點</text></svg>');
