@@ -3,7 +3,10 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>臺灣空拍景點智慧審查與收集資料庫 (手風琴互動升級版)</title>
+    <title>Drone Map 2｜臺灣空拍景點資料庫</title>
+    <meta name="description" content="探索全臺 40 處空拍景點，依北、中、南、東臺灣與離島篩選，查看景點介紹、起降參考與地圖導航。">
+    <meta name="robots" content="index,follow">
+    <link rel="canonical" href="https://james-jj2.github.io/drone-map-2/">
     <style>
         /* 支援系統自動深色/淺色模式的 CSS 變數 */
         :root {
@@ -1270,6 +1273,16 @@
             }
         });
     }
+</script>
+
+<script>
+// 外部縮圖失效時顯示備援圖，避免公開頁面破圖。
+const imageFallback = 'data:image/svg+xml;charset=utf-8,' + encodeURIComponent('<svg xmlns="http://www.w3.org/2000/svg" width="150" height="150" viewBox="0 0 150 150"><rect width="150" height="150" fill="#1e3a5f"/><path d="M0 120L45 65L75 95L105 50L150 120Z" fill="#38bdf8" opacity=".65"/><circle cx="42" cy="35" r="12" fill="#f8fafc"/><text x="75" y="140" text-anchor="middle" font-size="13" fill="#f8fafc">空拍景點</text></svg>');
+document.querySelectorAll('img.thumb').forEach(img => {
+  const useFallback = () => { img.src = imageFallback; img.alt = '景點備援示意圖'; };
+  img.addEventListener('error', useFallback, {once:true});
+  if (img.complete && img.naturalWidth === 0) useFallback();
+});
 </script>
 </body>
 </html>
