@@ -1,0 +1,1275 @@
+<!DOCTYPE html>
+<html lang="zh-TW">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>臺灣空拍景點智慧審查與收集資料庫 (手風琴互動升級版)</title>
+    <style>
+        /* 支援系統自動深色/淺色模式的 CSS 變數 */
+        :root {
+            --primary-color: #2563eb;
+            --primary-dark: #1d4ed8;
+            --bg-color: #f8fafc;
+            --card-bg: #ffffff;
+            --text-main: #1e293b;
+            --text-muted: #64748b;
+            --border-color: #e2e8f0;
+            --shadow: 0 4px 6px -1px rgba(0, 0, 0, 0.1), 0 2px 4px -1px rgba(0, 0, 0, 0.06);
+            --shadow-lg: 0 20px 25px -5px rgba(0, 0, 0, 0.15), 0 10px 10px -5px rgba(0, 0, 0, 0.04);
+            --tooltip-bg: #1e293b;
+            --tooltip-text: #f8fafc;
+            --header-gradient-1: #1e3a8a;
+            --header-gradient-2: #2563eb;
+        }
+
+        @media (prefers-color-scheme: dark) {
+            :root {
+                --primary-color: #3b82f6;
+                --primary-dark: #2563eb;
+                --bg-color: #0b1120;
+                --card-bg: #1e293b;
+                --text-main: #f1f5f9;
+                --text-muted: #94a3b8;
+                --border-color: #334155;
+                --shadow: 0 4px 6px -1px rgba(0, 0, 0, 0.5), 0 2px 4px -1px rgba(0, 0, 0, 0.3);
+                --shadow-lg: 0 20px 25px -5px rgba(0, 0, 0, 0.5), 0 10px 10px -5px rgba(0, 0, 0, 0.3);
+                --tooltip-bg: #0f172a;
+                --tooltip-text: #f1f5f9;
+                --header-gradient-1: #0f172a;
+                --header-gradient-2: #1e3a8a;
+            }
+        }
+
+        body {
+            font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, "Helvetica Neue", Arial, sans-serif;
+            background-color: var(--bg-color);
+            color: var(--text-main);
+            margin: 0;
+            padding: 20px;
+            line-height: 1.6;
+            transition: background-color 0.3s ease, color 0.3s ease;
+        }
+
+        .container {
+            max-width: 1400px;
+            margin: 0 auto;
+        }
+
+        header {
+            background: linear-gradient(135deg, var(--header-gradient-1), var(--header-gradient-2));
+            color: white;
+            padding: 24px 32px;
+            border-radius: 12px;
+            box-shadow: var(--shadow);
+            margin-bottom: 24px;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            flex-wrap: wrap;
+            gap: 16px;
+        }
+
+        header h1 {
+            margin: 0;
+            font-size: 1.8rem;
+            font-weight: 700;
+            letter-spacing: 0.5px;
+        }
+
+        header .subtitle {
+            font-size: 0.95rem;
+            opacity: 0.9;
+            margin-top: 4px;
+        }
+
+        .badge-status {
+            background: rgba(255, 255, 255, 0.2);
+            padding: 6px 14px;
+            border-radius: 20px;
+            font-size: 0.85rem;
+            font-weight: 500;
+            backdrop-filter: blur(4px);
+        }
+
+        /* 篩選按鈕列 */
+        .filters {
+            display: flex;
+            gap: 10px;
+            margin-bottom: 24px;
+            flex-wrap: wrap;
+            background: var(--card-bg);
+            border: 1px solid var(--border-color);
+            padding: 16px;
+            border-radius: 10px;
+            box-shadow: var(--shadow);
+        }
+
+        .filter-btn {
+            background: var(--bg-color);
+            border: 1px solid var(--border-color);
+            padding: 8px 16px;
+            border-radius: 6px;
+            cursor: pointer;
+            font-weight: 500;
+            color: var(--text-muted);
+            transition: all 0.2s ease;
+        }
+
+        .filter-btn:hover, .filter-btn.active {
+            background: var(--primary-color);
+            color: white;
+            border-color: var(--primary-color);
+        }
+
+        /* 三欄式網格佈局 */
+        .grid-container {
+            display: grid;
+            grid-template-columns: repeat(3, 1fr);
+            gap: 16px;
+        }
+
+        @media (max-width: 1024px) {
+            .grid-container {
+                grid-template-columns: repeat(2, 1fr);
+            }
+        }
+
+        @media (max-width: 640px) {
+            .grid-container {
+                grid-template-columns: 1fr;
+            }
+        }
+
+        /* 景點卡片 (壓縮列高與框框) */
+        .card {
+            background: var(--card-bg);
+            border-radius: 8px;
+            border: 1px solid var(--border-color);
+            box-shadow: var(--shadow);
+            padding: 12px;
+            display: flex;
+            flex-direction: column;
+            position: relative;
+            transition: transform 0.2s ease, box-shadow 0.2s ease, border-color 0.2s ease;
+        }
+
+        .card:hover {
+            transform: translateY(-2px);
+            box-shadow: var(--shadow-lg);
+            border-color: var(--primary-color);
+        }
+
+        .card-header {
+            display: flex;
+            align-items: center;
+            gap: 12px;
+            position: relative;
+        }
+
+        .thumb {
+            width: 64px;
+            height: 64px;
+            border-radius: 6px;
+            object-fit: cover;
+            flex-shrink: 0;
+            border: 1px solid var(--border-color);
+        }
+
+        .title-area {
+            flex-grow: 1;
+            cursor: pointer;
+        }
+
+        .spot-name-wrapper {
+            display: flex;
+            align-items: center;
+            gap: 8px;
+            flex-wrap: wrap;
+        }
+
+        .spot-name {
+            font-size: 1rem;
+            font-weight: 700;
+            color: var(--primary-color);
+            margin: 0;
+        }
+
+        .spot-name:hover {
+            text-decoration: underline;
+        }
+
+        .spot-region {
+            font-size: 0.78rem;
+            color: var(--text-muted);
+            font-weight: 500;
+            margin-top: 2px;
+        }
+
+        .status-dot {
+            width: 9px;
+            height: 9px;
+            border-radius: 50%;
+            display: inline-block;
+            box-shadow: 0 0 6px currentColor;
+            flex-shrink: 0;
+        }
+
+        .dot-green { background-color: #10b981; color: #10b981; }
+        .dot-yellow { background-color: #f59e0b; color: #f59e0b; }
+        .dot-red { background-color: #ef4444; color: #ef4444; }
+
+        /* 滑鼠懸停浮動大卡片 (>150字極致美學敘述) */
+        .hover-tooltip {
+            visibility: hidden;
+            opacity: 0;
+            position: absolute;
+            left: 0;
+            bottom: 105%;
+            width: 340px;
+            background: var(--tooltip-bg);
+            color: var(--tooltip-text);
+            padding: 14px;
+            border-radius: 8px;
+            box-shadow: var(--shadow-lg);
+            border: 1px solid var(--border-color);
+            font-size: 0.85rem;
+            line-height: 1.5;
+            z-index: 100;
+            transition: opacity 0.3s ease, visibility 0.3s ease;
+            pointer-events: none;
+        }
+
+        .title-area:hover .hover-tooltip {
+            visibility: visible;
+            opacity: 1;
+        }
+
+        /* 詳情收合區塊 */
+        .details-content {
+            display: none;
+            margin-top: 8px;
+            padding-top: 8px;
+            border-top: 1px dashed var(--border-color);
+            font-size: 0.85rem;
+        }
+
+        .card.expanded .details-content {
+            display: block;
+        }
+
+        .meta-info {
+            margin: 4px 0;
+            color: var(--text-muted);
+        }
+
+        .meta-info strong {
+            color: var(--text-main);
+        }
+
+        .map-link {
+            display: inline-block;
+            margin-top: 6px;
+            color: var(--primary-color);
+            text-decoration: none;
+            font-weight: 600;
+            font-size: 0.82rem;
+        }
+
+        .map-link:hover {
+            text-decoration: underline;
+        }
+
+        .toggle-hint {
+            font-size: 0.72rem;
+            color: var(--text-muted);
+            text-align: right;
+            cursor: pointer;
+            margin-top: 4px;
+            padding-top: 2px;
+        }
+    </style>
+</head>
+<body>
+<div class="container">
+    <header>
+        <div>
+            <h1>臺灣空拍景點智慧審查與收集資料庫</h1>
+            <div class="subtitle">專為 傅子名 (James) 量身打造 | 全臺 40 處頂級航拍秘境</div>
+        </div>
+        <div class="badge-status">總收錄：40 筆景點 | 手風琴自動收合模式</div>
+    </header>
+
+    <div class="filters">
+        <button class="filter-btn active" onclick="filterRegion('all')">全臺灣 (40)</button>
+        <button class="filter-btn" onclick="filterRegion('north')">北臺灣 (14)</button>
+        <button class="filter-btn" onclick="filterRegion('central')">中臺灣 (8)</button>
+        <button class="filter-btn" onclick="filterRegion('south')">南臺灣 (10)</button>
+        <button class="filter-btn" onclick="filterRegion('east')">東臺灣與離島 (8)</button>
+    </div>
+
+    <div class="grid-container" id="cardGrid">
+        <!-- 40 筆精選景點 -->
+
+        <!-- 東臺灣與離島 (8) -->
+        <div class="card" data-region="east">
+            <div class="card-header">
+                <img src="https://images.unsplash.com/photo-1506744038136-46273834b3fb?w=150" class="thumb" alt="縮圖">
+                <div class="title-area">
+                    <div class="spot-name-wrapper">
+                        <span class="spot-name" onclick="toggleCard(this)">崇德礫灘 (清水斷崖)</span>
+                        <span class="status-dot dot-green" title="綠區暢飛"></span>
+                    </div>
+                    <div class="spot-region">花蓮縣秀林鄉</div>
+                    <div class="hover-tooltip">
+                        <strong>【無人機航拍優勢與絕美風光】</strong><br>
+                        當您的無人機從崇德礫灘緩緩升空，迎面而來的是震撼無比的立體斷崖與太平洋交織出的史詩級藍調。隨著高度攀升，海面由近而遠呈現出翡翠綠到深邃靛藍的夢幻漸層，陽光灑在垂直千米的懸崖峭壁上，光影線條極具張力。此處擁有極佳的無遮蔽視野，非常適合拉出雄偉的推鏡與環繞運鏡，完美捕捉大自然鬼斧神工的壯麗氣勢，是空拍愛好者一生必訪的極致殿堂。
+                    </div>
+                </div>
+            </div>
+            <div class="details-content">
+                <div class="meta-info"><strong>建議起降點：</strong> 崇德步道口平坦空地</div>
+                <div class="meta-info"><strong>風險提示：</strong> 海風強勁，請隨時留意返航電量與突發湧浪。</div>
+                <a href="https://maps.google.com/?q=崇德礫灘" target="_blank" class="map-link">📍 Google 導航定位</a>
+            </div>
+            <div class="toggle-hint" onclick="toggleCard(this)">點擊展開/收合詳細資訊</div>
+        </div>
+
+        <div class="card" data-region="east">
+            <div class="card-header">
+                <img src="https://images.unsplash.com/photo-1464822759023-fed622ff2c3b?w=150" class="thumb" alt="縮圖">
+                <div class="title-area">
+                    <div class="spot-name-wrapper">
+                        <span class="spot-name" onclick="toggleCard(this)">和中沙灘</span>
+                        <span class="status-dot dot-green" title="綠區暢飛"></span>
+                    </div>
+                    <div class="spot-region">花蓮縣秀林鄉</div>
+                    <div class="hover-tooltip">
+                        <strong>【無人機航拍優勢與絕美風光】</strong><br>
+                        和中沙灘是一處人煙罕至、質樸純淨的隱密海灣。當無人機垂直起飛，俯瞰那綿延的金黃色礫石海岸與浪花拍打的雪白泡沫，形成強烈的視覺對比。清晨時分，第一道曙光穿透雲層，海平面波光粼粼，金黃色的光芒灑滿整個機身與海面，能輕易拍出充滿靈性與孤獨美學的大片。這裡沒有都市的喧囂，只有純粹的海浪聲與遼闊的上帝視角，是沉浸式飛行與尋找創作靈感的絕佳聖地。
+                    </div>
+                </div>
+            </div>
+            <div class="details-content">
+                <div class="meta-info"><strong>建議起降點：</strong> 和中海灘防汛道路旁</div>
+                <div class="meta-info"><strong>風險提示：</strong> 沿岸無遮蔽，需注意午後強陣風。</div>
+                <a href="https://maps.google.com/?q=和中沙灘" target="_blank" class="map-link">📍 Google 導航定位</a>
+            </div>
+            <div class="toggle-hint" onclick="toggleCard(this)">點擊展開/收合詳細資訊</div>
+        </div>
+
+        <div class="card" data-region="east">
+            <div class="card-header">
+                <img src="https://images.unsplash.com/photo-1470071459604-3b5ec3a7fe05?w=150" class="thumb" alt="縮圖">
+                <div class="title-area">
+                    <div class="spot-name-wrapper">
+                        <span class="spot-name" onclick="toggleCard(this)">池上伯朗大道</span>
+                        <span class="status-dot dot-green" title="綠區暢飛"></span>
+                    </div>
+                    <div class="spot-region">臺東縣池上鄉</div>
+                    <div class="hover-tooltip">
+                        <strong>【無人機航拍優勢與絕美風光】</strong><br>
+                        馳名中外的池上伯朗大道擁有全臺灣最療癒的無邊際綠意與金色稻浪。當無人機緩緩升空，一條筆直無電線干擾的田園小徑在中央延伸，兩側隨著季節更迭展現出翠綠或金黃的幾何拼布農田。遠方則是層巒疊翠的中央山脈與白雲繚繞，高空俯瞰的對稱感與大地藝術般的紋理令人屏息。此處非常適合進行大範圍的垂直向下俯拍與低空流暢前進運鏡，完美呈現出臺灣縱谷最純粹、最令人心曠神怡的田園詩篇。
+                    </div>
+                </div>
+            </div>
+            <div class="details-content">
+                <div class="meta-info"><strong>建議起降點：</strong> 筆直道路旁安全農路農田空地</div>
+                <div class="meta-info"><strong>風險提示：</strong> 觀光人潮較多，起降請注意遊客安全。</div>
+                <a href="https://maps.google.com/?q=池上伯朗大道" target="_blank" class="map-link">📍 Google 導航定位</a>
+            </div>
+            <div class="toggle-hint" onclick="toggleCard(this)">點擊展開/收合詳細資訊</div>
+        </div>
+
+        <div class="card" data-region="east">
+            <div class="card-header">
+                <img src="https://images.unsplash.com/photo-1501785888041-af3ef285b470?w=150" class="thumb" alt="縮圖">
+                <div class="title-area">
+                    <div class="spot-name-wrapper">
+                        <span class="spot-name" onclick="toggleCard(this)">花蓮石梯坪</span>
+                        <span class="status-dot dot-green" title="綠區暢飛"></span>
+                    </div>
+                    <div class="spot-region">花蓮縣豐濱鄉</div>
+                    <div class="hover-tooltip">
+                        <strong>【無人機航拍優勢與絕美風光】</strong><br>
+                        石梯坪擁有世界級的階地地形與豐富的海蝕溝、壺穴景觀。當無人機垂直拉高，下方乳白色的火山碎屑岩地形宛如大自然精心雕刻的巨型階梯，層層疊疊地伸入湛藍晶瑩的太平洋中。浪花拍打在獨特的岩石紋理上，激起朵朵白色水花。高空俯瞰的幾何美感與清澈見底的海水，能讓每一位飛行員輕易捕捉到充滿熱帶島嶼風情與地質奇觀的頂級大片。
+                    </div>
+                </div>
+            </div>
+            <div class="details-content">
+                <div class="meta-info"><strong>建議起降點：</strong> 石梯坪遊憩區停車場旁空地</div>
+                <div class="meta-info"><strong>風險提示：</strong> 岩石表面濕滑，起降與移動請特別注意步伐安全。</div>
+                <a href="https://maps.google.com/?q=石梯坪" target="_blank" class="map-link">📍 Google 導航定位</a>
+            </div>
+            <div class="toggle-hint" onclick="toggleCard(this)">點擊展開/收合詳細資訊</div>
+        </div>
+
+        <div class="card" data-region="east">
+            <div class="card-header">
+                <img src="https://images.unsplash.com/photo-1426604966848-d7adac902bff?w=150" class="thumb" alt="縮圖">
+                <div class="title-area">
+                    <div class="spot-name-wrapper">
+                        <span class="spot-name" onclick="toggleCard(this)">臺東三仙台</span>
+                        <span class="status-dot dot-green" title="綠區暢飛"></span>
+                    </div>
+                    <div class="spot-region">臺東縣成功鎮</div>
+                    <div class="hover-tooltip">
+                        <strong>【無人機航拍優勢與絕美風光】</strong><br>
+                        三仙台著名的八拱跨海步橋如同一條靈動的巨龍，優雅地橫臥在碧海藍天之間，連結著本島與離岸的小島。當無人機緩緩升空，八拱橋的優美弧線與周遭奇岩怪石、海蝕溝相互輝映，畫面構圖極具張力。晨曦初露時，太陽從太平洋海平面緩緩升起，金黃色的光束穿透拱橋橋墩，將海面灑上一片碎金。這種壯麗且帶有神話色彩的景致，透過無人機的視角能完美呈現出大器的磅礡美感。
+                    </div>
+                </div>
+            </div>
+            <div class="details-content">
+                <div class="meta-info"><strong>建議起降點：</strong> 三仙台遊憩區外圍廣場</div>
+                <div class="meta-info"><strong>風險提示：</strong> 海風強勁，跨海橋梁周邊人潮較多，請注意飛行距離。</div>
+                <a href="https://maps.google.com/?q=三仙台" target="_blank" class="map-link">📍 Google 導航定位</a>
+            </div>
+            <div class="toggle-hint" onclick="toggleCard(this)">點擊展開/收合詳細資訊</div>
+        </div>
+
+        <div class="card" data-region="east">
+            <div class="card-header">
+                <img src="https://images.unsplash.com/photo-1507525428034-b723cf961d3e?w=150" class="thumb" alt="縮圖">
+                <div class="title-area">
+                    <div class="spot-name-wrapper">
+                        <span class="spot-name" onclick="toggleCard(this)">花蓮石門雙心洞 (March洞)</span>
+                        <span class="status-dot dot-green" title="綠區暢飛"></span>
+                    </div>
+                    <div class="spot-region">花蓮縣豐濱鄉</div>
+                    <div class="hover-tooltip">
+                        <strong>【無人機航拍優勢與絕美風光】</strong><br>
+                        石門海邊的 March 洞（雙心洞）是近年爆紅的天然海蝕洞奇景。從正面平視無法看出其奧妙，但透過無人機的高空俯視與特定角度調整，天然的海蝕洞口完美呈現出可愛的汽車標誌或雙心形狀，湛藍的海水從洞口穿透而過，畫面既奇幻又優美。周遭則是壯麗的東海岸岩石與激盪的浪花。這種唯有上帝視角才能解鎖的獨特構圖，絕對能為您的空拍作品集增添一大亮點。
+                    </div>
+                </div>
+            </div>
+            <div class="details-content">
+                <div class="meta-info"><strong>建議起降點：</strong> 石門班哨角休憩區旁空地</div>
+                <div class="meta-info"><strong>風險提示：</strong> 海蝕平台濕滑，拍攝時請注意自身站立位置與風勢。</div>
+                <a href="https://maps.google.com/?q=石門March洞" target="_blank" class="map-link">📍 Google 導航定位</a>
+            </div>
+            <div class="toggle-hint" onclick="toggleCard(this)">點擊展開/收合詳細資訊</div>
+        </div>
+
+        <div class="card" data-region="east">
+            <div class="card-header">
+                <img src="https://images.unsplash.com/photo-1501785888041-af3ef285b470?w=150" class="thumb" alt="縮圖">
+                <div class="title-area">
+                    <div class="spot-name-wrapper">
+                        <span class="spot-name" onclick="toggleCard(this)">花蓮牛山呼庭</span>
+                        <span class="status-dot dot-green" title="綠區暢飛"></span>
+                    </div>
+                    <div class="spot-region">花蓮縣壽豐鄉</div>
+                    <div class="hover-tooltip">
+                        <strong>【無人機航拍優勢與絕美風光】</strong><br>
+                        牛山呼庭是藏匿在花蓮海岸山脈與太平洋之間的世外桃源，擁有依山傍海的絕美草坡與原始礫石海灘。當無人機從翠綠的山坡緩緩拉升，眼前豁然開朗，深邃湛藍的海水與金黃色的海灣交織成一幅令人屏息的油畫。這裡完美保留了台灣東海岸最原始的粗獷與溫柔，夕陽西下時金光灑滿海面，無人機在此進行低空滑過草坡再拉向大海的運鏡，能完美營造出充滿電影感的自由與遼闊氛圍。
+                    </div>
+                </div>
+            </div>
+            <div class="details-content">
+                <div class="meta-info"><strong>建議起降點：</strong> 牛山呼庭園區內平坦草地</div>
+                <div class="meta-info"><strong>風險提示：</strong> 地形起伏較大，起降時請注意視線與風向。</div>
+                <a href="https://maps.google.com/?q=牛山呼庭" target="_blank" class="map-link">📍 Google 導航定位</a>
+            </div>
+            <div class="toggle-hint" onclick="toggleCard(this)">點擊展開/收合詳細資訊</div>
+        </div>
+
+        <div class="card" data-region="east">
+            <div class="card-header">
+                <img src="https://images.unsplash.com/photo-1470071459604-3b5ec3a7fe05?w=150" class="thumb" alt="縮圖">
+                <div class="title-area">
+                    <div class="spot-name-wrapper">
+                        <span class="spot-name" onclick="toggleCard(this)">台東成功鎮芝田秘境</span>
+                        <span class="status-dot dot-green" title="綠區暢飛"></span>
+                    </div>
+                    <div class="spot-region">臺東縣成功鎮</div>
+                    <div class="hover-tooltip">
+                        <strong>【無人機航拍優勢與絕美風光】</strong><br>
+                        芝田秘境是東海岸一處少有人知的隱密海灣與翠綠草坡交界處。從無人機的視角望去，一側是綿延的綠意山林，另一側則是清澈見底、湛藍透徹的太平洋海水，海岸線弧度優美動人。這裡沒有過多的人工開發，保有最純粹的自然原貌。無人機在此進行低空順著海岸線的跟拍與環繞，能捕捉到無與倫比的寧靜與純淨美感，是放鬆心靈、享受獨家航拍視野的絕佳私房景點。
+                    </div>
+                </div>
+            </div>
+            <div class="details-content">
+                <div class="meta-info"><strong>建議起降點：</strong> 台11線旁安全農路空地</div>
+                <div class="meta-info"><strong>風險提示：</strong> 周邊無遮蔽物，海風強勁請注意飛行姿態。</div>
+                <a href="https://maps.google.com/?q=台東成功芝田" target="_blank" class="map-link">📍 Google 導航定位</a>
+            </div>
+            <div class="toggle-hint" onclick="toggleCard(this)">點擊展開/收合詳細資訊</div>
+        </div>
+
+        <!-- 北臺灣 (14) -->
+        <div class="card" data-region="north">
+            <div class="card-header">
+                <img src="https://images.unsplash.com/photo-1519681393784-d120267933ba?w=150" class="thumb" alt="縮圖">
+                <div class="title-area">
+                    <div class="spot-name-wrapper">
+                        <span class="spot-name" onclick="toggleCard(this)">象鼻岩景觀區</span>
+                        <span class="status-dot dot-yellow" title="黃區限高"></span>
+                    </div>
+                    <div class="spot-region">新北市瑞芳區</div>
+                    <div class="hover-tooltip">
+                        <strong>【無人機航拍優勢與絕美風光】</strong><br>
+                        北海岸鬼斧神工的象鼻岩，擁有獨一無二的海蝕拱門地質奇觀。從高空俯瞰，巨大的象鼻穩穩扎根於湛藍海中，海浪在巨岩周遭激起陣陣雪白浪花，展現出無與倫比的力與美。無人機可以從側面切入，穿梭於海蝕崖壁與海平面之間，捕捉陽光斜射下岩石豐富的紋理與色彩變化。這種平視無法企及的上帝視角，能將大自然的鬼斧神工與海洋的浩瀚無垠完美融合，帶來極具視覺衝擊力的航拍饗宴。
+                    </div>
+                </div>
+            </div>
+            <div class="details-content">
+                <div class="meta-info"><strong>建議起降點：</strong> 深澳漁港內側空地</div>
+                <div class="meta-info"><strong>風險提示：</strong> 屬黃區限高，且靠海側強陣風與海鹽侵蝕需特別留意。</div>
+                <a href="https://maps.google.com/?q=深澳象鼻岩" target="_blank" class="map-link">📍 Google 導航定位</a>
+            </div>
+            <div class="toggle-hint" onclick="toggleCard(this)">點擊展開/收合詳細資訊</div>
+        </div>
+
+        <div class="card" data-region="north">
+            <div class="card-header">
+                <img src="https://images.unsplash.com/photo-1507525428034-b723cf961d3e?w=150" class="thumb" alt="縮圖">
+                <div class="title-area">
+                    <div class="spot-name-wrapper">
+                        <span class="spot-name" onclick="toggleCard(this)">金山神秘海岸</span>
+                        <span class="status-dot dot-green" title="綠區暢飛"></span>
+                    </div>
+                    <div class="spot-region">新北市金山區</div>
+                    <div class="hover-tooltip">
+                        <strong>【無人機航拍優勢與絕美風光】</strong><br>
+                        金山神秘海岸擁有錯綜複雜的豆腐岩地形與一線天奇岩。當無人機升空，下方是宛如天然雕刻般的奇岩怪石與清澈見底的藍綠色海水，潮水在岩縫中流轉，勾勒出大自然最細膩的幾何線條。夕陽西下時，金橘色的斜陽將整個海岸線染成夢幻的琥珀色，此時進行低空平行運鏡，可以捕捉到光影在岩石表面拉出的長長剪影。這裡充滿神祕與原始的探險氣息，是航拍創作者尋找獨特地景語彙的最佳場域。
+                    </div>
+                </div>
+            </div>
+            <div class="details-content">
+                <div class="meta-info"><strong>建議起降點：</strong> 水尾漁港防波堤旁</div>
+                <div class="meta-info"><strong>風險提示：</strong> 留意潮汐時間，避免漲潮時退路受阻。</div>
+                <a href="https://maps.google.com/?q=金山神秘海岸" target="_blank" class="map-link">📍 Google 導航定位</a>
+            </div>
+            <div class="toggle-hint" onclick="toggleCard(this)">點擊展開/收合詳細資訊</div>
+        </div>
+
+        <div class="card" data-region="north">
+            <div class="card-header">
+                <img src="https://images.unsplash.com/photo-1488646953014-85cb44e25828?w=150" class="thumb" alt="縮圖">
+                <div class="title-area">
+                    <div class="spot-name-wrapper">
+                        <span class="spot-name" onclick="toggleCard(this)">東北角龍洞灣</span>
+                        <span class="status-dot dot-yellow" title="黃區限高"></span>
+                    </div>
+                    <div class="spot-region">新北市貢寮區</div>
+                    <div class="hover-tooltip">
+                        <strong>【無人機航拍優勢與絕美風光】</strong><br>
+                        龍洞灣由堅硬的四棱砂岩構成，擁有全臺灣最壯麗的垂直峭壁與崖灣地形。無人機在此升空，可以沿著金黃色的陡峭岩壁側飛，下方是深不見底、清澈透藍的海水，偶爾能見到下方潛水客與攀岩者的身影。壯闊的岩層紋理在陽光照射下展現出豐富的層次感，這種兼具粗獷與細膩的海岸風貌，透過無人機的高空視角展現得淋漓盡致，是北台灣極具挑戰性與美學價值的經典航拍點。
+                    </div>
+                </div>
+            </div>
+            <div class="details-content">
+                <div class="meta-info"><strong>建議起降點：</strong> 龍洞四季灣周邊安全空地</div>
+                <div class="meta-info"><strong>風險提示：</strong> 地形陡峭且部分區域為黃色限高範圍，請嚴格遵守法規。</div>
+                <a href="https://maps.google.com/?q=龍洞灣" target="_blank" class="map-link">📍 Google 導航定位</a>
+            </div>
+            <div class="toggle-hint" onclick="toggleCard(this)">點擊展開/收合詳細資訊</div>
+        </div>
+
+        <div class="card" data-region="north">
+            <div class="card-header">
+                <img src="https://images.unsplash.com/photo-1472214103451-9374bd1c798e?w=150" class="thumb" alt="縮圖">
+                <div class="title-area">
+                    <div class="spot-name-wrapper">
+                        <span class="spot-name" onclick="toggleCard(this)">石門老梅綠石槽</span>
+                        <span class="status-dot dot-green" title="綠區暢飛"></span>
+                    </div>
+                    <div class="spot-region">新北市石門區</div>
+                    <div class="hover-tooltip">
+                        <strong>【無人機航拍優勢與絕美風光】</strong><br>
+                        老梅綠石槽是季節限定的頂級海岸奇觀。春季時分，火山岩礁上會覆蓋上一層翠綠的石蓴，從高空俯瞰，整片海岸宛如鋪上了一塊精緻的綠色絲絨地毯，與波濤洶湧的浪花形成強烈的色彩對比。無人機在此進行低空俯拍，能將一條條整齊排列的槽溝與翠綠植被盡收眼底。這種大自然的鬼斧神工與季節限定的生命力，透過上帝視角展現得淋漓盡致，是北台灣春天不可錯過的航拍經典。
+                    </div>
+                </div>
+            </div>
+            <div class="details-content">
+                <div class="meta-info"><strong>建議起降點：</strong> 老梅風箏公園旁空地</div>
+                <div class="meta-info"><strong>風險提示：</strong> 綠石槽季節限定（春季），濕滑且踩踏易破壞生態。</div>
+                <a href="https://maps.google.com/?q=老梅綠石槽" target="_blank" class="map-link">📍 Google 導航定位</a>
+            </div>
+            <div class="toggle-hint" onclick="toggleCard(this)">點擊展開/收合詳細資訊</div>
+        </div>
+
+        <div class="card" data-region="north">
+            <div class="card-header">
+                <img src="https://images.unsplash.com/photo-1506744038136-46273834b3fb?w=150" class="thumb" alt="縮圖">
+                <div class="title-area">
+                    <div class="spot-name-wrapper">
+                        <span class="spot-name" onclick="toggleCard(this)">新竹北埔冷泉</span>
+                        <span class="status-dot dot-green" title="綠區暢飛"></span>
+                    </div>
+                    <div class="spot-region">新竹縣北埔鄉</div>
+                    <div class="hover-tooltip">
+                        <strong>【無人機航拍優勢與絕美風光】</strong><br>
+                        北埔冷泉擁有罕見的碳酸與硫磺共生泉脈，以及壯觀的瀑布群與水簾吊橋。當無人機在青山綠水間升空，下方溪谷清澈見底，橫跨溪流的古樸吊橋與傾瀉而下的白色水瀑形成動人的對比。四周被茂密的原始綠林環抱，空氣中彷彿能嗅到大自然的芬多精。此處非常適合進行低空順著溪谷川流的滑翔運鏡，捕捉水花飛濺與翠綠山林的細緻質感，是充滿靈性與清涼感的森林航拍秘境。
+                    </div>
+                </div>
+            </div>
+            <div class="details-content">
+                <div class="meta-info"><strong>建議起降點：</strong> 冷泉風景區外圍寬闊停車場</div>
+                <div class="meta-info"><strong>風險提示：</strong> 溪谷地形GPS訊號偶有干擾，請保持視距內飛行。</div>
+                <a href="https://maps.google.com/?q=北埔冷泉" target="_blank" class="map-link">📍 Google 導航定位</a>
+            </div>
+            <div class="toggle-hint" onclick="toggleCard(this)">點擊展開/收合詳細資訊</div>
+        </div>
+
+        <div class="card" data-region="north">
+            <div class="card-header">
+                <img src="https://images.unsplash.com/photo-1464822759023-fed622ff2c3b?w=150" class="thumb" alt="縮圖">
+                <div class="title-area">
+                    <div class="spot-name-wrapper">
+                        <span class="spot-name" onclick="toggleCard(this)">桃園觀音草漯沙丘</span>
+                        <span class="status-dot dot-green" title="綠區暢飛"></span>
+                    </div>
+                    <div class="spot-region">桃園市觀音區</div>
+                    <div class="hover-tooltip">
+                        <strong>【無人機航拍優勢與絕美風光】</strong><br>
+                        有「台灣撒哈拉」之稱的草漯沙丘，擁有綿延數公里的壯觀沿海沙漠地景與一字排開的巨大風力發電機。從無人機的高空俯瞰，起伏的金色沙丘線條優美流暢，與深藍色的台灣海峽形成強烈的荒涼美學。巨大的白色風車在沙丘頂端緩緩轉動，更為畫面增添了強烈的現代工業感與孤獨寂寥的文藝氣息。此處非常適合進行大範圍的航向追蹤與垂直俯拍，是北台灣絕無僅有的特色航拍景點。
+                    </div>
+                </div>
+            </div>
+            <div class="details-content">
+                <div class="meta-info"><strong>建議起降點：</strong> 沙丘外圍防風林旁空地</div>
+                <div class="meta-info"><strong>風險提示：</strong> 沙丘風大且細沙易侵入機器軸承，降落請特別小心。</div>
+                <a href="https://maps.google.com/?q=草漯沙丘" target="_blank" class="map-link">📍 Google 導航定位</a>
+            </div>
+            <div class="toggle-hint" onclick="toggleCard(this)">點擊展開/收合詳細資訊</div>
+        </div>
+
+        <div class="card" data-region="north">
+            <div class="card-header">
+                <img src="https://images.unsplash.com/photo-1507525428034-b723cf961d3e?w=150" class="thumb" alt="縮圖">
+                <div class="title-area">
+                    <div class="spot-name-wrapper">
+                        <span class="spot-name" onclick="toggleCard(this)">基隆和平島公園</span>
+                        <span class="status-dot dot-green" title="綠區暢飛"></span>
+                    </div>
+                    <div class="spot-region">基隆市中正區</div>
+                    <div class="hover-tooltip">
+                        <strong>【無人機航拍優勢與絕美風光】</strong><br>
+                        和平島公園擁有世界級的蕈狀岩、豆腐岩與奇特的海蝕地景。當無人機緩緩升空，下方宛如天然雕刻博物館般的奇岩怪石與清澈透藍的海水盡收眼底，遠處的基隆嶼在海平線上若隱若現。海水在各色奇岩間流轉，波光粼粼。無人機在此進行多角度的環繞與俯拍，能完美展現北台灣獨特的海島地質風貌與人文歷史交織的壯麗美景，是北台灣不可多得的航拍勝地。
+                    </div>
+                </div>
+            </div>
+            <div class="details-content">
+                <div class="meta-info"><strong>建議起降點：</strong> 和平島公園外圍停車場空地</div>
+                <div class="meta-info"><strong>風險提示：</strong> 鄰近海港區域，請隨時留意風向與周邊船隻動態。</div>
+                <a href="https://maps.google.com/?q=和平島公園" target="_blank" class="map-link">📍 Google 導航定位</a>
+            </div>
+            <div class="toggle-hint" onclick="toggleCard(this)">點擊展開/收合詳細資訊</div>
+        </div>
+
+        <div class="card" data-region="north">
+            <div class="card-header">
+                <img src="https://images.unsplash.com/photo-1519681393784-d120267933ba?w=150" class="thumb" alt="縮圖">
+                <div class="title-area">
+                    <div class="spot-name-wrapper">
+                        <span class="spot-name" onclick="toggleCard(this)">淡水漁人碼頭</span>
+                        <span class="status-dot dot-red" title="紅燈管制"></span>
+                    </div>
+                    <div class="spot-region">新北市淡水區</div>
+                    <div class="hover-tooltip">
+                        <strong>【無人機航拍優勢與絕美風光】</strong><br>
+                        淡水漁人碼頭以跨海情人橋與壯麗的出海口夕陽聞名。無人機升空後，能俯瞰整個港區的弧形木棧道與停泊的遊艇，遠眺觀音山與淡水河口的金色霞光。此處景致極具浪漫詩意，但因假日人潮極度擁擠且鄰近港口航道，需特別注意合規與安全防範。
+                    </div>
+                </div>
+            </div>
+            <div class="details-content">
+                <div class="meta-info"><strong>建議起降點：</strong> 港區外圍空曠綠地或防波堤旁</div>
+                <div class="meta-info"><strong>風險提示：</strong> 假日人潮極多且屬港區範圍，請嚴格遵守法規與避開人群。</div>
+                <a href="https://maps.google.com/?q=淡水漁人碼頭" target="_blank" class="map-link">📍 Google 導航定位</a>
+            </div>
+            <div class="toggle-hint" onclick="toggleCard(this)">點擊展開/收合詳細資訊</div>
+        </div>
+
+        <div class="card" data-region="north">
+            <div class="card-header">
+                <img src="https://images.unsplash.com/photo-1544735716-392fe2489ffa?w=150" class="thumb" alt="縮圖">
+                <div class="title-area">
+                    <div class="spot-name-wrapper">
+                        <span class="spot-name" onclick="toggleCard(this)">九份老街山城</span>
+                        <span class="status-dot dot-red" title="紅燈管制"></span>
+                    </div>
+                    <div class="spot-region">新北市瑞芳區</div>
+                    <div class="hover-tooltip">
+                        <strong>【無人機航拍優勢與絕美風光】</strong><br>
+                        九份山城層層疊疊的燈籠與依山傍海的聚落景致，是世界級的人文美景。從高空俯瞰，蜿蜒階梯與紅燈籠在夜幕低垂時亮起，宛如神隱少女般的夢幻世界。此處為極度熱門觀光區，人群密集且地形狹窄，屬嚴格禁飛與高度管制區。
+                    </div>
+                </div>
+            </div>
+            <div class="details-content">
+                <div class="meta-info"><strong>建議起降點：</strong> 建議切勿於老街內起降，僅限外圍遠距觀察</div>
+                <div class="meta-info"><strong>風險提示：</strong> 人潮極度擁擠、電線密布，屬高度禁飛管制區。</div>
+                <a href="https://maps.google.com/?q=九份老街" target="_blank" class="map-link">📍 Google 導航定位</a>
+            </div>
+            <div class="toggle-hint" onclick="toggleCard(this)">點擊展開/收合詳細資訊</div>
+        </div>
+
+        <div class="card" data-region="north">
+            <div class="card-header">
+                <img src="https://images.unsplash.com/photo-1509316975850-ff9c5deb0cd9?w=150" class="thumb" alt="縮圖">
+                <div class="title-area">
+                    <div class="spot-name-wrapper">
+                        <span class="spot-name" onclick="toggleCard(this)">平溪十分瀑布</span>
+                        <span class="status-dot dot-yellow" title="黃區限高"></span>
+                    </div>
+                    <div class="spot-region">新北市平溪區</div>
+                    <div class="hover-tooltip">
+                        <strong>【無人機航拍優勢與絕美風光】</strong><br>
+                        十分瀑布有「台灣尼加拉瀑布」之稱，扇形瀑布水勢磅礡。無人機升空可俯瞰壯觀的水簾與翠綠溪谷，瀑布激起的水霧在陽光下常映出耀眼彩虹，構圖極具震撼力。
+                    </div>
+                </div>
+            </div>
+            <div class="details-content">
+                <div class="meta-info"><strong>建議起降點：</strong> 園區外圍安全空地</div>
+                <div class="meta-info"><strong>風險提示：</strong> 部分區域為黃區限高，且水氣重需防範機身受潮。</div>
+                <a href="https://maps.google.com/?q=十分瀑布" target="_blank" class="map-link">📍 Google 導航定位</a>
+            </div>
+            <div class="toggle-hint" onclick="toggleCard(this)">點擊展開/收合詳細資訊</div>
+        </div>
+
+        <div class="card" data-region="north">
+            <div class="card-header">
+                <img src="https://images.unsplash.com/photo-1512453979798-5ea266f8880c?w=150" class="thumb" alt="縮圖">
+                <div class="title-area">
+                    <div class="spot-name-wrapper">
+                        <span class="spot-name" onclick="toggleCard(this)">貓空纜車周邊山林</span>
+                        <span class="status-dot dot-red" title="紅燈管制"></span>
+                    </div>
+                    <div class="spot-region">臺北市文山區</div>
+                    <div class="hover-tooltip">
+                        <strong>【無人機航拍優勢與絕美風光】</strong><br>
+                        貓空茶園與纜車系統交織在蒼翠山巒間，雲霧繚繞時充滿禪意。高空俯瞰綠意盎然的茶園與蜿蜒山路景色怡人。因鄰近纜車鋼索與航道，屬禁飛管制區。
+                    </div>
+                </div>
+            </div>
+            <div class="details-content">
+                <div class="meta-info"><strong>建議起降點：</strong> 禁飛區域，請遵守法規</div>
+                <div class="meta-info"><strong>風險提示：</strong> 鄰近纜車系統與航道，嚴禁施放空拍機。</div>
+                <a href="https://maps.google.com/?q=貓空" target="_blank" class="map-link">📍 Google 導航定位</a>
+            </div>
+            <div class="toggle-hint" onclick="toggleCard(this)">點擊展開/收合詳細資訊</div>
+        </div>
+
+        <div class="card" data-region="north">
+            <div class="card-header">
+                <img src="https://images.unsplash.com/photo-1426604966848-d7adac902bff?w=150" class="thumb" alt="縮圖">
+                <div class="title-area">
+                    <div class="spot-name-wrapper">
+                        <span class="spot-name" onclick="toggleCard(this)">野柳地質公園</span>
+                        <span class="status-dot dot-red" title="紅燈管制"></span>
+                    </div>
+                    <div class="spot-region">新北市萬里區</div>
+                    <div class="hover-tooltip">
+                        <strong>【無人機航拍優勢與絕美風光】</strong><br>
+                        野柳女王頭與蕈狀岩地景聞名全球。上帝視角下，奇岩怪石與湛藍海浪交織出世界級的地理教室景觀。因屬風景特定區與保護範圍，全面禁止無人機起降。
+                    </div>
+                </div>
+            </div>
+            <div class="details-content">
+                <div class="meta-info"><strong>建議起降點：</strong> 園區內全面禁飛</div>
+                <div class="meta-info"><strong>風險提示：</strong> 風景區觀光署法規嚴格禁止無人機飛行。</div>
+                <a href="https://maps.google.com/?q=野柳地質公園" target="_blank" class="map-link">📍 Google 導航定位</a>
+            </div>
+            <div class="toggle-hint" onclick="toggleCard(this)">點擊展開/收合詳細資訊</div>
+        </div>
+
+        <div class="card" data-region="north">
+            <div class="card-header">
+                <img src="https://images.unsplash.com/photo-1501785888041-af3ef285b470?w=150" class="thumb" alt="縮圖">
+                <div class="title-area">
+                    <div class="spot-name-wrapper">
+                        <span class="spot-name" onclick="toggleCard(this)">福隆海水浴場</span>
+                        <span class="status-dot dot-green" title="綠區暢飛"></span>
+                    </div>
+                    <div class="spot-region">新北市貢寮區</div>
+                    <div class="hover-tooltip">
+                        <strong>【無人機航拍優勢與絕美風光】</strong><br>
+                        福隆雙溪河口與金色沙灘交會處景色優美。無人機升空可俯瞰彩虹橋與蔚藍海灣的弧線，夏天沙雕藝術與湛藍海水盡收眼底。
+                    </div>
+                </div>
+            </div>
+            <div class="details-content">
+                <div class="meta-info"><strong>建議起降點：</strong> 鄰近外圍沙灘空地</div>
+                <div class="meta-info"><strong>風險提示：</strong> 夏季人潮較多，注意避開遊客上方。</div>
+                <a href="https://maps.google.com/?q=福隆海水浴場" target="_blank" class="map-link">📍 Google 導航定位</a>
+            </div>
+            <div class="toggle-hint" onclick="toggleCard(this)">點擊展開/收合詳細資訊</div>
+        </div>
+
+        <div class="card" data-region="north">
+            <div class="card-header">
+                <img src="https://images.unsplash.com/photo-1470071459604-3b5ec3a7fe05?w=150" class="thumb" alt="縮圖">
+                <div class="title-area">
+                    <div class="spot-name-wrapper">
+                        <span class="spot-name" onclick="toggleCard(this)">三貂角燈塔</span>
+                        <span class="status-dot dot-green" title="綠區暢飛"></span>
+                    </div>
+                    <div class="spot-region">新北市貢寮區</div>
+                    <div class="hover-tooltip">
+                        <strong>【無人機航拍優勢與絕美風光】</strong><br>
+                        臺灣的最東點，純白燈塔矗立在翠綠山岬上，俯瞰太平洋波瀾壯闊。晨曦時刻光影極美，是捕捉台灣第一道曙光的絕佳航拍點。
+                    </div>
+                </div>
+            </div>
+            <div class="details-content">
+                <div class="meta-info"><strong>建議起降點：</strong> 燈塔下方停車場旁空地</div>
+                <div class="meta-info"><strong>風險提示：</strong> 海岬風勢強勁，請留意飛行穩定度。</div>
+                <a href="https://maps.google.com/?q=三貂角燈塔" target="_blank" class="map-link">📍 Google 導航定位</a>
+            </div>
+            <div class="toggle-hint" onclick="toggleCard(this)">點擊展開/收合詳細資訊</div>
+        </div>
+
+        <!-- 中臺灣 (8) -->
+        <div class="card" data-region="central">
+            <div class="card-header">
+                <img src="https://images.unsplash.com/photo-1544735716-392fe2489ffa?w=150" class="thumb" alt="縮圖">
+                <div class="title-area">
+                    <div class="spot-name-wrapper">
+                        <span class="spot-name" onclick="toggleCard(this)">高美濕地木棧道</span>
+                        <span class="status-dot dot-red" title="紅燈管制"></span>
+                    </div>
+                    <div class="spot-region">臺中市清水區</div>
+                    <div class="hover-tooltip">
+                        <strong>【無人機航拍優勢與絕美風光】</strong><br>
+                        高美濕地以世界級絕美夕陽與廣闊濕地倒影聞名。黃昏時刻濕地化為巨大明鏡，倒映萬道霞光。因屬保護區核心周邊，依法禁止無人機飛航（紅燈禁飛區）。
+                    </div>
+                </div>
+            </div>
+            <div class="details-content">
+                <div class="meta-info"><strong>建議起降點：</strong> 保護區全面禁飛</div>
+                <div class="meta-info"><strong>風險提示：</strong> 屬濕地保育區法規禁飛範圍。</div>
+                <a href="https://maps.google.com/?q=高美濕地" target="_blank" class="map-link">📍 Google 導航定位</a>
+            </div>
+            <div class="toggle-hint" onclick="toggleCard(this)">點擊展開/收合詳細資訊</div>
+        </div>
+
+        <div class="card" data-region="central">
+            <div class="card-header">
+                <img src="https://images.unsplash.com/photo-1469854523086-cc02fe5d8800?w=150" class="thumb" alt="縮圖">
+                <div class="title-area">
+                    <div class="spot-name-wrapper">
+                        <span class="spot-name" onclick="toggleCard(this)">南投日月潭水社</span>
+                        <span class="status-dot dot-green" title="綠區暢飛"></span>
+                    </div>
+                    <div class="spot-region">南投縣魚池鄉</div>
+                    <div class="hover-tooltip">
+                        <strong>【無人機航拍優勢與絕美風光】</strong><br>
+                        日月潭向以山水相映、碧波萬頃聞名。清晨晨霧迷人，潭水展現翠綠與寶藍交織色彩，四周青山倒映，完美捕捉如詩如畫的湖光山色。
+                    </div>
+                </div>
+            </div>
+            <div class="details-content">
+                <div class="meta-info"><strong>建議起降點：</strong> 水社中興停車場周邊開闊處</div>
+                <div class="meta-info"><strong>風險提示：</strong> 潭區遊艇航道多，請保持安全高度。</div>
+                <a href="https://maps.google.com/?q=日月潭水社" target="_blank" class="map-link">📍 Google 導航定位</a>
+            </div>
+            <div class="toggle-hint" onclick="toggleCard(this)">點擊展開/收合詳細資訊</div>
+        </div>
+
+        <div class="card" data-region="central">
+            <div class="card-header">
+                <img src="https://images.unsplash.com/photo-1509316975850-ff9c5deb0cd9?w=150" class="thumb" alt="縮圖">
+                <div class="title-area">
+                    <div class="spot-name-wrapper">
+                        <span class="spot-name" onclick="toggleCard(this)">苗栗雙潭休閒農業區</span>
+                        <span class="status-dot dot-green" title="綠區暢飛"></span>
+                    </div>
+                    <div class="spot-region">苗栗縣三義鄉</div>
+                    <div class="hover-tooltip">
+                        <strong>【無人機航拍優勢與絕美風光】</strong><br>
+                        三義雙潭山區擁有綿延茶園與山村風光。清晨山嵐雲霧在翠綠山谷間流動宛如仙境，陽光灑在梯田上展現柔和大地的線條美感。
+                    </div>
+                </div>
+            </div>
+            <div class="details-content">
+                <div class="meta-info"><strong>建議起降點：</strong> 農業區產業道路旁寬闊空地</div>
+                <div class="meta-info"><strong>風險提示：</strong> 山區偶有電線與高大樹木，注意觀察。</div>
+                <a href="https://maps.google.com/?q=苗栗三義雙潭" target="_blank" class="map-link">📍 Google 導航定位</a>
+            </div>
+            <div class="toggle-hint" onclick="toggleCard(this)">點擊展開/收合詳細資訊</div>
+        </div>
+
+        <div class="card" data-region="central">
+            <div class="card-header">
+                <img src="https://images.unsplash.com/photo-1470071459604-3b5ec3a7fe05?w=150" class="thumb" alt="縮圖">
+                <div class="title-area">
+                    <div class="spot-name-wrapper">
+                        <span class="spot-name" onclick="toggleCard(this)">苗栗大湖草莓園區</span>
+                        <span class="status-dot dot-green" title="綠區暢飛"></span>
+                    </div>
+                    <div class="spot-region">苗栗縣大湖鄉</div>
+                    <div class="hover-tooltip">
+                        <strong>【無人機航拍優勢與絕美風光】</strong><br>
+                        大湖草莓園區從高空俯瞰，整片溫室棚架與翠綠田埂在山谷間鋪展開來，形成極具秩序美感的幾何圖形，展現溫馨而壯觀的在地農業風光。
+                    </div>
+                </div>
+            </div>
+            <div class="details-content">
+                <div class="meta-info"><strong>建議起降點：</strong> 寬闊農路旁安全空地</div>
+                <div class="meta-info"><strong>風險提示：</strong> 留意農用網室鋼索與電線。</div>
+                <a href="https://maps.google.com/?q=大湖草莓園" target="_blank" class="map-link">📍 Google 導航定位</a>
+            </div>
+            <div class="toggle-hint" onclick="toggleCard(this)">點擊展開/收合詳細資訊</div>
+        </div>
+
+        <div class="card" data-region="central">
+            <div class="card-header">
+                <img src="https://images.unsplash.com/photo-1544735716-392fe2489ffa?w=150" class="thumb" alt="縮圖">
+                <div class="title-area">
+                    <div class="spot-name-wrapper">
+                        <span class="spot-name" onclick="toggleCard(this)">南投竹山太極峽谷</span>
+                        <span class="status-dot dot-green" title="綠區暢飛"></span>
+                    </div>
+                    <div class="spot-region">南投縣竹山鎮</div>
+                    <div class="hover-tooltip">
+                        <strong>【無人機航拍優勢與絕美風光】</strong><br>
+                        太極峽谷素有「西部太魯閣」美譽，擁有深邃險峻的峽谷峭壁與壯觀飛瀑。高空俯瞰溪流與峭壁層次極為豐富，充滿大自然震撼力。
+                    </div>
+                </div>
+            </div>
+            <div class="details-content">
+                <div class="meta-info"><strong>建議起降點：</strong> 梯子吊橋周邊安全平台</div>
+                <div class="meta-info"><strong>風險提示：</strong> 峽谷地形深邃，GPS訊號易受遮蔽。</div>
+                <a href="https://maps.google.com/?q=太極峽谷" target="_blank" class="map-link">📍 Google 導航定位</a>
+            </div>
+            <div class="toggle-hint" onclick="toggleCard(this)">點擊展開/收合詳細資訊</div>
+        </div>
+
+        <div class="card" data-region="central">
+            <div class="card-header">
+                <img src="https://images.unsplash.com/photo-1519681393784-d120267933ba?w=150" class="thumb" alt="縮圖">
+                <div class="title-area">
+                    <div class="spot-name-wrapper">
+                        <span class="spot-name" onclick="toggleCard(this)">合歡山武嶺</span>
+                        <span class="status-dot dot-red" title="紅燈管制"></span>
+                    </div>
+                    <div class="spot-region">南投縣仁愛鄉</div>
+                    <div class="hover-tooltip">
+                        <strong>【無人機航拍優勢與絕美風光】</strong><br>
+                        武嶺海拔3,275公尺，擁有全台公路最高點的壯闊群山與雲海大景。高空視角下公路如巨龍盤旋於群峰間。因位於太魯閣國家公園範圍內，未經專案申請嚴禁擅自使用空拍機。
+                    </div>
+                </div>
+            </div>
+            <div class="details-content">
+                <div class="meta-info"><strong>建議起降點：</strong> 國家公園範圍內嚴禁起降</div>
+                <div class="meta-info"><strong>風險提示：</strong> 太魯閣國家公園法規嚴格取締，屬紅燈禁飛區。</div>
+                <a href="https://maps.google.com/?q=合歡山武嶺" target="_blank" class="map-link">📍 Google 導航定位</a>
+            </div>
+            <div class="toggle-hint" onclick="toggleCard(this)">點擊展開/收合詳細資訊</div>
+        </div>
+
+        <div class="card" data-region="central">
+            <div class="card-header">
+                <img src="https://images.unsplash.com/photo-1509316975850-ff9c5deb0cd9?w=150" class="thumb" alt="縮圖">
+                <div class="title-area">
+                    <div class="spot-name-wrapper">
+                        <span class="spot-name" onclick="toggleCard(this)">彰化王功漁港燈塔</span>
+                        <span class="status-dot dot-green" title="綠區暢飛"></span>
+                    </div>
+                    <div class="spot-region">彰化縣芳苑鄉</div>
+                    <div class="hover-tooltip">
+                        <strong>【無人機航拍優勢與絕美風光】</strong><br>
+                        王功漁港擁有黑白直條紋醒目燈塔與廣闊潮間帶蚵田景觀。退潮時數以千計蚵架交織成幾何網格，夕陽波光粼粼極具人文深度。
+                    </div>
+                </div>
+            </div>
+            <div class="details-content">
+                <div class="meta-info"><strong>建議起降點：</strong> 王功燈塔周邊寬闊停車場</div>
+                <div class="meta-info"><strong>風險提示：</strong> 沿海空曠風勢強勁，留意風阻。</div>
+                <a href="https://maps.google.com/?q=王功燈塔" target="_blank" class="map-link">📍 Google 導航定位</a>
+            </div>
+            <div class="toggle-hint" onclick="toggleCard(this)">點擊展開/收合詳細資訊</div>
+        </div>
+
+        <div class="card" data-region="central">
+            <div class="card-header">
+                <img src="https://images.unsplash.com/photo-1464822759023-fed622ff2c3b?w=150" class="thumb" alt="縮圖">
+                <div class="title-area">
+                    <div class="spot-name-wrapper">
+                        <span class="spot-name" onclick="toggleCard(this)">苗栗後龍好望角</span>
+                        <span class="status-dot dot-green" title="綠區暢飛"></span>
+                    </div>
+                    <div class="spot-region">苗栗縣後龍鎮</div>
+                    <div class="hover-tooltip">
+                        <strong>【無人機航拍優勢與絕美風光】</strong><br>
+                        好望角視野遼闊，巨大白色風力發電機一字排開，俯瞰台灣海峽與西海岸火車鐵道交織的夕陽美景，是極佳的現代工業與自然交融航拍點。
+                    </div>
+                </div>
+            </div>
+            <div class="details-content">
+                <div class="meta-info"><strong>建議起降點：</strong> 好望角觀景平台周邊空地</div>
+                <div class="meta-info"><strong>風險提示：</strong> 濱海風勢強勁，注意飛行安全。</div>
+                <a href="https://maps.google.com/?q=後龍好望角" target="_blank" class="map-link">📍 Google 導航定位</a>
+            </div>
+            <div class="toggle-hint" onclick="toggleCard(this)">點擊展開/收合詳細資訊</div>
+        </div>
+
+        <!-- 南臺灣 (10) -->
+        <div class="card" data-region="south">
+            <div class="card-header">
+                <img src="https://images.unsplash.com/photo-1512453979798-5ea266f8880c?w=150" class="thumb" alt="縮圖">
+                <div class="title-area">
+                    <div class="spot-name-wrapper">
+                        <span class="spot-name" onclick="toggleCard(this)">墾丁龍磐公園</span>
+                        <span class="status-dot dot-red" title="紅燈管制"></span>
+                    </div>
+                    <div class="spot-region">屏東縣恆春鎮</div>
+                    <div class="hover-tooltip">
+                        <strong>【無人機航拍優勢與絕美風光】</strong><br>
+                        龍磐公園擁有壯闊崩崖地形與一望無際的巴士海峽。高空視角下綠意台地與深藍海崖形成強烈對比。因屬國家公園範圍且落山風極強，屬紅燈管制區。
+                    </div>
+                </div>
+            </div>
+            <div class="details-content">
+                <div class="meta-info"><strong>建議起降點：</strong> 國家公園範圍內需專案申請</div>
+                <div class="meta-info"><strong>風險提示：</strong> 國家公園管制區且風勢極強。</div>
+                <a href="https://maps.google.com/?q=龍磐公園" target="_blank" class="map-link">📍 Google 導航定位</a>
+            </div>
+            <div class="toggle-hint" onclick="toggleCard(this)">點擊展開/收合詳細資訊</div>
+        </div>
+
+        <div class="card" data-region="south">
+            <div class="card-header">
+                <img src="https://images.unsplash.com/photo-1500530855697-b586d89ba3ee?w=150" class="thumb" alt="縮圖">
+                <div class="title-area">
+                    <div class="spot-name-wrapper">
+                        <span class="spot-name" onclick="toggleCard(this)">臺南七股鹽山</span>
+                        <span class="status-dot dot-green" title="綠區暢飛"></span>
+                    </div>
+                    <div class="spot-region">臺南市七股區</div>
+                    <div class="hover-tooltip">
+                        <strong>【無人機航拍優勢與絕美風光】</strong><br>
+                        七股鹽山擁有獨特雪白丘陵地貌。高空俯瞰白色鹽堆與周邊鹽田水域構成強烈幾何圖形與極簡主義美學，傍晚夕陽染成粉紅與金黃。
+                    </div>
+                </div>
+            </div>
+            <div class="details-content">
+                <div class="meta-info"><strong>建議起降點：</strong> 鹽山園區外圍空曠停車場</div>
+                <div class="meta-info"><strong>風險提示：</strong> 平原地形風向多變。</div>
+                <a href="https://maps.google.com/?q=七股鹽山" target="_blank" class="map-link">📍 Google 導航定位</a>
+            </div>
+            <div class="toggle-hint" onclick="toggleCard(this)">點擊展開/收合詳細資訊</div>
+        </div>
+
+        <div class="card" data-region="south">
+            <div class="card-header">
+                <img src="https://images.unsplash.com/photo-1518684079-3c830dcef090?w=150" class="thumb" alt="縮圖">
+                <div class="title-area">
+                    <div class="spot-name-wrapper">
+                        <span class="spot-name" onclick="toggleCard(this)">高雄旗津海岸公園</span>
+                        <span class="status-dot dot-green" title="綠區暢飛"></span>
+                    </div>
+                    <div class="spot-region">高雄市旗津區</div>
+                    <div class="hover-tooltip">
+                        <strong>【無人機航拍優勢與絕美風光】</strong><br>
+                        旗津海岸公園擁有綿長金色沙灘與星光隧道海岸線。黃昏落日將天空染成浪漫紫紅色，筆直海岸線與高雄港大型貨輪交織出港都浪漫風情。
+                    </div>
+                </div>
+            </div>
+            <div class="details-content">
+                <div class="meta-info"><strong>建議起降點：</strong> 旗津海岸公園貝殼館旁廣場</div>
+                <div class="meta-info"><strong>風險提示：</strong> 鄰近高雄港航道邊緣，確認高度合規。</div>
+                <a href="https://maps.google.com/?q=旗津海岸公園" target="_blank" class="map-link">📍 Google 導航定位</a>
+            </div>
+            <div class="toggle-hint" onclick="toggleCard(this)">點擊展開/收合詳細資訊</div>
+        </div>
+
+        <div class="card" data-region="south">
+            <div class="card-header">
+                <img src="https://images.unsplash.com/photo-1519681393784-d120267933ba?w=150" class="thumb" alt="縮圖">
+                <div class="title-area">
+                    <div class="spot-name-wrapper">
+                        <span class="spot-name" onclick="toggleCard(this)">嘉義梅山太平雲梯</span>
+                        <span class="status-dot dot-green" title="綠區暢飛"></span>
+                    </div>
+                    <div class="spot-region">嘉義縣梅山鄉</div>
+                    <div class="hover-tooltip">
+                        <strong>【無人機航拍優勢與絕美風光】</strong><br>
+                        太平雲梯是全台最高景觀吊橋。雲霧繚繞山頭時，白色吊橋懸掛在兩山間，下方為梅山36彎山路，雲海翻湧時宛如仙境。
+                    </div>
+                </div>
+            </div>
+            <div class="details-content">
+                <div class="meta-info"><strong>建議起降點：</strong> 太平雲梯遊客中心外圍廣場</div>
+                <div class="meta-info"><strong>風險提示：</strong> 高海拔山區氣候瞬息萬變。</div>
+                <a href="https://maps.google.com/?q=太平雲梯" target="_blank" class="map-link">📍 Google 導航定位</a>
+            </div>
+            <div class="toggle-hint" onclick="toggleCard(this)">點擊展開/收合詳細資訊</div>
+        </div>
+
+        <div class="card" data-region="south">
+            <div class="card-header">
+                <img src="https://images.unsplash.com/photo-1512453979798-5ea266f8880c?w=150" class="thumb" alt="縮圖">
+                <div class="title-area">
+                    <div class="spot-name-wrapper">
+                        <span class="spot-name" onclick="toggleCard(this)">屏東佳樂水海岸</span>
+                        <span class="status-dot dot-green" title="綠區暢飛"></span>
+                    </div>
+                    <div class="spot-region">屏東縣滿州鄉</div>
+                    <div class="hover-tooltip">
+                        <strong>【無人機航拍優勢與絕美風光】</strong><br>
+                        佳樂水海岸以豐富多變海蝕奇岩與壯闊拍岸巨浪聞名。太平洋湛藍與古銅色岩石交織出強烈視覺震撼，捕捉巨浪拍打岩壁的瞬間張力。
+                    </div>
+                </div>
+            </div>
+            <div class="details-content">
+                <div class="meta-info"><strong>建議起降點：</strong> 佳樂水風景區外圍空地</div>
+                <div class="meta-info"><strong>風險提示：</strong> 恆春半島落山風與海風強烈。</div>
+                <a href="https://maps.google.com/?q=佳樂水海岸" target="_blank" class="map-link">📍 Google 導航定位</a>
+            </div>
+            <div class="toggle-hint" onclick="toggleCard(this)">點擊展開/收合詳細資訊</div>
+        </div>
+
+        <div class="card" data-region="south">
+            <div class="card-header">
+                <img src="https://images.unsplash.com/photo-1518684079-3c830dcef090?w=150" class="thumb" alt="縮圖">
+                <div class="title-area">
+                    <div class="spot-name-wrapper">
+                        <span class="spot-name" onclick="toggleCard(this)">屏東車城海口港</span>
+                        <span class="status-dot dot-green" title="綠區暢飛"></span>
+                    </div>
+                    <div class="spot-region">屏東縣車城鄉</div>
+                    <div class="hover-tooltip">
+                        <strong>【無人機航拍優勢與絕美風光】</strong><br>
+                        車城海口港經藝術改造後成為看海美術館據點。湛藍海平與純白藝術建築相映，黃昏夕陽將海口港染成金黃與粉紅交織色調。
+                    </div>
+                </div>
+            </div>
+            <div class="details-content">
+                <div class="meta-info"><strong>建議起降點：</strong> 海口港外圍寬闊停車場</div>
+                <div class="meta-info"><strong>風險提示：</strong> 季節交替時風勢較大。</div>
+                <a href="https://maps.google.com/?q=車城海口港" target="_blank" class="map-link">📍 Google 導航定位</a>
+            </div>
+            <div class="toggle-hint" onclick="toggleCard(this)">點擊展開/收合詳細資訊</div>
+        </div>
+
+        <div class="card" data-region="south">
+            <div class="card-header">
+                <img src="https://images.unsplash.com/photo-1507525428034-b723cf961d3e?w=150" class="thumb" alt="縮圖">
+                <div class="title-area">
+                    <div class="spot-name-wrapper">
+                        <span class="spot-name" onclick="toggleCard(this)">臺南安平古堡周邊</span>
+                        <span class="status-dot dot-yellow" title="黃區限高"></span>
+                    </div>
+                    <div class="spot-region">臺南市安平區</div>
+                    <div class="hover-tooltip">
+                        <strong>【無人機航拍優勢與絕美風光】</strong><br>
+                        安平古堡與港區融合歷史古蹟與現代漁港風貌。高空俯瞰紅磚古堡與安平運河交錯的水域線條，夕陽餘暉下充滿古都人文氣息。
+                    </div>
+                </div>
+            </div>
+            <div class="details-content">
+                <div class="meta-info"><strong>建議起降點：</strong> 安平運河旁安全空地</div>
+                <div class="meta-info"><strong>風險提示：</strong> 部分區域為黃區限高，注意周遭建築。</div>
+                <a href="https://maps.google.com/?q=安平古堡" target="_blank" class="map-link">📍 Google 導航定位</a>
+            </div>
+            <div class="toggle-hint" onclick="toggleCard(this)">點擊展開/收合詳細資訊</div>
+        </div>
+
+        <div class="card" data-region="south">
+            <div class="card-header">
+                <img src="https://images.unsplash.com/photo-1512453979798-5ea266f8880c?w=150" class="thumb" alt="縮圖">
+                <div class="title-area">
+                    <div class="spot-name-wrapper">
+                        <span class="spot-name" onclick="toggleCard(this)">高雄愛河灣</span>
+                        <span class="status-dot dot-yellow" title="黃區限高"></span>
+                    </div>
+                    <div class="spot-region">高雄市鹽埕區</div>
+                    <div class="hover-tooltip">
+                        <strong>【無人機航拍優勢與絕美風光】</strong><br>
+                        愛河灣結合高雄流行音樂中心與大港橋等現代地標。夜間燈光水影交織，建築線條極具未來感，是高雄最具代表性的都會航拍點。
+                    </div>
+                </div>
+            </div>
+            <div class="details-content">
+                <div class="meta-info"><strong>建議起降點：</strong> 流行音樂中心周邊廣場</div>
+                <div class="meta-info"><strong>風險提示：</strong> 都會區黃區限高，嚴禁飛越人群上方。</div>
+                <a href="https://maps.google.com/?q=愛河灣" target="_blank" class="map-link">📍 Google 導航定位</a>
+            </div>
+            <div class="toggle-hint" onclick="toggleCard(this)">點擊展開/收合詳細資訊</div>
+        </div>
+
+        <div class="card" data-region="south">
+            <div class="card-header">
+                <img src="https://images.unsplash.com/photo-1501785888041-af3ef285b470?w=150" class="thumb" alt="縮圖">
+                <div class="title-area">
+                    <div class="spot-name-wrapper">
+                        <span class="spot-name" onclick="toggleCard(this)">屏東大鵬灣風景區</span>
+                        <span class="status-dot dot-yellow" title="黃區限高"></span>
+                    </div>
+                    <div class="spot-region">屏東縣東港鎮</div>
+                    <div class="hover-tooltip">
+                        <strong>【無人機航拍優勢與絕美風光】</strong><br>
+                        大鹏灣全台最大內海潟湖，跨海大橋開啟時的壯麗弧線與帆船基地交織，高空俯瞰藍色潟湖與點點白帆，展現絕佳的海上休閒度假風情。
+                    </div>
+                </div>
+            </div>
+            <div class="details-content">
+                <div class="meta-info"><strong>建議起降點：</strong> 大鵬灣休閒特區旁空地</div>
+                <div class="meta-info"><strong>風險提示：</strong> 部分區域黃區限高，留意水面反光與風向。</div>
+                <a href="https://maps.google.com/?q=大鵬灣" target="_blank" class="map-link">📍 Google 導航定位</a>
+            </div>
+            <div class="toggle-hint" onclick="toggleCard(this)">點擊展開/收合詳細資訊</div>
+        </div>
+
+        <div class="card" data-region="south">
+            <div class="card-header">
+                <img src="https://images.unsplash.com/photo-1507525428034-b723cf961d3e?w=150" class="thumb" alt="縮圖">
+                <div class="title-area">
+                    <div class="spot-name-wrapper">
+                        <span class="spot-name" onclick="toggleCard(this)">嘉義東石漁港</span>
+                        <span class="status-dot dot-green" title="綠區暢飛"></span>
+                    </div>
+                    <div class="spot-region">嘉義縣東石鄉</div>
+                    <div class="hover-tooltip">
+                        <strong>【無人機航拍優勢與絕美風光】</strong><br>
+                        東石漁港擁有夕陽美景與蚵棚景致。落日時分餘暉灑在蚵田水面波光粼粼，無人機拉高俯瞰海岸線弧度優美，是西海岸拍夕陽的好去處。
+                    </div>
+                </div>
+            </div>
+            <div class="details-content">
+                <div class="meta-info"><strong>建議起降點：</strong> 漁港周邊寬闊停車場</div>
+                <div class="meta-info"><strong>風險提示：</strong> 海堤風勢較大，注意飛行距離。</div>
+                <a href="https://maps.google.com/?q=東石漁港" target="_blank" class="map-link">📍 Google 導航定位</a>
+            </div>
+            <div class="toggle-hint" onclick="toggleCard(this)">點擊展開/收合詳細資訊</div>
+        </div>
+
+    </div>
+</div>
+
+<script>
+    // 手風琴展開/收合互動邏輯：點擊時自動關閉其他已展開卡片
+    function toggleCard(element) {
+        const card = element.closest('.card');
+        const isOpen = card.classList.contains('expanded');
+
+        // 將所有卡片的 expanded 狀態移除（自動縮回原本小格子）
+        document.querySelectorAll('.card').forEach(c => {
+            c.classList.remove('expanded');
+        });
+
+        // 如果點擊的卡片原本是關閉的，則將它展開；若原本就是打開的則保持關閉
+        if (!isOpen) {
+            card.classList.add('expanded');
+        }
+    }
+
+    // 區域篩選功能
+    function filterRegion(region) {
+        const cards = document.querySelectorAll('.card');
+        const buttons = document.querySelectorAll('.filter-btn');
+
+        buttons.forEach(btn => btn.classList.remove('active'));
+        event.target.classList.add('active');
+
+        cards.forEach(card => {
+            if (region === 'all' || card.getAttribute('data-region') === region) {
+                card.style.display = 'flex';
+            } else {
+                card.style.display = 'none';
+            }
+        });
+    }
+</script>
+</body>
+</html>
