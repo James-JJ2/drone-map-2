@@ -94,6 +94,6 @@
   });
   panel.addEventListener('keydown', e=>{if(e.key==='Escape')close(true);});
   window.addEventListener('resize', placePanel);
-  document.querySelector('[data-mode="east"]').click();
+  document.querySelector('[data-mode="rice"]').click();
   window.toggleCard(document.querySelector('[data-rice-id="changbin"] .rice-summary'));
 })();
