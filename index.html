@@ -3,8 +3,8 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Drone Map 2｜花東稻浪空拍專區・預覽版</title>
-    <meta name="description" content="全臺44處景點與花東稻浪專區：五處景點、附來源的攝影建議、分色注意事項與稻況查證入口。">
+    <title>Drone Map 2｜花東與西部稻浪空拍專區・預覽版</title>
+    <meta name="description" content="全臺46處景點與花東、西部稻浪專區：七處稻浪景點、附來源的攝影建議、分色注意事項與稻況查證入口。">
     <meta name="robots" content="noindex,nofollow">
     <link rel="canonical" href="https://james-jj2.github.io/drone-map-2/">
     <style>
@@ -346,6 +346,7 @@ button:focus-visible,a:focus-visible,summary:focus-visible,select:focus-visible{
 
     <nav class="mode-nav" aria-label="瀏覽主題">
       <button type="button" class="mode-btn" data-mode="rice" aria-pressed="true">🌾 花東稻浪專區</button>
+      <button type="button" class="mode-btn" data-mode="west" aria-pressed="false">🌾 西部稻浪專區</button>
       <button type="button" class="mode-btn" data-mode="all" aria-pressed="false">全部空拍景點</button>
     </nav>
     <section id="rice-zone" class="rice-hero" aria-labelledby="rice-heading">
@@ -353,7 +354,7 @@ button:focus-visible,a:focus-visible,summary:focus-visible,select:focus-visible{
       <h2 id="rice-heading">把風吹過稻田的樣子，<br>好好留下來。</h2>
       <p>從池上的縱谷線條，到長濱的山海梯田。五處花東稻浪景點，搭配拍攝小抄、現場提醒與查證入口，讓每次出發更有把握。</p>
       <div class="rice-pills"><span>5 處景點</span><span>花蓮 2・台東 3</span><span>建議附來源</span><span>稻況待確認</span></div>
-      <p class="hero-note">資料整理：2026-10-26｜預覽版 v2.1｜往年季節 ≠ 現在稻況；尚未接入即時田況。</p>
+      <p class="hero-note">資料整理：2026-10-26｜預覽版 v2.2｜往年季節 ≠ 現在稻況；尚未接入即時田況。</p>
     </section>
     <div id="rice-controls" class="rice-tools">
       <label for="rice-county">拍攝地區<select id="rice-county"><option value="all">花東全部</option><option value="花蓮">花蓮</option><option value="台東">台東</option></select></label>
@@ -371,7 +372,7 @@ button:focus-visible,a:focus-visible,summary:focus-visible,select:focus-visible{
         <p class="rice-source-note">藍色＝拍攝建議・橙色＝現場注意／資料待確認・紅色＝飛行風險。顏色均配合文字標籤；拍攝提案不代表獲准飛行。</p>
       </div>
     </details>
-    <p id="legacy-note" class="rice-legacy-note" hidden>共 44 處，含花東稻浪 5 處。其餘原有景點資料與空域燈號尚未重新查核，請以出發當日官方公告為準。</p>
+    <p id="legacy-note" class="rice-legacy-note" hidden>共 46 處，含花東稻浪 5 處、西部稻浪 2 處。其餘原有景點資料與空域燈號尚未重新查核，請以出發當日官方公告為準。</p>
 
     <div class="filters" id="legacy-filters" hidden>
         <button class="filter-btn active" type="button" data-region="all" data-label="全臺灣">全臺灣 (40)</button>
@@ -381,7 +382,7 @@ button:focus-visible,a:focus-visible,summary:focus-visible,select:focus-visible{
         <button class="filter-btn" type="button" data-region="east" data-label="東臺灣與離島">東臺灣與離島 (8)</button>
     </div>
 
-    <div id="rice-empty" role="status" hidden>這個條件目前沒有已確認的景點。<br>五處近期稻況均待確認，請改選「全部稻況」或「待確認」。</div>
+    <div id="rice-empty" role="status" hidden>這個條件目前沒有已確認的景點。<br>本區近期稻況均待確認，請改選「全部稻況」或「待確認」。</div>
     <div class="grid-container" id="cardGrid">
         <!-- 東臺灣與離島 (8) -->
         <div class="card" data-region="east">
@@ -1373,7 +1374,9 @@ document.querySelectorAll('img.thumb').forEach(img => {
         "url": "https://www.erv-nsa.gov.tw/zh-tw/attractions/detail/197",
         "accessed": "2026-10-26"
       }
-    ]
+    ],
+    "zone": "east",
+    "mapRegion": "east"
   },
   {
     "id": "changbin",
@@ -1409,7 +1412,9 @@ document.querySelectorAll('img.thumb').forEach(img => {
         "url": "https://www.eastcoast-nsa.gov.tw/zh-tw/travel/sunrise/",
         "accessed": "2026-10-26"
       }
-    ]
+    ],
+    "zone": "east",
+    "mapRegion": "east"
   },
   {
     "id": "kecheng",
@@ -1439,7 +1444,9 @@ document.querySelectorAll('img.thumb').forEach(img => {
         "url": "https://media.taiwan.net.tw/en-us/portal/travel/details/attraction_376550000a_000364",
         "accessed": "2026-10-26"
       }
-    ]
+    ],
+    "zone": "east",
+    "mapRegion": "east"
   },
   {
     "id": "cilamitay",
@@ -1474,7 +1481,9 @@ document.querySelectorAll('img.thumb').forEach(img => {
         "url": "https://www.moa.gov.tw/ws.php?id=2506568",
         "accessed": "2026-10-26"
       }
-    ]
+    ],
+    "zone": "east",
+    "mapRegion": "east"
   },
   {
     "id": "guanshan",
@@ -1509,6 +1518,84 @@ document.querySelectorAll('img.thumb').forEach(img => {
         "url": "https://www.erv-nsa.gov.tw/zh-tw/Attractions/Detail/19",
         "accessed": "2026-10-26"
       }
+    ],
+    "zone": "east",
+    "mapRegion": "east"
+  },
+  {
+    "id": "waipu",
+    "name": "外埔忘憂谷",
+    "zone": "west",
+    "mapRegion": "central",
+    "county": "台中",
+    "location": "臺中市外埔區・忘憂谷農田及堤岸周邊",
+    "tag": "閃電農路 × 大地拼布",
+    "status": "待確認",
+    "observationDate": null,
+    "observationSource": null,
+    "intro": "從另一份 Google 景點文件納入西部專區。蜿蜒農路切開平坦田區，適合呈現稻田色塊、道路折線與遠處丘陵。",
+    "season": "外埔區公所介紹提及6月底、11月初金黃或黃綠稻田；是往年參考，並非2026年收割預報。",
+    "light": "本站規劃：日出後或日落前先看側光與田區陰影；要保留黃綠田塊層次時，先選光線較均勻的角度。",
+    "shots": [
+      "本站構圖提案：垂直俯瞰閃電狀農路，讓田區色塊填滿畫面；先錄定鏡觀察稻浪。",
+      "本站運鏡提案：沿與農路平行的方向慢速側移，維持固定角度；不沿車道低飛。",
+      "本站剪輯提案：補拍地面稻穗細節，與俯拍田區交替，增加稻浪影片的節奏。"
+    ],
+    "cautions": [
+      "農路與堤岸仍供通行，不佔道停車或起降，也不踩進稻田；先取得土地使用同意。",
+      "平原視野開闊不等於風小；出發前確認風況，現場留意陣風、農機、電線與自行車。"
+    ],
+    "launch": "先從合法停留處勘查並詢問地主；堤頂道路、自行車道與農路不預設為允許起降場地。",
+    "verify": "向外埔在地農友、店家或區公所確認近期同一田區照片及收割進度；不要以往年11月照片判斷下週。",
+    "sources": [
+      {
+        "name": "外埔區公所｜忘憂谷・季節參考",
+        "url": "https://www.waipu.taichung.gov.tw/1378901/post",
+        "accessed": "2026-10-26"
+      },
+      {
+        "name": "臺中市政府｜忘憂谷自行車道與閃電農路",
+        "url": "https://www.taichung.gov.tw/8868/8872/9962/1978005",
+        "accessed": "2026-10-26"
+      }
+    ]
+  },
+  {
+    "id": "yuanli",
+    "name": "苑裡山腳彩繪稻田",
+    "zone": "west",
+    "mapRegion": "central",
+    "county": "苗栗",
+    "location": "苗栗縣苑裡鎮・藺草文化館／愛情果園周邊田區",
+    "tag": "彩色稻田 × 圖騰地景",
+    "status": "待確認",
+    "observationDate": null,
+    "observationSource": null,
+    "intro": "西部補充景點。彩色水稻形成地景圖案，可與周邊一般稻田比較；彩繪色彩來自品種，不能直接用來判斷成熟程度。",
+    "season": "苗栗縣政府2026-10-17報導稻浪生活節及兩幅彩繪稻田；活動報導只證明當時展出，今日稻色、保存情況及收割日仍待確認。",
+    "light": "本站規劃：選光線均勻、圖案沒有大片陰影的時段；先從官方觀景台觀察圖樣與最佳閱讀角度。",
+    "shots": [
+      "本站構圖提案：先錄完整圖案的穩定畫面，避免只取局部而看不出主題。",
+      "本站運鏡提案：在取得空拍與場地同意後，嘗試斜俯角慢速揭景；透視設計可能從指定觀景台看更完整，不保證正上方最好。",
+      "不具備飛行條件時，改由官方觀景台取景，仍可呈現彩繪與周邊稻田。"
+    ],
+    "cautions": [
+      "彩繪稻田是農作與策展作品；入田、起降及拍攝使用先詢問農會／地主，不自行跨越圍界。",
+      "觀景台可能有遊客，避免在其上方飛行或起降；圖騰色彩不是即時成熟度指標。"
+    ],
+    "launch": "先向苑裡鎮農會確認是否接受空拍及可用場地；導航僅指向景點，非指定起降點。",
+    "verify": "先向苑裡鎮農會確認當期圖樣、觀賞期、近期照片及收割安排，並確認空拍是否被允許。",
+    "sources": [
+      {
+        "name": "苗栗縣政府｜2026-10-17苑裡稻浪生活節報導",
+        "url": "https://www.miaoli.gov.tw/general_affairs/News_Content.aspx?n=851&s=1005342&sms=9702",
+        "accessed": "2026-10-26"
+      },
+      {
+        "name": "農業知識入口網｜稻田彩繪緣起及現況",
+        "url": "https://kmweb.moa.gov.tw/knowledgebase.php?id=421539",
+        "accessed": "2026-10-26"
+      }
     ]
   }
 ]</script>
@@ -1532,9 +1619,10 @@ document.querySelectorAll('img.thumb').forEach(img => {
   const list = values => values.map(value => `<li>${esc(value)}</li>`).join('');
   riceData.forEach((spot, index) => {
     let card = [...grid.querySelectorAll('.card')].find(c => c.querySelector('.spot-name')?.textContent.trim() === spot.name);
-    if (!card) { card = document.createElement('div'); card.className='card'; card.dataset.region='east'; grid.appendChild(card); }
+    if (!card) { card = document.createElement('div'); card.className='card'; card.dataset.region=spot.mapRegion; grid.appendChild(card); }
     card.classList.add('rice-card');
     card.dataset.riceId=spot.id;
+    card.dataset.zone=spot.zone;
     card.dataset.county=spot.county;
     card.dataset.status=spot.status;
     const links=spot.sources.map(s=>`<li><a href="${esc(s.url)}" target="_blank" rel="noopener noreferrer">${esc(s.name)}</a> <span>｜查閱 ${esc(s.accessed)}</span></li>`).join('');
@@ -1557,8 +1645,8 @@ document.querySelectorAll('img.thumb').forEach(img => {
   });
   const cards=[...grid.querySelectorAll('.card')];
   const total=originalCount+riceData.length-1;
-  document.querySelector('header .badge-status').textContent=`總收錄 ${total} 處｜花東稻浪 5 處`;
-  document.querySelector('header .subtitle').textContent=`Drone Map 2・花東稻浪專區預覽版 v2.1`;
+  document.querySelector('header .badge-status').textContent=`總收錄 ${total} 處｜花東 5・西部 2 處稻浪`;
+  document.querySelector('header .subtitle').textContent=`Drone Map 2・稻浪雙專區預覽版 v2.2`;
   document.querySelector('header h1').textContent='臺灣空拍景點資料庫';
   legacy.querySelectorAll('button').forEach(button=>{
     const key=button.dataset.region;
@@ -1569,15 +1657,16 @@ document.querySelectorAll('img.thumb').forEach(img => {
   function applyFilters(){
     let visible=0;
     cards.forEach(card=>{
-      const show=mode==='rice'
-        ? Boolean(card.dataset.riceId)&&(county.value==='all'||card.dataset.county===county.value)&&(status.value==='all'||card.dataset.status===status.value)
+      const show=mode!=='all'
+        ? Boolean(card.dataset.riceId)&&card.dataset.zone===(mode==='west'?'west':'east')&&(county.value==='all'||card.dataset.county===county.value)&&(status.value==='all'||card.dataset.status===status.value)
         : region==='all'||card.dataset.region===region;
       card.hidden=!show;
       card.style.display=show?'flex':'none';
       if(show) visible++;
     });
-    empty.hidden=mode!=='rice'||visible!==0;
-    tally.textContent=`顯示 ${visible} / 5 處・近期稻況均待確認`;
+    empty.hidden=mode==='all'||visible!==0;
+    const zoneCount=mode==='west'?2:5;
+    tally.textContent=`顯示 ${visible} / ${zoneCount} 處・近期稻況均待確認`;
     legacy.querySelectorAll('button').forEach(button=>{
       const selected=button.dataset.region===region;
       button.classList.toggle('active',selected);button.setAttribute('aria-pressed',String(selected));
@@ -1585,9 +1674,18 @@ document.querySelectorAll('img.thumb').forEach(img => {
   }
   function setMode(next){
     mode=next;
-    document.body.classList.toggle('rice-mode',mode==='rice');
-    hero.hidden=controls.hidden=guide.hidden=mode!=='rice';
-    legacy.hidden=document.getElementById('legacy-note').hidden=mode==='rice';
+    document.body.classList.toggle('rice-mode',mode!=='all');
+    hero.hidden=controls.hidden=guide.hidden=mode==='all';
+    legacy.hidden=document.getElementById('legacy-note').hidden=mode!=='all';
+    const isWest=mode==='west';
+    const places=isWest?['台中','苗栗']:['花蓮','台東'];
+    county.innerHTML='<option value="all">'+(isWest?'西部全部':'花東全部')+'</option>'+places.map(x=>'<option>'+esc(x)+'</option>').join('');
+    status.value='all';
+    document.getElementById('rice-heading').innerHTML=isWest?'西部的稻浪，也值得<br>從空中好好收藏。':'把風吹過稻田的樣子，<br>好好留下來。';
+    hero.querySelector('.rice-eyebrow').textContent=isWest?'WEST TAIWAN · RICE FIELD FILMING GUIDE':'HUADONG · RICE FIELD FILMING GUIDE';
+    hero.querySelector('p').textContent=isWest?'從外埔的閃電農路，到苑裡的彩繪稻田。西部首批兩處景點，獨立整理季節參考、拍攝提案與注意事項，後續可持續擴充。':'從池上的縱谷線條，到長濱的山海梯田。五處花東稻浪景點，搭配拍攝小抄、現場提醒與查證入口，讓每次出發更有把握。';
+    hero.querySelector('.rice-pills').innerHTML=(isWest?['2 處景點','台中 1・苗栗 1','建議附來源','稻況待確認']:['5 處景點','花蓮 2・台東 3','建議附來源','稻況待確認']).map(x=>'<span>'+x+'</span>').join('');
+    empty.innerHTML='這個條件目前沒有已確認的景點。<br>本區近期稻況均待確認，請改選「全部稻況」或「待確認」。';
     document.querySelectorAll('.mode-btn').forEach(button=>button.setAttribute('aria-pressed',String(button.dataset.mode===mode)));
     cards.forEach(card=>{card.classList.remove('expanded');const b=card.querySelector('.rice-summary');if(b){b.setAttribute('aria-expanded','false');card.querySelector('.details-content').hidden=true;}});
     applyFilters();
