@@ -323,6 +323,11 @@ button:focus-visible,a:focus-visible,summary:focus-visible,select:focus-visible{
 @media(max-width:1024px){#cardGrid{grid-template-columns:repeat(2,minmax(0,1fr))}}
 @media(max-width:640px){#cardGrid{grid-template-columns:minmax(0,1fr)}body{padding:12px}header{padding:20px}header h1{font-size:1.3rem}.filters{padding:10px;gap:7px}.filter-btn{font-size:.77rem;padding:8px 10px}.rice-tools label{flex:1;min-width:115px}#rice-count{width:100%;margin-left:0}.hover-tooltip{box-sizing:border-box;max-width:calc(100vw - 66px)}}
 
+.header-right { margin-left:auto; display:flex; flex-direction:column; align-items:flex-end; gap:10px; max-width:340px; }
+.photo-rights-notice { box-sizing:border-box; max-width:100%; border:1px solid #d9a441; border-radius:8px; padding:10px 12px; background:rgba(15,23,42,.35); color:#fef3c7; font-size:.75rem; line-height:1.6; text-align:left; }
+.photo-rights-notice strong { color:#fcd34d; font-size:.8rem; }
+.photo-rights-notice p { margin:4px 0 0; }
+@media(max-width:600px) { .header-right { margin-left:0; width:100%; max-width:none; align-items:flex-start; } }
 </style>
 </head>
 <body>
@@ -332,7 +337,13 @@ button:focus-visible,a:focus-visible,summary:focus-visible,select:focus-visible{
             <h1>臺灣空拍景點智慧審查與收集資料庫</h1>
             <div class="subtitle">全臺 40 處頂級航拍秘境</div>
         </div>
-        <div class="badge-status">總收錄：40 筆景點 | 手風琴自動收合模式</div>
+        <div class="header-right">
+            <div class="badge-status">總收錄：40 筆景點 | 手風琴自動收合模式</div>
+            <aside class="photo-rights-notice" aria-label="照片權利聲明">
+                <strong>照片權利聲明</strong>
+                <p>本網站尊重攝影作者及權利人。若您認為本站照片涉及您的著作權，請通知我們並提供照片位置與權利資訊；我們收到通知後將立即下架相關照片並處理。</p>
+            </aside>
+        </div>
     </header>
 
     <div class="filters" id="legacy-filters">
