@@ -3,7 +3,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Drone Map 2｜花東與西部稻浪空拍專區・預覽版</title>
+    <title>Drone Map 2｜藍色方格整合預覽 v2.3</title>
     <meta name="description" content="全臺46處景點與花東、西部稻浪專區：七處稻浪景點、附來源的攝影建議、分色注意事項與稻況查證入口。">
     <meta name="robots" content="noindex,nofollow">
     <link rel="canonical" href="https://james-jj2.github.io/drone-map-2/">
@@ -284,55 +284,44 @@
             margin-top: 4px;
             padding-top: 2px;
         }
-    /* 花東稻浪專區：主題色與所有提示均搭配文字，不以顏色作唯一判讀。 */
-:root{--rice-ink:#193d32;--rice-soft:#f0f4e9;--rice-gold:#9c6c16;--rice-paper:#faf9f4;--rice-line:#dce4d7;--tip-bg:#edf5ff;--tip-text:#184b7d;--care-bg:#fff3df;--care-text:#80450e;--risk-bg:#fff0ee;--risk-text:#9c2f2c}
-body{background:var(--rice-paper)}
+    
+/* 正式版視覺依使用者提供的藍色卡片參考圖，維持原網格。 */
+:root{color-scheme:dark;--primary-color:#3b82f6;--primary-dark:#2563eb;--bg-color:#0b1120;--card-bg:#1e293b;--text-main:#f1f5f9;--text-muted:#94a3b8;--border-color:#334155;--tooltip-bg:#0f172a;--tooltip-text:#f1f5f9;--header-gradient-1:#0f172a;--header-gradient-2:#1e3a8a;--shadow:0 4px 6px -1px #0008;--shadow-lg:0 20px 25px -5px #0008;--tip-bg:#142d47;--tip-text:#bfdbfe;--care-bg:#382b17;--care-text:#fde0a7;--risk-bg:#3b2128;--risk-text:#fecaca}
 [hidden]{display:none!important}
-.container{max-width:1180px}
-header{background:#1b4537;padding:22px 28px;margin-bottom:16px}
-header h1{font-size:1.25rem}header .subtitle{font-size:.85rem}
-.mode-nav{display:flex;gap:8px;flex-wrap:wrap;margin:18px 0}
-.mode-btn{font:inherit;font-weight:650;border:1px solid var(--rice-line);border-radius:99px;padding:10px 20px;background:var(--card-bg);color:var(--text-main);cursor:pointer;min-height:44px}
-.mode-btn[aria-pressed=true]{background:var(--rice-ink);color:white;border-color:var(--rice-ink)}
-.rice-hero{padding:30px 34px;border:1px solid var(--rice-line);border-radius:16px;background:linear-gradient(120deg,#eef4e5,#faf6e4);color:var(--rice-ink);position:relative;overflow:hidden}
-.rice-eyebrow{font-size:.76rem;letter-spacing:.13em;font-weight:750;color:#68612e}
-.rice-hero h2{font-size:clamp(1.8rem,4vw,2.6rem);line-height:1.3;margin:12px 0}
-.rice-hero p{max-width:730px;margin:0 0 18px;line-height:1.8}
-.rice-pills{display:flex;gap:8px;flex-wrap:wrap}.rice-pills span{padding:5px 11px;background:#ffffffb5;border:1px solid #d8dec7;border-radius:99px;font-size:.8rem}
-.rice-hero .hero-note{font-size:.78rem;margin:16px 0 0;color:#4f6255}
-.rice-tools{display:flex;gap:16px;flex-wrap:wrap;align-items:end;background:var(--card-bg);border:1px solid var(--rice-line);border-radius:12px;padding:18px 20px;margin:16px 0 12px}
-.rice-tools label{display:flex;gap:6px;flex-direction:column;font-size:.8rem;font-weight:650}.rice-tools select{font:inherit;font-size:.95rem;color:var(--text-main);background:var(--card-bg);border:1px solid var(--border-color);border-radius:7px;padding:10px 30px 10px 12px;min-height:44px}
-#rice-count{margin-left:auto;font-size:.86rem;color:var(--text-muted)}
-.rice-guide{margin:12px 0 20px;border:1px solid var(--rice-line);border-radius:12px;padding:14px 20px;background:var(--card-bg)}
-.rice-guide>summary{font-weight:700;cursor:pointer;min-height:30px}.guide-body{padding-top:10px}.guide-body p{margin:8px 0}
-.rice-guide ul{margin:8px 0;padding-left:1.35em;line-height:1.9}
-.notice{border-radius:9px;border-left:4px solid;padding:12px 15px;margin:12px 0;font-size:.9rem;line-height:1.8;overflow-wrap:anywhere}
-.notice strong{display:block;margin-bottom:3px}.notice a{color:inherit;text-decoration:underline;text-underline-offset:3px}
-.notice.tip{background:var(--tip-bg);color:var(--tip-text);border-color:#4283b7}.notice.care{background:var(--care-bg);color:var(--care-text);border-color:#c58828}.notice.risk{background:var(--risk-bg);color:var(--risk-text);border-color:#c85148}
-.guide-label{font-size:.75rem;display:inline-block;padding:2px 8px;border-radius:5px;background:var(--bg-color);margin-right:5px}
-body.rice-mode #cardGrid{display:flex;flex-direction:column;gap:14px}
-body.rice-mode .rice-card{padding:0;overflow:hidden;border-radius:13px;border-color:var(--rice-line);box-shadow:0 3px 12px #193d3207}
-.rice-card .rice-summary{appearance:none;border:0;background:none;font:inherit;color:var(--text-main);text-align:left;cursor:pointer;width:100%;padding:22px;display:flex;align-items:center;gap:16px;min-height:90px}
-.rice-number{font-family:Georgia,serif;font-size:1.7rem;color:var(--rice-gold);min-width:35px}
-.rice-name-wrap{flex:1}.rice-title{font-size:1.12rem;font-weight:750;display:block;color:var(--rice-ink)}
-.rice-location{display:block;font-size:.78rem;color:var(--text-muted);margin:4px 0}.rice-tag{font-size:.8rem;color:var(--rice-gold)}
-.rice-state{font-size:.76rem;padding:5px 10px;border-radius:99px;background:var(--care-bg);color:var(--care-text);white-space:nowrap}
-.rice-chevron{font-size:1.1rem;color:var(--text-muted)}.rice-card.expanded .rice-chevron{transform:rotate(180deg)}
-.rice-card .details-content{margin:0 22px 20px;padding-top:16px;border-top:1px solid var(--rice-line);font-size:.9rem}
-.rice-card .rice-intro{margin:0 0 12px;line-height:1.9}.rice-facts{display:grid;grid-template-columns:1fr 1fr;gap:12px}
-.rice-fact{padding:13px 15px;background:var(--bg-color);border:1px solid var(--border-color);border-radius:8px;line-height:1.85;font-size:.86rem}
-.rice-fact strong{display:block;font-size:.78rem;margin-bottom:3px;color:var(--text-muted)}
-.rice-card ol,.rice-card ul{padding-left:1.4em;margin:6px 0}.rice-card li{margin:4px 0}
-.rice-actions{display:flex;gap:8px;flex-wrap:wrap;margin:15px 0}.rice-actions a{display:inline-flex;align-items:center;min-height:42px;padding:0 13px;border:1px solid var(--rice-line);border-radius:7px;background:var(--card-bg);color:var(--rice-ink);text-decoration:none;font-size:.85rem;font-weight:650}
-.rice-sources{font-size:.79rem;color:var(--text-muted);line-height:1.9;border-top:1px dashed var(--border-color);padding-top:12px;overflow-wrap:anywhere}.rice-sources a{color:var(--primary-color)}
-.rice-sources summary{cursor:pointer;min-height:32px}.rice-sources li{margin:4px 0}.rice-source-note{font-size:.76rem;color:var(--text-muted)}
-#rice-empty{padding:28px;text-align:center;border:1px dashed var(--rice-line);background:var(--card-bg);border-radius:12px;color:var(--text-muted)}
-.rice-legacy-note{font-size:.85rem;color:var(--text-muted);margin:12px 0}
-button:focus-visible,a:focus-visible,summary:focus-visible,select:focus-visible{outline:3px solid #c58f21;outline-offset:4px}
-@media(max-width:640px){body{padding:12px}header{padding:18px}header h1{font-size:1.05rem}.badge-status{font-size:.72rem}.rice-hero{padding:23px 20px}.rice-hero h2{font-size:1.9rem}.rice-hero p{font-size:.9rem}.rice-tools{gap:12px;padding:14px}.rice-tools label{flex:1;min-width:115px}.rice-tools select{width:100%}#rice-count{margin-left:0;width:100%}.rice-guide{padding:14px}.rice-card .rice-summary{padding:17px 15px;gap:10px;flex-wrap:wrap}.rice-number{font-size:1.4rem;min-width:26px}.rice-name-wrap{min-width:175px}.rice-title{font-size:1rem}.rice-state{margin-left:36px}.rice-chevron{margin-left:auto}.rice-card .details-content{margin:0 15px 16px}.rice-facts{grid-template-columns:1fr}.notice{padding:11px 12px}.rice-actions a{flex:1;justify-content:center}.hover-tooltip{max-width:calc(100vw - 70px)}}
-@media(prefers-color-scheme:dark){:root{--rice-ink:#cee6d4;--rice-paper:#101b17;--rice-line:#344c3e;--rice-gold:#e1bb6b;--tip-bg:#152c40;--tip-text:#bbdcff;--care-bg:#382a12;--care-text:#f6d08b;--risk-bg:#3e2123;--risk-text:#ffbbb7}.rice-hero{background:linear-gradient(120deg,#20392c,#34331d)}.rice-eyebrow{color:#d7c788}.rice-hero .hero-note{color:#bed0bd}.rice-pills span{background:#17291da8;border-color:#526040}.mode-btn[aria-pressed=true]{background:#cde1b9;color:#18362b;border-color:#cde1b9}}
+#cardGrid{grid-template-columns:repeat(3,minmax(0,1fr));align-items:start}
+.card{min-width:0;min-height:130px;box-sizing:border-box}
+.filter-btn{min-height:38px;font:inherit;font-size:.85rem}
+.filter-btn[aria-pressed=true]{background:var(--primary-color);border-color:var(--primary-color);color:#fff}
+.rice-intro-panel{margin:-8px 0 14px;padding:12px 16px;border:1px solid var(--border-color);border-radius:8px;background:var(--card-bg)}
+.rice-intro-panel h2{font-size:1rem;color:var(--primary-color);margin:0 0 4px}.rice-intro-panel p{font-size:.8rem;color:var(--text-muted);margin:3px 0;line-height:1.6}
+.rice-tools{display:flex;align-items:end;gap:12px;flex-wrap:wrap;margin:0 0 12px;padding:10px 14px;border:1px solid var(--border-color);border-radius:8px;background:var(--card-bg)}
+.rice-tools label{display:flex;flex-direction:column;gap:4px;font-size:.75rem;color:var(--text-muted)}
+.rice-tools select{font:inherit;font-size:.83rem;padding:7px 10px;background:var(--bg-color);color:var(--text-main);border:1px solid var(--border-color);border-radius:5px;min-height:38px}
+#rice-count{font-size:.78rem;color:var(--text-muted);margin-left:auto}
+.rice-guide{margin:0 0 14px;padding:10px 14px;background:var(--card-bg);border:1px solid var(--border-color);border-radius:8px;font-size:.82rem}
+.rice-guide>summary{cursor:pointer;color:var(--text-muted);min-height:24px}.guide-body{padding-top:8px}
+.rice-card .rice-summary{appearance:none;border:0;padding:0;background:none;cursor:pointer;display:flex;align-items:center;gap:12px;text-align:left;width:100%;color:var(--text-main);font:inherit;min-height:64px}
+.rice-card .rice-summary .thumb{width:64px;height:64px;margin:0}
+.rice-cover{display:flex;align-items:center;justify-content:center;flex-direction:column;background:linear-gradient(145deg,#273a50,#253e36);color:#f0d48d;font-size:1.55rem}.rice-cover small{font-size:.55rem;color:#cbd5e1}
+.rice-name-wrap{flex:1;min-width:0}.rice-title{display:block;color:var(--primary-color);font-size:1rem;font-weight:700;line-height:1.5;overflow-wrap:anywhere}
+.rice-location{display:block;color:var(--text-muted);font-size:.76rem;margin-top:3px;line-height:1.5;overflow-wrap:anywhere}
+.rice-state{display:block;color:#fbbf24;font-size:.69rem;margin-top:4px}.rice-tag{display:none}
+.rice-chevron{font-size:.8rem;color:var(--text-muted)}.rice-card.expanded .rice-chevron{transform:rotate(180deg)}
+.rice-card .rice-hint{appearance:none;background:none;border:0;color:var(--text-muted);font:inherit;font-size:.72rem;text-align:right;width:100%;cursor:pointer;margin-top:10px;padding:0;min-height:25px}
+.rice-card .details-content{margin-top:10px;padding-top:10px;line-height:1.8;font-size:.8rem}.rice-card .rice-intro{margin:0 0 10px}
+.rice-facts{display:grid;grid-template-columns:1fr;gap:8px}.rice-fact{background:var(--bg-color);border:1px solid var(--border-color);border-radius:6px;padding:9px 11px;font-size:.78rem;line-height:1.8}.rice-fact strong{display:block;color:var(--text-muted);font-size:.72rem;margin-bottom:3px}
+.notice{border-left:3px solid;border-radius:6px;padding:10px 12px;margin:10px 0;font-size:.79rem;line-height:1.8;overflow-wrap:anywhere}.notice strong{display:block;margin-bottom:3px}.notice a{color:inherit;text-decoration:underline;text-underline-offset:3px}
+.notice.tip{background:var(--tip-bg);color:var(--tip-text);border-color:#60a5fa}.notice.care{background:var(--care-bg);color:var(--care-text);border-color:#fbbf24}.notice.risk{background:var(--risk-bg);color:var(--risk-text);border-color:#f87171}
+.rice-card ol,.rice-card ul{padding-left:1.3em;margin:6px 0}.rice-card li{margin:4px 0}
+.rice-actions{display:flex;gap:8px;flex-wrap:wrap;margin:10px 0}.rice-actions a{display:flex;align-items:center;justify-content:center;min-height:38px;flex:1;padding:0 8px;border:1px solid var(--border-color);border-radius:6px;color:var(--primary-color);font-size:.76rem;text-decoration:none;background:var(--bg-color)}
+.rice-sources{font-size:.73rem;color:var(--text-muted);border-top:1px dashed var(--border-color);padding-top:9px;overflow-wrap:anywhere}.rice-sources summary{cursor:pointer;min-height:28px}.rice-sources a{color:var(--primary-color)}.rice-source-note{font-size:.7rem;color:var(--text-muted)}
+#rice-empty{background:var(--card-bg);color:var(--text-muted);border:1px dashed var(--border-color);padding:20px;text-align:center;border-radius:8px;margin-bottom:14px}
+.rice-legacy-note{margin:0 0 10px;font-size:.74rem;color:var(--text-muted)}
+button:focus-visible,a:focus-visible,summary:focus-visible,select:focus-visible{outline:2px solid #93c5fd;outline-offset:3px}
+@media(max-width:1024px){#cardGrid{grid-template-columns:repeat(2,minmax(0,1fr))}}
+@media(max-width:640px){#cardGrid{grid-template-columns:minmax(0,1fr)}body{padding:12px}header{padding:20px}header h1{font-size:1.3rem}.filters{padding:10px;gap:7px}.filter-btn{font-size:.77rem;padding:8px 10px}.rice-tools label{flex:1;min-width:115px}#rice-count{width:100%;margin-left:0}.hover-tooltip{box-sizing:border-box;max-width:calc(100vw - 66px)}}
 
-    </style>
+</style>
 </head>
 <body>
 <div class="container">
@@ -344,17 +333,21 @@ button:focus-visible,a:focus-visible,summary:focus-visible,select:focus-visible{
         <div class="badge-status">總收錄：40 筆景點 | 手風琴自動收合模式</div>
     </header>
 
-    <nav class="mode-nav" aria-label="瀏覽主題">
-      <button type="button" class="mode-btn" data-mode="rice" aria-pressed="true">🌾 花東稻浪專區</button>
-      <button type="button" class="mode-btn" data-mode="west" aria-pressed="false">🌾 西部稻浪專區</button>
-      <button type="button" class="mode-btn" data-mode="all" aria-pressed="false">全部空拍景點</button>
-    </nav>
-    <section id="rice-zone" class="rice-hero" aria-labelledby="rice-heading">
-      <div class="rice-eyebrow">HUADONG · RICE FIELD FILMING GUIDE</div>
-      <h2 id="rice-heading">把風吹過稻田的樣子，<br>好好留下來。</h2>
-      <p>從池上的縱谷線條，到長濱的山海梯田。五處花東稻浪景點，搭配拍攝小抄、現場提醒與查證入口，讓每次出發更有把握。</p>
-      <div class="rice-pills"><span>5 處景點</span><span>花蓮 2・台東 3</span><span>建議附來源</span><span>稻況待確認</span></div>
-      <p class="hero-note">資料整理：2026-10-26｜預覽版 v2.2｜往年季節 ≠ 現在稻況；尚未接入即時田況。</p>
+    <div class="filters" id="legacy-filters">
+        <button class="filter-btn active" type="button" data-region="all" data-label="全臺灣">全臺灣 (40)</button>
+        <button class="filter-btn" type="button" data-region="north" data-label="北臺灣">北臺灣 (14)</button>
+        <button class="filter-btn" type="button" data-region="central" data-label="中臺灣">中臺灣 (8)</button>
+        <button class="filter-btn" type="button" data-region="south" data-label="南臺灣">南臺灣 (10)</button>
+        <button class="filter-btn" type="button" data-region="east" data-label="東臺灣與離島">東臺灣與離島 (8)</button>
+        <button type="button" class="filter-btn mode-btn" data-mode="rice" aria-pressed="false">🌾 花東稻浪 (5)</button>
+        <button type="button" class="filter-btn mode-btn" data-mode="west" aria-pressed="false">🌾 西部稻浪 (2)</button>
+    </div>
+
+
+    <section id="rice-zone" class="rice-intro-panel" aria-labelledby="rice-heading" hidden>
+      <h2 id="rice-heading">花東稻浪空拍專區</h2>
+      <p>五處景點，季節與拍攝資訊整理。</p>
+      <p>資料整理：2026-10-26｜稻況待確認，並非即時田況。</p>
     </section>
     <div id="rice-controls" class="rice-tools">
       <label for="rice-county">拍攝地區<select id="rice-county"><option value="all">花東全部</option><option value="花蓮">花蓮</option><option value="台東">台東</option></select></label>
@@ -374,13 +367,6 @@ button:focus-visible,a:focus-visible,summary:focus-visible,select:focus-visible{
     </details>
     <p id="legacy-note" class="rice-legacy-note" hidden>共 46 處，含花東稻浪 5 處、西部稻浪 2 處。其餘原有景點資料與空域燈號尚未重新查核，請以出發當日官方公告為準。</p>
 
-    <div class="filters" id="legacy-filters" hidden>
-        <button class="filter-btn active" type="button" data-region="all" data-label="全臺灣">全臺灣 (40)</button>
-        <button class="filter-btn" type="button" data-region="north" data-label="北臺灣">北臺灣 (14)</button>
-        <button class="filter-btn" type="button" data-region="central" data-label="中臺灣">中臺灣 (8)</button>
-        <button class="filter-btn" type="button" data-region="south" data-label="南臺灣">南臺灣 (10)</button>
-        <button class="filter-btn" type="button" data-region="east" data-label="東臺灣與離島">東臺灣與離島 (8)</button>
-    </div>
 
     <div id="rice-empty" role="status" hidden>這個條件目前沒有已確認的景點。<br>本區近期稻況均待確認，請改選「全部稻況」或「待確認」。</div>
     <div class="grid-container" id="cardGrid">
@@ -1613,7 +1599,7 @@ document.querySelectorAll('img.thumb').forEach(img => {
   const empty = document.getElementById('rice-empty');
   const tally = document.getElementById('rice-count');
   const originalCount = grid.querySelectorAll('.card').length;
-  let mode = 'rice';
+  let mode = 'all';
   let region = 'all';
   const esc = value => String(value).replace(/[&<>"']/g, char => ({'&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;',"'":'&#39;'}[char]));
   const list = values => values.map(value => `<li>${esc(value)}</li>`).join('');
@@ -1625,11 +1611,14 @@ document.querySelectorAll('img.thumb').forEach(img => {
     card.dataset.zone=spot.zone;
     card.dataset.county=spot.county;
     card.dataset.status=spot.status;
+    const originalThumb=card.querySelector('img.thumb')?.outerHTML;
+    const thumbnail=originalThumb||'<span class="thumb rice-cover" role="img" aria-label="稻田示意圖">🌾<small>稻田示意</small></span>';
     const links=spot.sources.map(s=>`<li><a href="${esc(s.url)}" target="_blank" rel="noopener noreferrer">${esc(s.name)}</a> <span>｜查閱 ${esc(s.accessed)}</span></li>`).join('');
     card.innerHTML=`<button type="button" class="rice-summary" aria-expanded="false" aria-controls="details-${spot.id}">
-      <span class="rice-number" aria-hidden="true">${String(index+1).padStart(2,'0')}</span>
-      <span class="rice-name-wrap"><span class="rice-title">${esc(spot.name)}</span><span class="rice-location">${esc(spot.location)}</span><span class="rice-tag">${esc(spot.tag)}</span></span>
-      <span class="rice-state">稻況・${esc(spot.status)}</span><span class="rice-chevron" aria-hidden="true">⌄</span></button>
+      ${thumbnail}
+      <span class="rice-name-wrap"><span class="rice-title">${esc(spot.name)}</span><span class="rice-location">${esc(spot.location)}</span><span class="rice-state">◷ 稻況・${esc(spot.status)}</span></span>
+      <span class="rice-chevron" aria-hidden="true">⌄</span></button>
+      <button type="button" class="rice-hint" aria-label="展開或收合${esc(spot.name)}詳細資訊">點擊展開/收合詳細資訊</button>
       <div class="details-content" id="details-${spot.id}" hidden>
         <p class="rice-intro">${esc(spot.intro)}</p>
         <div class="notice care"><strong>◷ 近期稻況：${esc(spot.status)}</strong>尚無可核實的現地觀察日期與來源；2026-10-26 是資料整理日，並非稻況觀察日。<br>${esc(spot.verify)}</div>
@@ -1642,17 +1631,18 @@ document.querySelectorAll('img.thumb').forEach(img => {
         <details class="rice-sources"><summary>來源與查閱日期（${spot.sources.length}）</summary><ul>${links}</ul><p>上列來源支持地景與季節介紹；現場勘查與運鏡為本站保守規劃，並非來源對本地點的飛行核准。</p></details>
       </div>`;
     card.querySelector('.rice-summary').addEventListener('click',()=>window.toggleCard(card.querySelector('.rice-summary')));
+    card.querySelector('.rice-hint').addEventListener('click',()=>window.toggleCard(card.querySelector('.rice-summary')));
   });
   const cards=[...grid.querySelectorAll('.card')];
   const total=originalCount+riceData.length-1;
   document.querySelector('header .badge-status').textContent=`總收錄 ${total} 處｜花東 5・西部 2 處稻浪`;
-  document.querySelector('header .subtitle').textContent=`Drone Map 2・稻浪雙專區預覽版 v2.2`;
-  document.querySelector('header h1').textContent='臺灣空拍景點資料庫';
-  legacy.querySelectorAll('button').forEach(button=>{
+  document.querySelector('header .subtitle').textContent=`全臺 ${total} 處航拍景點｜花東與西部稻浪整合預覽 v2.3`;
+  document.querySelector('header h1').textContent='臺灣空拍景點智慧審查與收集資料庫';
+  legacy.querySelectorAll('[data-region]').forEach(button=>{
     const key=button.dataset.region;
     const n=cards.filter(c=>key==='all'||c.dataset.region===key).length;
     button.textContent=button.dataset.label+` (${n})`;
-    button.addEventListener('click',()=>{region=key;applyFilters();});
+    button.addEventListener('click',()=>{region=key;setMode('all');});
   });
   function applyFilters(){
     let visible=0;
@@ -1667,8 +1657,8 @@ document.querySelectorAll('img.thumb').forEach(img => {
     empty.hidden=mode==='all'||visible!==0;
     const zoneCount=mode==='west'?2:5;
     tally.textContent=`顯示 ${visible} / ${zoneCount} 處・近期稻況均待確認`;
-    legacy.querySelectorAll('button').forEach(button=>{
-      const selected=button.dataset.region===region;
+    legacy.querySelectorAll('[data-region]').forEach(button=>{
+      const selected=mode==='all'&&button.dataset.region===region;
       button.classList.toggle('active',selected);button.setAttribute('aria-pressed',String(selected));
     });
   }
@@ -1676,15 +1666,14 @@ document.querySelectorAll('img.thumb').forEach(img => {
     mode=next;
     document.body.classList.toggle('rice-mode',mode!=='all');
     hero.hidden=controls.hidden=guide.hidden=mode==='all';
-    legacy.hidden=document.getElementById('legacy-note').hidden=mode!=='all';
+    legacy.hidden=false;
+    document.getElementById('legacy-note').hidden=mode!=='all';
     const isWest=mode==='west';
     const places=isWest?['台中','苗栗']:['花蓮','台東'];
     county.innerHTML='<option value="all">'+(isWest?'西部全部':'花東全部')+'</option>'+places.map(x=>'<option>'+esc(x)+'</option>').join('');
     status.value='all';
-    document.getElementById('rice-heading').innerHTML=isWest?'西部的稻浪，也值得<br>從空中好好收藏。':'把風吹過稻田的樣子，<br>好好留下來。';
-    hero.querySelector('.rice-eyebrow').textContent=isWest?'WEST TAIWAN · RICE FIELD FILMING GUIDE':'HUADONG · RICE FIELD FILMING GUIDE';
+    document.getElementById('rice-heading').textContent=isWest?'西部稻浪空拍專區':'花東稻浪空拍專區';
     hero.querySelector('p').textContent=isWest?'從外埔的閃電農路，到苑裡的彩繪稻田。西部首批兩處景點，獨立整理季節參考、拍攝提案與注意事項，後續可持續擴充。':'從池上的縱谷線條，到長濱的山海梯田。五處花東稻浪景點，搭配拍攝小抄、現場提醒與查證入口，讓每次出發更有把握。';
-    hero.querySelector('.rice-pills').innerHTML=(isWest?['2 處景點','台中 1・苗栗 1','建議附來源','稻況待確認']:['5 處景點','花蓮 2・台東 3','建議附來源','稻況待確認']).map(x=>'<span>'+x+'</span>').join('');
     empty.innerHTML='這個條件目前沒有已確認的景點。<br>本區近期稻況均待確認，請改選「全部稻況」或「待確認」。';
     document.querySelectorAll('.mode-btn').forEach(button=>button.setAttribute('aria-pressed',String(button.dataset.mode===mode)));
     cards.forEach(card=>{card.classList.remove('expanded');const b=card.querySelector('.rice-summary');if(b){b.setAttribute('aria-expanded','false');card.querySelector('.details-content').hidden=true;}});
@@ -1699,7 +1688,7 @@ document.querySelectorAll('img.thumb').forEach(img => {
     cards.forEach(c=>{c.classList.remove('expanded');const b=c.querySelector('.rice-summary');if(b){b.setAttribute('aria-expanded','false');c.querySelector('.details-content').hidden=true;}});
     if(!wasOpen){card.classList.add('expanded');const b=card.querySelector('.rice-summary');if(b){b.setAttribute('aria-expanded','true');card.querySelector('.details-content').hidden=false;}}
   };
-  setMode('rice');
+  setMode('all');
 })();
 
 </script>
