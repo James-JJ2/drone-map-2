@@ -10,7 +10,7 @@
 - 指定C:\Users\JamesFu\Documents\drone_map2.htm目前不存在。其他技能庫內的Drone Map HTML為舊參照版本，已另存，不拿來覆蓋最新版。
 - GitHub：https://github.com/James-JJ2/drone-map-2，維持既有public狀態。
 - 本次分支：backup/latest-pc-20261028，基於d201c62643162e0c65e9273333f44908c08fbc28；不覆寫main、preview/huadong-rice-20261026或backup/sites-v7-20261027。
-- 本次程式快照提交：提交後填入；含本CURRENT的最終交接提交以分支HEAD／git log -1 -- CURRENT.md及本機最終驗證報告為準，避免文件自我引用自身雜湊。
+- 本次程式快照提交：618c689d5a008a9dc2e4ced9e8ea586bd8ae0a4f；含本CURRENT的最終交接提交以分支HEAD／git log -1 -- CURRENT.md及本機最終驗證報告為準，避免文件自我引用自身雜湊。
 
 ## 地點與功能驗收
 

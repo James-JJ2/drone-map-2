@@ -64,8 +64,8 @@
     },
     {
       "path": "CURRENT.md",
-      "bytes": 4476,
-      "sha256": "38e3da565ee7334b0798750a29982f86c22e8957d52613320d5544ada601d05b"
+      "bytes": 4548,
+      "sha256": "218bd4fae3d955a79639d52c5a7ee271b790ebc9c136402abbb1031d038ae6ca"
     },
     {
       "path": "data/flight-points-46.json",
@@ -517,5 +517,6 @@
       "bytes": 6888,
       "sha256": "fb9a17e5e67c6aed218fb58138fd01ff71e8e98c89154f3522f546531ed041f6"
     }
-  ]
+  ],
+  "verified_code_snapshot_commit": "618c689d5a008a9dc2e4ced9e8ea586bd8ae0a4f"
 }
