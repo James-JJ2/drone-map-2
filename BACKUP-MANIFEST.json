@@ -1,0 +1,521 @@
+{
+  "date": "2026-10-28",
+  "branch": "backup/latest-pc-20261028",
+  "latest_source_commit": "cdf8c6203113f3dbbd18b8831a5696223fe49050",
+  "deployed_source_commit": "a45a0ed182341d8b989b5fd156d94ccab033ffc0",
+  "github_base_commit": "d201c62643162e0c65e9273333f44908c08fbc28",
+  "spots": 46,
+  "source_status": "latest preview not deployed; original PC and deployed versions separately preserved",
+  "files": [
+    {
+      "path": ".gitattributes",
+      "bytes": 8,
+      "sha256": "705fd4d6451a31d36b3df7de96f83f30ac976c9b4a6d1e51671d8e2f33e2d0da"
+    },
+    {
+      "path": ".gitignore",
+      "bytes": 92,
+      "sha256": "b4b112ddc6d958c6006aa6ee513bb6185deb4fff8b3b08333f9559abea418755"
+    },
+    {
+      "path": ".nojekyll",
+      "bytes": 0,
+      "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+    },
+    {
+      "path": "audit/46-expansion-checks.json",
+      "bytes": 7264,
+      "sha256": "c49d7ebc05d8c29905aad5212955a7be8db47dad940d54ed40507cf032f33fad"
+    },
+    {
+      "path": "audit/ACCEPTANCE-20261028.md",
+      "bytes": 2156,
+      "sha256": "efa04e02389a6af13dae5ecb50e506fe9d032abdbc87c90b63c1bbe6a807b98d"
+    },
+    {
+      "path": "audit/code-verification.json",
+      "bytes": 2870,
+      "sha256": "ad4007894cc1890154b170d9c12c7e692d4bb593489c13d2e2592455ecc03cf7"
+    },
+    {
+      "path": "audit/detail-and-images.json",
+      "bytes": 2083,
+      "sha256": "77f8ccee2bd44ee77deec5b852ac8ac688b480dbbf538e26cc544b1dfb3e1d69"
+    },
+    {
+      "path": "audit/live-http-check.json",
+      "bytes": 436,
+      "sha256": "6f9f0ca0053186cd02ef129c371b658856e8e2cd78c2a07420ffb8cc591143fc"
+    },
+    {
+      "path": "audit/live-ui-state.json",
+      "bytes": 943,
+      "sha256": "20d22d333f75d9fbdb49ca0fe446f95204650ac050508c5d4d44c550150151f9"
+    },
+    {
+      "path": "audit/ui-summary.json",
+      "bytes": 419,
+      "sha256": "7339e6fd7d1cdaa07c6de31676b2b6a9c2d5f943cb3d35bfdf9c8e8ec911875c"
+    },
+    {
+      "path": "backups/Drone-Map-2-Sites-v7-20261027.tar.gz",
+      "bytes": 442452,
+      "sha256": "2ea4153cc851d443528ddb2afd881707f58dc14101bd5376721cdcf19bbd1df7"
+    },
+    {
+      "path": "CURRENT.md",
+      "bytes": 4476,
+      "sha256": "38e3da565ee7334b0798750a29982f86c22e8957d52613320d5544ada601d05b"
+    },
+    {
+      "path": "data/flight-points-46.json",
+      "bytes": 80542,
+      "sha256": "98447bb3b29619370786414bd5a29c70255fb6675524fe460345faef6e346fae"
+    },
+    {
+      "path": "docs/PROGRESS-LOG-20261027.md",
+      "bytes": 985,
+      "sha256": "00fd5661b418c99369e5e820078441ef19fa11332004ebec65783dcc593be4bd"
+    },
+    {
+      "path": "docs/wide-detail-prototype.css",
+      "bytes": 3282,
+      "sha256": "2084e1d3cba98ddfc26ffc898a4acf42b3879f96c223db9fed673c4fd582699a"
+    },
+    {
+      "path": "docs/wide-detail-prototype.js",
+      "bytes": 6567,
+      "sha256": "6a1ae4a9eb95bd4a6ecab2b0e1c40b6c63ba1edec082837e30524211dd4d0bbc"
+    },
+    {
+      "path": "docs/WIDE-DETAIL-PROTOTYPE.md",
+      "bytes": 1005,
+      "sha256": "d0806454f75a84e91605240bb9b44ed7e104ad3276afe49f4e4033c2476a8079"
+    },
+    {
+      "path": "index.html",
+      "bytes": 131777,
+      "sha256": "eb178fd702f837e2bbddbadf38fbc2c2f16c09d7849e545a49fc2184978bce6b"
+    },
+    {
+      "path": "latest-preview/.openai/hosting.json",
+      "bytes": 91,
+      "sha256": "ee40ef2221e0583520a1320e039ed90edf1caa89eab023c6a9761e2b4348cab1"
+    },
+    {
+      "path": "latest-preview/dist/__qa-mobile.html",
+      "bytes": 216,
+      "sha256": "e8d255a8b72fa3c7318e610d136fea10ba52fbad8d3db6a0304649cef795aa54"
+    },
+    {
+      "path": "latest-preview/dist/assets/rice-thumbnails/changbin.jpg",
+      "bytes": 9417,
+      "sha256": "5b9f9d300ebf1fd729fdff57a51878ea81dd94bef909ec075d629e3f7c0f2676"
+    },
+    {
+      "path": "latest-preview/dist/assets/rice-thumbnails/cilamitay.jpg",
+      "bytes": 10468,
+      "sha256": "8089d68d1e31e6414f7959f8c92d6472082736d6442f5c427a303da8bfab4712"
+    },
+    {
+      "path": "latest-preview/dist/assets/rice-thumbnails/guanshan.jpg",
+      "bytes": 12248,
+      "sha256": "cd0b799a00d6c1c28def39366c1397f003ff2a6e6c12543bc9bb796f679e2631"
+    },
+    {
+      "path": "latest-preview/dist/assets/rice-thumbnails/kecheng.jpg",
+      "bytes": 8263,
+      "sha256": "30f96125d3c5b54642e08c5fcb9c0ace76ad590e6da72f8f50a4d78c68e248f1"
+    },
+    {
+      "path": "latest-preview/dist/assets/rice-thumbnails/waipu.jpg",
+      "bytes": 8061,
+      "sha256": "cc3bbb77e5bbc3301c6e630505b8a6948dfd3248bd27366670427aacc492aaa1"
+    },
+    {
+      "path": "latest-preview/dist/assets/rice-thumbnails/yuanli.jpg",
+      "bytes": 9589,
+      "sha256": "df13deb84d61a5fb407d3d15bf342512ac49f84c2f90af60af5df400352ddfa2"
+    },
+    {
+      "path": "latest-preview/dist/assets/sanxiantai.jpg",
+      "bytes": 130096,
+      "sha256": "ef2eaf440dba67e446ea086400865f555f791fb09fcd21329bc92dd310496f67"
+    },
+    {
+      "path": "latest-preview/dist/assets/yehliu.jpg",
+      "bytes": 175464,
+      "sha256": "e069a7f87749b8aa236ede7963b7c884fb1994688b4e7c85caab9bff85510dfb"
+    },
+    {
+      "path": "latest-preview/dist/index.html",
+      "bytes": 146149,
+      "sha256": "b02b75df683d33e8dc05c0edcc6662a24b41a3d14b5751e55ec1d9e47b862261"
+    },
+    {
+      "path": "latest-preview/dist/layout-preview.html",
+      "bytes": 146149,
+      "sha256": "b02b75df683d33e8dc05c0edcc6662a24b41a3d14b5751e55ec1d9e47b862261"
+    },
+    {
+      "path": "latest-preview/docs/RICE-PHOTO-RESTORE-20261027.json",
+      "bytes": 5557,
+      "sha256": "ffd8473693ddf10b7e7bd5929dbb0120d01a546aea303e50abb1ecc9dd488a9d"
+    },
+    {
+      "path": "latest-preview/docs/wide-detail-prototype.css",
+      "bytes": 5076,
+      "sha256": "398a8d866a98d342fa34bd3726617798f3d6d95edd7f49bd2bd11cc450704a9c"
+    },
+    {
+      "path": "latest-preview/docs/wide-detail-prototype.js",
+      "bytes": 10003,
+      "sha256": "2eea16c20816e9c7690bb86774152389910f82e7a9c50ab71653af33784c482d"
+    },
+    {
+      "path": "latest-preview/docs/WIDE-DETAIL-PROTOTYPE.md",
+      "bytes": 1934,
+      "sha256": "f5a2088d786d5f221dcf0c860fd9036fd28c6cbfa9a6f6f1987b2c8b9440524a"
+    },
+    {
+      "path": "latest-preview/docs/WORK-HANDOFF-20261026.md",
+      "bytes": 3262,
+      "sha256": "0f5adda91e69e50941a8e6d210e02b1a90578dc9c10ae0b99d39c3f2e46fa0bc"
+    },
+    {
+      "path": "latest-preview/docs/WORK-HANDOFF-20261027-ALL-SPOTS.md",
+      "bytes": 2217,
+      "sha256": "5a8a40010397152e5bb4ed65a08f3a31dafdb240e4fa327c44b9a9a5af6003d4"
+    },
+    {
+      "path": "latest-preview/docs/WORK-HANDOFF-20261027-COMPACT-CARDS.md",
+      "bytes": 1317,
+      "sha256": "e4f2252c43f0d9f6c8b6ced481bfed3eca225174ab4ef06dbabc5aaa405c20a0"
+    },
+    {
+      "path": "latest-preview/docs/WORK-HANDOFF-20261027-DENSER-CARDS.md",
+      "bytes": 1892,
+      "sha256": "dc5362bd39886621f53c0955a1cefe1eccaf48f9656358b84b91e32463f6d0eb"
+    },
+    {
+      "path": "latest-preview/docs/WORK-HANDOFF-20261027-HEADER.md",
+      "bytes": 1726,
+      "sha256": "e199520f3f426a0c6b109e0324e192083a517551585c648b8d7bf2516adeccb4"
+    },
+    {
+      "path": "latest-preview/docs/WORK-HANDOFF-20261027-LARGE-TEXT-TOOLBAR.md",
+      "bytes": 1945,
+      "sha256": "44d2fa4481e47a1952df6a6f1376ab6d7070e97e3eeef0d9a70fb6068885faa9"
+    },
+    {
+      "path": "latest-preview/docs/WORK-HANDOFF-20261027-MATCHED-BACKGROUND.md",
+      "bytes": 1613,
+      "sha256": "3c8b3b6c37bf159554e9860fcde2c82a0ad867395042e19b50a78cd5d880d4b1"
+    },
+    {
+      "path": "latest-preview/docs/WORK-HANDOFF-20261027-PHOTOS-COMPACT.md",
+      "bytes": 2703,
+      "sha256": "a0f58fcb2045d4b33d176d7c223d97838014d6dfa2734d463075589663daf40d"
+    },
+    {
+      "path": "latest-preview/docs/WORK-HANDOFF-20261027-RIGHTS-SMALL-NORMAL.md",
+      "bytes": 1892,
+      "sha256": "4cab1b2361b11a8d553bd147d613a231231e3e811e00b28d5d5a785ac2bf010c"
+    },
+    {
+      "path": "latest-preview/docs/WORK-HANDOFF-20261027-TITLE-PHOTO.md",
+      "bytes": 1235,
+      "sha256": "170658900feeb81db5e0cae12cac82124ec88f18b91a07c8956777eef5062e87"
+    },
+    {
+      "path": "latest-preview/docs/WORK-HANDOFF-20261027.md",
+      "bytes": 2867,
+      "sha256": "a94779e135f0ce3d611c2dfd577aa34cc8e21467eddff4fed6037d135709f64a"
+    },
+    {
+      "path": "layout-preview.html",
+      "bytes": 141791,
+      "sha256": "d4c0d954b69e7f7f80e4578332030fac8d7e11bfaefa3fccd51f907465e1c35d"
+    },
+    {
+      "path": "offline-image-cache/122222ae14c99e7db319.jpg",
+      "bytes": 9915,
+      "sha256": "6b8767dbfa251d7838ce2b28d7ca8784d639abf94c4d6cd9ec1efc9e3d7621a7"
+    },
+    {
+      "path": "offline-image-cache/1cb64df40b1384992bf7.jpg",
+      "bytes": 8398,
+      "sha256": "d7fcfb326e00f8e648b26e501f27dd49514de56729350e260c2156cb4439e94d"
+    },
+    {
+      "path": "offline-image-cache/203505debf3c985c7e1a.jpg",
+      "bytes": 10450,
+      "sha256": "7c106c4ef29e5bdbb884236851c9f1a21a100862e191b9757a1480448301586c"
+    },
+    {
+      "path": "offline-image-cache/3b4e2c1510c0eb066075.jpg",
+      "bytes": 10844,
+      "sha256": "2ba948976dd9fa173ccd9c5a5507319ffdfd1bcf157dec3ba93415a59b20ea96"
+    },
+    {
+      "path": "offline-image-cache/3d03078d4333974a384f.jpg",
+      "bytes": 6732,
+      "sha256": "8bbe5543c70367ea3abac8ed6be220e282868b9f7ba5baac9e732bfe6f4faecb"
+    },
+    {
+      "path": "offline-image-cache/57e0a296886ea53c4bac.jpg",
+      "bytes": 6881,
+      "sha256": "f66c724735463c8bf8c8cc3fb00d8a31847531a39f5895cb3b3494fe5bd4d758"
+    },
+    {
+      "path": "offline-image-cache/838ec61c17d92fcbdbc2.jpg",
+      "bytes": 9357,
+      "sha256": "84924322ca8136e36ab2306976803707b005ac2902f03dee2d7568e0ee60dbaf"
+    },
+    {
+      "path": "offline-image-cache/87083ae91849babf31d7.jpg",
+      "bytes": 7745,
+      "sha256": "c1559ba1457eb86b0c2c425c9dea78d2f1bb420fe4bb298c22cf1c6bd87021e3"
+    },
+    {
+      "path": "offline-image-cache/b468f0b3e6a83bb0af8c.jpg",
+      "bytes": 14009,
+      "sha256": "d91e16ce85e92b29a19c943538f3b6c1fa7a94326c9076e6ba68d4873283510b"
+    },
+    {
+      "path": "offline-image-cache/bdec8b1981624fa70055.jpg",
+      "bytes": 11674,
+      "sha256": "2b54646227e982a8de8bdbd8e13c9bb341e5978c45cf6b34048783531c26312e"
+    },
+    {
+      "path": "offline-image-cache/e2a9e572b2433cbc9391.jpg",
+      "bytes": 5152,
+      "sha256": "4107ea34defc4fce3d2f3cd10526029cf7539ca99678e39ec6d9b31e482b374c"
+    },
+    {
+      "path": "offline-image-cache/e3f503851e57604564db.jpg",
+      "bytes": 11321,
+      "sha256": "57075ba4bb34b6030b1dde99ebd3a6b262f47fca419a95f8e1eacb9f2e06f806"
+    },
+    {
+      "path": "offline-image-cache/e7e4218aa7dc4d21fb00.jpg",
+      "bytes": 10205,
+      "sha256": "41277c0470266043bf6c8fc9ba643428cf510ba6ab03fb7d47ccbe3664bee1a3"
+    },
+    {
+      "path": "offline-image-cache/fc0309250f17b8c13442.jpg",
+      "bytes": 5291,
+      "sha256": "7ef4c56ea43b2dbd7780267db225abda2afb5e057e4144aac92ef5cf850e59a0"
+    },
+    {
+      "path": "offline-image-cache/SOURCES.json",
+      "bytes": 4859,
+      "sha256": "02aebcf0d12f5ee3ea221c5dc507c5a9af84d08566675508f9527c17a4510ee3"
+    },
+    {
+      "path": "README.md",
+      "bytes": 755,
+      "sha256": "3a0f255a98c4ee455cdef07b2ac96a839416f0c931814260956061ea4ed70ead"
+    },
+    {
+      "path": "RESTORE-WINDOWS.md",
+      "bytes": 2022,
+      "sha256": "1e9333373c0f0d238eebb4c3a5a2283ec7c4708b5c9634baff4d5d698c966bb4"
+    },
+    {
+      "path": "sitemap.xml",
+      "bytes": 200,
+      "sha256": "181025a04d996e318f47fedfee620aae2a71803858c256eab64143bdc81684fd"
+    },
+    {
+      "path": "snapshots/deployed-v11/.openai/hosting.json",
+      "bytes": 91,
+      "sha256": "ee40ef2221e0583520a1320e039ed90edf1caa89eab023c6a9761e2b4348cab1"
+    },
+    {
+      "path": "snapshots/deployed-v11/dist/assets/rice-thumbnails/changbin.jpg",
+      "bytes": 9417,
+      "sha256": "5b9f9d300ebf1fd729fdff57a51878ea81dd94bef909ec075d629e3f7c0f2676"
+    },
+    {
+      "path": "snapshots/deployed-v11/dist/assets/rice-thumbnails/cilamitay.jpg",
+      "bytes": 10468,
+      "sha256": "8089d68d1e31e6414f7959f8c92d6472082736d6442f5c427a303da8bfab4712"
+    },
+    {
+      "path": "snapshots/deployed-v11/dist/assets/rice-thumbnails/guanshan.jpg",
+      "bytes": 12248,
+      "sha256": "cd0b799a00d6c1c28def39366c1397f003ff2a6e6c12543bc9bb796f679e2631"
+    },
+    {
+      "path": "snapshots/deployed-v11/dist/assets/rice-thumbnails/kecheng.jpg",
+      "bytes": 8263,
+      "sha256": "30f96125d3c5b54642e08c5fcb9c0ace76ad590e6da72f8f50a4d78c68e248f1"
+    },
+    {
+      "path": "snapshots/deployed-v11/dist/assets/rice-thumbnails/waipu.jpg",
+      "bytes": 8061,
+      "sha256": "cc3bbb77e5bbc3301c6e630505b8a6948dfd3248bd27366670427aacc492aaa1"
+    },
+    {
+      "path": "snapshots/deployed-v11/dist/assets/rice-thumbnails/yuanli.jpg",
+      "bytes": 9589,
+      "sha256": "df13deb84d61a5fb407d3d15bf342512ac49f84c2f90af60af5df400352ddfa2"
+    },
+    {
+      "path": "snapshots/deployed-v11/dist/assets/sanxiantai.jpg",
+      "bytes": 130096,
+      "sha256": "ef2eaf440dba67e446ea086400865f555f791fb09fcd21329bc92dd310496f67"
+    },
+    {
+      "path": "snapshots/deployed-v11/dist/assets/yehliu.jpg",
+      "bytes": 175464,
+      "sha256": "e069a7f87749b8aa236ede7963b7c884fb1994688b4e7c85caab9bff85510dfb"
+    },
+    {
+      "path": "snapshots/deployed-v11/dist/index.html",
+      "bytes": 146564,
+      "sha256": "4c4caa08ff26f6b3d6eeebbc8eacc2d4d72e78272d0deda48d612f5fd02514c6"
+    },
+    {
+      "path": "snapshots/deployed-v11/dist/layout-preview.html",
+      "bytes": 146544,
+      "sha256": "6cc87630e401befdfe182d178bfd15d1cbc7237e91451073d2774f9ad1578eb4"
+    },
+    {
+      "path": "snapshots/deployed-v11/docs/RICE-PHOTO-RESTORE-20261027.json",
+      "bytes": 5557,
+      "sha256": "ffd8473693ddf10b7e7bd5929dbb0120d01a546aea303e50abb1ecc9dd488a9d"
+    },
+    {
+      "path": "snapshots/deployed-v11/docs/wide-detail-prototype.css",
+      "bytes": 5359,
+      "sha256": "19a96143e144b3e9aebbbe6a3dacf619419b18400c618daf564e6891f5bc672e"
+    },
+    {
+      "path": "snapshots/deployed-v11/docs/wide-detail-prototype.js",
+      "bytes": 10003,
+      "sha256": "2eea16c20816e9c7690bb86774152389910f82e7a9c50ab71653af33784c482d"
+    },
+    {
+      "path": "snapshots/deployed-v11/docs/WIDE-DETAIL-PROTOTYPE.md",
+      "bytes": 1934,
+      "sha256": "f5a2088d786d5f221dcf0c860fd9036fd28c6cbfa9a6f6f1987b2c8b9440524a"
+    },
+    {
+      "path": "snapshots/deployed-v11/docs/WORK-HANDOFF-20261026.md",
+      "bytes": 3262,
+      "sha256": "0f5adda91e69e50941a8e6d210e02b1a90578dc9c10ae0b99d39c3f2e46fa0bc"
+    },
+    {
+      "path": "snapshots/deployed-v11/docs/WORK-HANDOFF-20261027-ALL-SPOTS.md",
+      "bytes": 2217,
+      "sha256": "5a8a40010397152e5bb4ed65a08f3a31dafdb240e4fa327c44b9a9a5af6003d4"
+    },
+    {
+      "path": "snapshots/deployed-v11/docs/WORK-HANDOFF-20261027-COMPACT-CARDS.md",
+      "bytes": 1317,
+      "sha256": "e4f2252c43f0d9f6c8b6ced481bfed3eca225174ab4ef06dbabc5aaa405c20a0"
+    },
+    {
+      "path": "snapshots/deployed-v11/docs/WORK-HANDOFF-20261027-DENSER-CARDS.md",
+      "bytes": 1892,
+      "sha256": "dc5362bd39886621f53c0955a1cefe1eccaf48f9656358b84b91e32463f6d0eb"
+    },
+    {
+      "path": "snapshots/deployed-v11/docs/WORK-HANDOFF-20261027-HEADER.md",
+      "bytes": 1726,
+      "sha256": "e199520f3f426a0c6b109e0324e192083a517551585c648b8d7bf2516adeccb4"
+    },
+    {
+      "path": "snapshots/deployed-v11/docs/WORK-HANDOFF-20261027-LARGE-TEXT-TOOLBAR.md",
+      "bytes": 1945,
+      "sha256": "44d2fa4481e47a1952df6a6f1376ab6d7070e97e3eeef0d9a70fb6068885faa9"
+    },
+    {
+      "path": "snapshots/deployed-v11/docs/WORK-HANDOFF-20261027-MATCHED-BACKGROUND.md",
+      "bytes": 1613,
+      "sha256": "3c8b3b6c37bf159554e9860fcde2c82a0ad867395042e19b50a78cd5d880d4b1"
+    },
+    {
+      "path": "snapshots/deployed-v11/docs/WORK-HANDOFF-20261027-PHOTOS-COMPACT.md",
+      "bytes": 2703,
+      "sha256": "a0f58fcb2045d4b33d176d7c223d97838014d6dfa2734d463075589663daf40d"
+    },
+    {
+      "path": "snapshots/deployed-v11/docs/WORK-HANDOFF-20261027-TITLE-PHOTO.md",
+      "bytes": 1235,
+      "sha256": "170658900feeb81db5e0cae12cac82124ec88f18b91a07c8956777eef5062e87"
+    },
+    {
+      "path": "snapshots/deployed-v11/docs/WORK-HANDOFF-20261027.md",
+      "bytes": 2867,
+      "sha256": "a94779e135f0ce3d611c2dfd577aa34cc8e21467eddff4fed6037d135709f64a"
+    },
+    {
+      "path": "snapshots/pc-resume-20261027/.nojekyll",
+      "bytes": 0,
+      "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+    },
+    {
+      "path": "snapshots/pc-resume-20261027/docs/wide-detail-prototype.css",
+      "bytes": 3282,
+      "sha256": "2084e1d3cba98ddfc26ffc898a4acf42b3879f96c223db9fed673c4fd582699a"
+    },
+    {
+      "path": "snapshots/pc-resume-20261027/docs/wide-detail-prototype.js",
+      "bytes": 6567,
+      "sha256": "6a1ae4a9eb95bd4a6ecab2b0e1c40b6c63ba1edec082837e30524211dd4d0bbc"
+    },
+    {
+      "path": "snapshots/pc-resume-20261027/docs/WIDE-DETAIL-PROTOTYPE.md",
+      "bytes": 1005,
+      "sha256": "d0806454f75a84e91605240bb9b44ed7e104ad3276afe49f4e4033c2476a8079"
+    },
+    {
+      "path": "snapshots/pc-resume-20261027/index.html",
+      "bytes": 131777,
+      "sha256": "eb178fd702f837e2bbddbadf38fbc2c2f16c09d7849e545a49fc2184978bce6b"
+    },
+    {
+      "path": "snapshots/pc-resume-20261027/layout-preview.html",
+      "bytes": 141791,
+      "sha256": "d4c0d954b69e7f7f80e4578332030fac8d7e11bfaefa3fccd51f907465e1c35d"
+    },
+    {
+      "path": "snapshots/pc-resume-20261027/LOCAL-RESUME.md",
+      "bytes": 1321,
+      "sha256": "66701ce1b4ae99c1706ad91e296846fd2a4ed8319c4893f2f2b9da8bb91a979d"
+    },
+    {
+      "path": "snapshots/pc-resume-20261027/README.md",
+      "bytes": 755,
+      "sha256": "3a0f255a98c4ee455cdef07b2ac96a839416f0c931814260956061ea4ed70ead"
+    },
+    {
+      "path": "snapshots/pc-resume-20261027/sitemap.xml",
+      "bytes": 200,
+      "sha256": "181025a04d996e318f47fedfee620aae2a71803858c256eab64143bdc81684fd"
+    },
+    {
+      "path": "snapshots/pc-resume-20261027/WORK-HANDOFF-20261026.md",
+      "bytes": 3227,
+      "sha256": "2a41ff30ea5df33aae721a8b5323b846f0b4d2635aebf8fcbd575db254d855d9"
+    },
+    {
+      "path": "snapshots/pc-resume-20261027/WORK-HANDOFF-20261027.md",
+      "bytes": 6888,
+      "sha256": "fb9a17e5e67c6aed218fb58138fd01ff71e8e98c89154f3522f546531ed041f6"
+    },
+    {
+      "path": "WORK-HANDOFF-20261026.md",
+      "bytes": 3227,
+      "sha256": "2a41ff30ea5df33aae721a8b5323b846f0b4d2635aebf8fcbd575db254d855d9"
+    },
+    {
+      "path": "WORK-HANDOFF-20261027.md",
+      "bytes": 6888,
+      "sha256": "fb9a17e5e67c6aed218fb58138fd01ff71e8e98c89154f3522f546531ed041f6"
+    }
+  ]
+}

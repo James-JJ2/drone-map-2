@@ -1,0 +1,105 @@
+{
+  "original_names": [
+    "崇德礫灘 (清水斷崖)",
+    "和中沙灘",
+    "池上伯朗大道",
+    "花蓮石梯坪",
+    "臺東三仙台",
+    "花蓮石門雙心洞 (March洞)",
+    "花蓮牛山呼庭",
+    "台東成功鎮芝田秘境",
+    "象鼻岩景觀區",
+    "金山神秘海岸",
+    "東北角龍洞灣",
+    "石門老梅綠石槽",
+    "新竹北埔冷泉",
+    "桃園觀音草漯沙丘",
+    "基隆和平島公園",
+    "淡水漁人碼頭",
+    "九份老街山城",
+    "平溪十分瀑布",
+    "貓空纜車周邊山林",
+    "野柳地質公園",
+    "福隆海水浴場",
+    "三貂角燈塔",
+    "高美濕地木棧道",
+    "南投日月潭水社",
+    "苗栗雙潭休閒農業區",
+    "苗栗大湖草莓園區",
+    "南投竹山太極峽谷",
+    "合歡山武嶺",
+    "彰化王功漁港燈塔",
+    "苗栗後龍好望角",
+    "墾丁龍磐公園",
+    "臺南七股鹽山",
+    "高雄旗津海岸公園",
+    "嘉義梅山太平雲梯",
+    "屏東佳樂水海岸",
+    "屏東車城海口港",
+    "臺南安平古堡周邊",
+    "高雄愛河灣",
+    "屏東大鵬灣風景區",
+    "嘉義東石漁港"
+  ],
+  "rice_spots": [
+    {
+      "id": "chishang",
+      "name": "池上伯朗大道"
+    },
+    {
+      "id": "changbin",
+      "name": "長濱金剛大道"
+    },
+    {
+      "id": "kecheng",
+      "name": "玉里客城鐵橋"
+    },
+    {
+      "id": "cilamitay",
+      "name": "富里吉哈拉艾／吉拉米代梯田"
+    },
+    {
+      "id": "guanshan",
+      "name": "關山親水公園周邊稻田"
+    },
+    {
+      "id": "waipu",
+      "name": "外埔忘憂谷"
+    },
+    {
+      "id": "yuanli",
+      "name": "苑裡山腳彩繪稻田"
+    }
+  ],
+  "total_unique_spots": 46,
+  "original_40_preserved": true,
+  "rice_ids_preserved": true,
+  "inline_javascript_checks": [
+    "index.html-0.js",
+    "index.html-1.js",
+    "index.html-3.js",
+    "index.html-4.js",
+    "layout-preview.html-0.js",
+    "layout-preview.html-1.js",
+    "layout-preview.html-3.js",
+    "layout-preview.html-4.js"
+  ],
+  "local_image_paths": [
+    "./assets/rice-thumbnails/changbin.jpg",
+    "./assets/rice-thumbnails/cilamitay.jpg",
+    "./assets/rice-thumbnails/guanshan.jpg",
+    "./assets/rice-thumbnails/kecheng.jpg",
+    "./assets/rice-thumbnails/waipu.jpg",
+    "./assets/rice-thumbnails/yuanli.jpg",
+    "./assets/sanxiantai.jpg",
+    "./assets/yehliu.jpg",
+    "assets/rice-thumbnails/changbin.jpg",
+    "assets/rice-thumbnails/cilamitay.jpg",
+    "assets/rice-thumbnails/guanshan.jpg",
+    "assets/rice-thumbnails/kecheng.jpg",
+    "assets/rice-thumbnails/waipu.jpg",
+    "assets/rice-thumbnails/yuanli.jpg"
+  ],
+  "no_embedded_captcha": true,
+  "source_commit": "cdf8c6203113f3dbbd18b8831a5696223fe49050"
+}

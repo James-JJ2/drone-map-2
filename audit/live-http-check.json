@@ -1,0 +1,13 @@
+{
+  "github_pages": {
+    "url": "https://james-jj2.github.io/drone-map-2/",
+    "http_status": 200,
+    "sha256": "104568919dc36accb28d5edd62301de561a84ccc0446ec74bd9f6fb397bdc41f",
+    "title": "Drone Map 2｜臺灣空拍景點資料庫",
+    "static_cards": 40
+  },
+  "sites_live": {
+    "url": "https://drone-map-rice-preview-j-20261026.jamesfu88.chatgpt.site/",
+    "error": "HTTPError: HTTP Error 403: Forbidden"
+  }
+}

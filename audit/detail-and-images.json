@@ -1,0 +1,64 @@
+{
+  "panelCheck": {
+    "bodyBackground": "rgba(0, 0, 0, 0)",
+    "gridWidth": 439.9381103515625,
+    "images": [
+      {
+        "loaded": true,
+        "src": "./assets/sanxiantai.jpg"
+      },
+      {
+        "loaded": true,
+        "src": "./assets/yehliu.jpg"
+      },
+      {
+        "loaded": true,
+        "src": "./assets/rice-thumbnails/changbin.jpg"
+      },
+      {
+        "loaded": true,
+        "src": "./assets/rice-thumbnails/changbin.jpg"
+      },
+      {
+        "loaded": true,
+        "src": "./assets/rice-thumbnails/kecheng.jpg"
+      },
+      {
+        "loaded": true,
+        "src": "./assets/rice-thumbnails/cilamitay.jpg"
+      },
+      {
+        "loaded": true,
+        "src": "./assets/rice-thumbnails/guanshan.jpg"
+      },
+      {
+        "loaded": true,
+        "src": "./assets/rice-thumbnails/waipu.jpg"
+      },
+      {
+        "loaded": true,
+        "src": "./assets/rice-thumbnails/yuanli.jpg"
+      }
+    ],
+    "overflow": false,
+    "panelBackground": "rgb(35, 58, 88)",
+    "panelWidth": 439.9381103515625,
+    "rights": {
+      "border": "0px",
+      "bottomGap": 11.99403953552246,
+      "font": "8px",
+      "rightGap": 13.999595642089844,
+      "textAlign": "right",
+      "weight": "400"
+    },
+    "title": "長濱金剛大道"
+  },
+  "shootingCheck": {
+    "body": "取景與運鏡\n本站構圖提案：以道路引向海面，讓梯田留在兩側，先錄穩定定鏡。\n本站運鏡提案：轉向山面後再錄一段慢速後退揭景；先確認後方障礙，勿倒飛靠近電線。\n海風較小時捕捉稻穗波紋；若陣風明顯，改用地面鏡",
+    "selected": "拍攝規劃"
+  },
+  "safetyCheck": {
+    "body": "現場注意\n官方提醒保持道路暢通、降低音量；拍攝住宅與居民前先徵得同意。\n近海需留意陣風及返程逆風；稻穗會動不代表風況適合飛行。\n飛行條件尚未查證\n\n尚未核實指定位置、日期與高度的空域及場地限制。先查民",
+    "selected": "注意與來源"
+  }
+}

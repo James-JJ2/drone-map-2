@@ -1,0 +1,22 @@
+{
+  "eastFilter": {
+    "expanded": false,
+    "visible": 5
+  },
+  "westFilter": {
+    "expanded": false,
+    "visible": 2
+  },
+  "finalUi": {
+    "boxBackgrounds": [
+      "rgb(12, 23, 41)",
+      "rgb(12, 23, 41)",
+      "rgb(12, 23, 41)"
+    ],
+    "panelBg": "rgb(35, 58, 88)",
+    "rightsTitleWeight": "400",
+    "scrollWidth": 468,
+    "title": "長濱金剛大道",
+    "viewport": 468
+  }
+}

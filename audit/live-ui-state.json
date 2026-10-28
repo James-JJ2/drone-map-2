@@ -1,0 +1,45 @@
+{
+  "cards": 46,
+  "localImages": [
+    {
+      "loaded": true,
+      "src": "./assets/sanxiantai.jpg"
+    },
+    {
+      "loaded": true,
+      "src": "./assets/yehliu.jpg"
+    },
+    {
+      "loaded": true,
+      "src": "./assets/rice-thumbnails/changbin.jpg"
+    },
+    {
+      "loaded": true,
+      "src": "./assets/rice-thumbnails/kecheng.jpg"
+    },
+    {
+      "loaded": true,
+      "src": "./assets/rice-thumbnails/cilamitay.jpg"
+    },
+    {
+      "loaded": true,
+      "src": "./assets/rice-thumbnails/guanshan.jpg"
+    },
+    {
+      "loaded": true,
+      "src": "./assets/rice-thumbnails/waipu.jpg"
+    },
+    {
+      "loaded": true,
+      "src": "./assets/rice-thumbnails/yuanli.jpg"
+    }
+  ],
+  "loginFields": 0,
+  "rights": {
+    "border": "0.671141px",
+    "font": "16px",
+    "textAlign": "left",
+    "weight": "400"
+  },
+  "title": "Drone Map 2｜藍色方格整合預覽 v2.5.8"
+}
