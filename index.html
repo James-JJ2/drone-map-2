@@ -3,9 +3,9 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Drone Map 2｜臺灣空拍景點資料庫</title>
-    <meta name="description" content="探索全臺 40 處空拍景點，依北、中、南、東臺灣與離島篩選，查看景點介紹、起降參考與地圖導航。">
-    <meta name="robots" content="index,follow">
+    <title>Drone Map 2｜藍色方格整合預覽 v2.5.9</title>
+    <meta name="description" content="全臺46處景點與花東、西部稻浪專區：七處稻浪景點、附來源的攝影建議、分色注意事項與稻況查證入口。">
+    <meta name="robots" content="noindex,nofollow">
     <link rel="canonical" href="https://james-jj2.github.io/drone-map-2/">
     <style>
         :root {
@@ -60,35 +60,37 @@
         header {
             background: linear-gradient(135deg, var(--header-gradient-1), var(--header-gradient-2));
             color: white;
-            padding: 24px 32px;
+            padding: 12px 20px;
             border-radius: 12px;
             box-shadow: var(--shadow);
-            margin-bottom: 24px;
-            display: flex;
-            justify-content: space-between;
+            margin-bottom: 16px;
+            display: grid;
+            grid-template-columns: minmax(0,1.7fr) minmax(0,1fr);
             align-items: center;
-            flex-wrap: wrap;
             gap: 16px;
         }
 
         header h1 {
             margin: 0;
-            font-size: 1.8rem;
+            font-size:calc(1.8rem + 4px);
+            line-height: 1.35;
             font-weight: 700;
             letter-spacing: 0.5px;
         }
 
         header .subtitle {
-            font-size: 0.95rem;
+            font-size:calc(0.95rem + 4px);
             opacity: 0.9;
             margin-top: 4px;
         }
 
         .badge-status {
             background: rgba(255, 255, 255, 0.2);
-            padding: 6px 14px;
+            padding: 4px 12px;
+            max-width: 100%;
+            box-sizing: border-box;
             border-radius: 20px;
-            font-size: 0.85rem;
+            font-size:calc(0.85rem + 4px);
             font-weight: 500;
             backdrop-filter: blur(4px);
         }
@@ -125,7 +127,7 @@
         .grid-container {
             display: grid;
             grid-template-columns: repeat(3, 1fr);
-            gap: 16px;
+            gap: 10px;
         }
 
         @media (max-width: 1024px) {
@@ -145,7 +147,7 @@
             border-radius: 8px;
             border: 1px solid var(--border-color);
             box-shadow: var(--shadow);
-            padding: 12px;
+            padding: 6px 10px;
             display: flex;
             flex-direction: column;
             position: relative;
@@ -187,7 +189,7 @@
         }
 
         .spot-name {
-            font-size: 1rem;
+            font-size:calc(1rem + 4px);
             font-weight: 700;
             color: var(--primary-color);
             margin: 0;
@@ -198,7 +200,7 @@
         }
 
         .spot-region {
-            font-size: 0.78rem;
+            font-size:calc(0.78rem + 4px);
             color: var(--text-muted);
             font-weight: 500;
             margin-top: 2px;
@@ -230,7 +232,7 @@
             border-radius: 8px;
             box-shadow: var(--shadow-lg);
             border: 1px solid var(--border-color);
-            font-size: 0.85rem;
+            font-size:calc(0.85rem + 4px);
             line-height: 1.5;
             z-index: 100;
             transition: opacity 0.3s ease, visibility 0.3s ease;
@@ -247,7 +249,7 @@
             margin-top: 8px;
             padding-top: 8px;
             border-top: 1px dashed var(--border-color);
-            font-size: 0.85rem;
+            font-size:calc(0.85rem + 4px);
         }
 
         .card.expanded .details-content {
@@ -269,7 +271,7 @@
             color: var(--primary-color);
             text-decoration: none;
             font-weight: 600;
-            font-size: 0.82rem;
+            font-size:calc(0.82rem + 4px);
         }
 
         .map-link:hover {
@@ -277,33 +279,182 @@
         }
 
         .toggle-hint {
-            font-size: 0.72rem;
+            font-size:calc(0.72rem + 4px);
             color: var(--text-muted);
             text-align: right;
             cursor: pointer;
-            margin-top: 4px;
-            padding-top: 2px;
+            margin-top: 2px;
+            padding-top: 0;
+            line-height: 1.35;
         }
-    </style>
+    
+/* 正式版視覺依使用者提供的藍色卡片參考圖，維持原網格。 */
+:root{color-scheme:dark;--primary-color:#3b82f6;--primary-dark:#2563eb;--bg-color:#0b1120;--card-bg:#1e293b;--text-main:#f1f5f9;--text-muted:#94a3b8;--border-color:#334155;--tooltip-bg:#0f172a;--tooltip-text:#f1f5f9;--header-gradient-1:#0f172a;--header-gradient-2:#1e3a8a;--shadow:0 4px 6px -1px #0008;--shadow-lg:0 20px 25px -5px #0008;--tip-bg:#142d47;--tip-text:#bfdbfe;--care-bg:#382b17;--care-text:#fde0a7;--risk-bg:#3b2128;--risk-text:#fecaca}
+[hidden]{display:none!important}
+#cardGrid{grid-template-columns:repeat(3,minmax(0,1fr));align-items:start}
+.card{min-width:0;min-height:0;box-sizing:border-box}
+.filter-btn{min-height:38px;font:inherit;font-size:calc(.85rem + 4px)}
+.filter-btn[aria-pressed=true]{background:var(--primary-color);border-color:var(--primary-color);color:#fff}
+.rice-intro-panel{margin:-8px 0 14px;padding:12px 16px;border:1px solid var(--border-color);border-radius:8px;background:var(--card-bg)}
+.rice-intro-panel h2{font-size:calc(1rem + 4px);color:var(--primary-color);margin:0 0 4px}.rice-intro-panel p{font-size:calc(.8rem + 4px);color:var(--text-muted);margin:3px 0;line-height:1.6}
+.rice-tools{display:flex;align-items:end;gap:12px;flex-wrap:wrap;margin:0 0 12px;padding:10px 14px;border:1px solid var(--border-color);border-radius:8px;background:var(--card-bg)}
+.rice-tools label{display:flex;flex-direction:column;gap:4px;font-size:calc(.75rem + 4px);color:var(--text-muted)}
+.rice-tools select{font:inherit;font-size:calc(.83rem + 4px);padding:7px 10px;background:var(--bg-color);color:var(--text-main);border:1px solid var(--border-color);border-radius:5px;min-height:38px}
+#rice-count{font-size:calc(.78rem + 4px);color:var(--text-muted);margin-left:auto}
+.rice-guide{margin:0 0 14px;padding:10px 14px;background:var(--card-bg);border:1px solid var(--border-color);border-radius:8px;font-size:calc(.82rem + 4px)}
+.rice-guide>summary{cursor:pointer;color:var(--text-muted);min-height:24px}.guide-body{padding-top:8px}
+.rice-card .rice-summary{appearance:none;border:0;padding:0;background:none;cursor:pointer;display:flex;align-items:center;gap:12px;text-align:left;width:100%;color:var(--text-main);font:inherit;min-height:64px}
+.rice-card .rice-summary .thumb{width:64px;height:64px;margin:0}
+.rice-cover{display:flex;align-items:center;justify-content:center;flex-direction:column;background:linear-gradient(145deg,#273a50,#253e36);color:#f0d48d;font-size:calc(1.55rem + 4px)}.rice-cover small{font-size:calc(.55rem + 4px);color:#cbd5e1}
+.rice-name-wrap{flex:1;min-width:0}.rice-title{display:block;color:var(--primary-color);font-size:calc(1rem + 4px);font-weight:700;line-height:1.5;overflow-wrap:anywhere}
+.rice-location{display:block;color:var(--text-muted);font-size:calc(.76rem + 4px);margin-top:1px;line-height:1.5;overflow-wrap:anywhere}
+.rice-state{display:block;color:#fbbf24;font-size:calc(.69rem + 4px);margin-top:2px}.rice-tag{display:none}
+.rice-chevron{font-size:calc(.8rem + 4px);color:var(--text-muted)}.rice-card.expanded .rice-chevron{transform:rotate(180deg)}
+.rice-card .rice-hint{appearance:none;background:none;border:0;color:var(--text-muted);font:inherit;font-size:calc(.72rem + 4px);text-align:right;width:100%;cursor:pointer;margin-top:2px;padding:0;min-height:22px;line-height:1.35}
+.rice-card .details-content{margin-top:10px;padding-top:10px;line-height:1.8;font-size:calc(.8rem + 4px)}.rice-card .rice-intro{margin:0 0 10px}
+.rice-facts{display:grid;grid-template-columns:1fr;gap:8px}.rice-fact{background:var(--bg-color);border:1px solid var(--border-color);border-radius:6px;padding:9px 11px;font-size:calc(.78rem + 4px);line-height:1.8}.rice-fact strong{display:block;color:var(--text-muted);font-size:calc(.72rem + 4px);margin-bottom:3px}
+.notice{border-left:3px solid;border-radius:6px;padding:10px 12px;margin:10px 0;font-size:calc(.79rem + 4px);line-height:1.8;overflow-wrap:anywhere}.notice strong{display:block;margin-bottom:3px}.notice a{color:inherit;text-decoration:underline;text-underline-offset:3px}
+.notice.tip{background:var(--tip-bg);color:var(--tip-text);border-color:#60a5fa}.notice.care{background:var(--care-bg);color:var(--care-text);border-color:#fbbf24}.notice.risk{background:var(--risk-bg);color:var(--risk-text);border-color:#f87171}
+.rice-card ol,.rice-card ul{padding-left:1.3em;margin:6px 0}.rice-card li{margin:4px 0}
+.rice-actions{display:flex;gap:8px;flex-wrap:wrap;margin:10px 0}.rice-actions a{display:flex;align-items:center;justify-content:center;min-height:38px;flex:1;padding:0 8px;border:1px solid var(--border-color);border-radius:6px;color:var(--primary-color);font-size:calc(.76rem + 4px);text-decoration:none;background:var(--bg-color)}
+.rice-sources{font-size:calc(.73rem + 4px);color:var(--text-muted);border-top:1px dashed var(--border-color);padding-top:9px;overflow-wrap:anywhere}.rice-sources summary{cursor:pointer;min-height:28px}.rice-sources a{color:var(--primary-color)}.rice-source-note{font-size:calc(.7rem + 4px);color:var(--text-muted)}
+#rice-empty{background:var(--card-bg);color:var(--text-muted);border:1px dashed var(--border-color);padding:20px;text-align:center;border-radius:8px;margin-bottom:14px}
+.rice-legacy-note{margin:0 0 10px;font-size:calc(.74rem + 4px);color:var(--text-muted)}
+.rice-photo-credit{font-size:calc(.7rem + 4px);color:var(--text-muted);line-height:1.8;border-top:1px dashed var(--border-color);padding-top:8px;overflow-wrap:anywhere}.rice-photo-credit a,.rice-photo-footer a{color:var(--primary-color)}.rice-photo-footer{font-size:calc(.72rem + 4px);line-height:1.9;margin-top:8px}.rice-photo-footer summary{cursor:pointer}.rice-photo-footer ul{padding-left:1.4em}
+.rice-card-header{display:flex;align-items:center;gap:12px}.rice-card-header .rice-summary{flex:1;min-width:0;width:auto}.maps-entry-thumb{width:64px;flex:0 0 64px;display:flex;flex-direction:column;align-items:center;color:#bfdbfe;text-decoration:none;border:1px solid var(--border-color);border-radius:6px;background:#14263d;overflow:hidden;box-sizing:border-box}.maps-entry-thumb img{display:block;width:62px;height:48px;object-fit:contain}.maps-entry-thumb img.rice-real-photo{height:62px;object-fit:cover}.maps-entry-thumb span{display:block;font-size:calc(.52rem + 4px);line-height:14px;white-space:nowrap}.maps-entry-thumb:hover{border-color:#93c5fd}.rice-map-note,.rice-map-footer{font-size:calc(.72rem + 4px);color:var(--text-muted);line-height:1.8}.rice-map-note a{color:var(--primary-color)}
+button:focus-visible,a:focus-visible,summary:focus-visible,select:focus-visible{outline:2px solid #93c5fd;outline-offset:3px}
+@media(max-width:1024px){#cardGrid{grid-template-columns:repeat(2,minmax(0,1fr))}}
+@media(max-width:640px){#cardGrid{grid-template-columns:minmax(0,1fr)}body{padding:12px}header{padding:20px}header h1{font-size:calc(1.3rem + 4px)}.filters{padding:10px;gap:7px}.filter-btn{font-size:calc(.77rem + 4px);padding:8px 10px}.rice-tools label{flex:1;min-width:115px}#rice-count{width:100%;margin-left:0}.hover-tooltip{box-sizing:border-box;max-width:calc(100vw - 66px)}}
+
+.header-main { min-width:0; }
+.header-main .badge-status { display:inline-block; margin-top:6px; }
+.header-right { margin-left:0; display:flex; flex-direction:column; align-self:end; align-items:flex-end; gap:6px; width:100%; min-width:0; max-width:none; }
+.photo-rights-notice { box-sizing:border-box; width:100%; max-width:100%; border:0; border-radius:0; padding:0; background:transparent; color:#fef3c7; font-size:max(8px,calc(.75rem - 4px)); font-weight:400; line-height:1.45; text-align:right; }
+.photo-rights-notice strong { color:#fcd34d; font-size:max(8px,calc(.8rem - 4px)); font-weight:400; }
+.photo-rights-notice p { margin:4px 0 0; }
+@media(max-width:800px) { header { grid-template-columns:minmax(0,1fr); padding:12px 14px; gap:10px; } .header-right { margin-left:0; width:100%; max-width:none; align-items:flex-end; } }
+.card .details-content {display:none!important}
+.card.wide-selected {border-color:#60a5fa;box-shadow:0 0 0 2px #3b82f644;background:#233a58}
+.wide-selected .rice-chevron {transform:rotate(180deg)}
+.wide-selected .rice-hint {color:#bfdbfe}
+.wide-detail {grid-column:1/-1; min-width:0; box-sizing:border-box; border:1px solid #3b82f6; border-radius:10px; background:#233a58; padding:12px 14px 10px; box-shadow:0 8px 22px #02061755;}
+.wide-heading {display:grid;grid-template-columns:minmax(620px,1.35fr) minmax(0,1fr) auto;align-items:start;gap:12px;margin-bottom:8px}
+.wide-identity {display:flex;flex-wrap:wrap;align-items:center;gap:12px;min-width:0}
+.wide-place {flex:0 1 205px;min-width:0}
+.wide-actions {display:flex;flex:1 1 270px;flex-wrap:wrap;align-items:center;gap:4px;min-width:0}
+.wide-title-line {display:flex;align-items:center;gap:8px;min-width:0}
+.wide-title-line h2 {min-width:0;overflow-wrap:anywhere}
+.wide-title-photo {display:block;width:40px;height:40px;flex:0 0 40px;object-fit:cover;border:1px solid #4c6585;border-radius:5px;background:#0c1729}
+.wide-eyebrow {display:block;font-size:calc(.65rem + 4px);line-height:1.3;color:#93c5fd;letter-spacing:.12em}
+.wide-heading h2 {font-size:calc(1.15rem + 4px);line-height:1.35;color:#f1f5f9;margin:2px 0}
+.wide-heading p {font-size:calc(.73rem + 4px);line-height:1.45;color:#94a3b8;margin:3px 0 0}
+.wide-detail button {font:inherit;cursor:pointer;border-radius:6px;}
+.wide-close {background:#0b1627;color:#bfdbfe;border:1px solid #4c6585;padding:7px 12px;white-space:nowrap;font-size:calc(.76rem + 4px)!important}
+.wide-tabs {display:flex;flex-wrap:wrap;gap:4px;margin:0}
+.wide-map-link {display:inline-flex;align-items:center;min-height:36px;box-sizing:border-box;padding:7px 6px;border:1px solid #334155;border-radius:6px;background:#0e1a2d;color:#93c5fd;font-size:calc(.78rem + 4px);line-height:1.4;text-decoration:none;white-space:nowrap}
+.wide-tabs button {border:1px solid #334155;background:#0e1a2d;color:#94a3b8;padding:7px 8px;font-size:calc(.78rem + 4px)}
+.wide-tabs button[aria-selected=true] {background:#2563eb;color:#fff;border-color:#60a5fa}
+.wide-body {display:grid;grid-template-columns:repeat(3,minmax(0,1fr));gap:12px;max-height:200px;overflow-y:auto;scrollbar-gutter:stable;scrollbar-width:thin;scrollbar-color:#627c9e #0c1729;box-sizing:border-box;align-content:start;}
+.wide-body::-webkit-scrollbar {width:8px}
+.wide-body::-webkit-scrollbar-thumb {background:#627c9e;border-radius:6px}
+.wide-body::-webkit-scrollbar-track {background:#0c1729}
+.wide-body[data-view="overview"] {grid-template-columns:repeat(2,minmax(0,1fr))}
+.wide-box {padding:10px 12px;background:#0c1729;border:1px solid #334155;border-radius:7px;min-width:0;overflow-wrap:anywhere;font-size:calc(.78rem + 4px);line-height:1.65;}
+.wide-box h3 {font-size:calc(.8rem + 4px);color:#cbd5e1;margin:0 0 8px}
+.wide-box p {margin:5px 0}
+.wide-box ul {padding-left:1.3em;margin:6px 0}.wide-box li{margin:5px 0}.wide-box small{display:block;color:#94a3b8;font-size:calc(.68rem + 4px)}
+.wide-box a,.wide-bottom a {color:#93c5fd;text-decoration:underline;text-underline-offset:3px}
+.wide-box.blue{border-top:3px solid #60a5fa}.wide-box.blue h3 {color:#93c5fd}
+.wide-box.amber{border-top:3px solid #fbbf24}.wide-box.amber h3 {color:#fcd34d}
+.wide-box.red{border-top:3px solid #f87171}.wide-box.red h3,.wide-alert{color:#fca5a5}
+.wide-status {display:inline-block;color:#fcd34d;background:#463215;padding:3px 9px;border-radius:5px;font-size:calc(.73rem + 4px)}
+.wide-muted {color:#94a3b8;font-size:calc(.7rem + 4px)}
+.wide-heading .wide-season {padding:9px 12px;border-top:3px solid #fbbf24;background:#0c1729}
+.wide-heading .wide-season h3 {display:inline;margin-right:10px;font-size:calc(.78rem + 4px);color:#fcd34d}
+.wide-heading .wide-season p {margin:4px 0 0;font-size:calc(.73rem + 4px);line-height:1.6;color:#cbd5e1}
+.wide-heading .wide-season .wide-muted {font-size:calc(.68rem + 4px);color:#94a3b8}
+.wide-bottom {display:flex;justify-content:space-between;align-items:center;gap:12px;flex-wrap:wrap;border-top:1px solid #334155;padding-top:8px;margin-top:8px;font-size:calc(.73rem + 4px)}
+.wide-done {background:#233b5b;border:1px solid #4c6585;color:#dbeafe;padding:7px 12px;font-size:calc(.73rem + 4px)!important}
+@media(max-width:1120px){.wide-heading{grid-template-columns:minmax(0,1fr) auto}.wide-season{grid-column:1/-1;grid-row:2}.wide-close{grid-column:2;grid-row:1}}
+@media(max-width:1024px){.wide-body{grid-template-columns:repeat(2,minmax(0,1fr));max-height:290px}}
+@media(max-width:640px){.wide-detail{padding:12px}.wide-body,.wide-body[data-view="overview"]{grid-template-columns:minmax(0,1fr);max-height:300px}.wide-tabs{gap:4px}.wide-tabs button{padding:7px 9px;font-size:calc(.72rem + 4px)}.wide-heading h2{font-size:calc(1rem + 4px)}.wide-bottom{align-items:stretch;flex-direction:column}.wide-done{min-height:38px}.wide-heading{grid-template-columns:minmax(0,1fr) auto;gap:8px}.wide-season{grid-column:1/-1;grid-row:2}.wide-close{grid-column:2;grid-row:1}}
+
+</style>
+<style>
+/* Keep the complete landmark in each bundled photograph. */
+.thumb.restored-spot-photo{object-fit:contain;object-position:center;background:#10243b}
+</style>
+<style>body{font-size:20px}.maps-entry-thumb span{white-space:normal;line-height:1.35;text-align:center}.wide-map-link{max-width:100%;white-space:normal}.wide-title-line h2{line-height:1.35}</style>
+<style>
+/* Compact heading and cards; keep existing font and photograph sizes. */
+.header-subline{display:grid;grid-template-columns:minmax(0,1fr) auto;align-items:center;gap:8px;margin-top:4px}
+.header-subline .subtitle{margin-top:0;min-width:0}
+.header-main .badge-status{margin-top:0}
+.photo-rights-notice strong,.photo-rights-notice p{display:inline;margin:0}
+.photo-rights-notice strong{margin-right:8px}
+.card .title-area{min-width:0;box-sizing:border-box;padding-bottom:22px}
+.card .spot-name-wrapper{line-height:1.3}
+.card .spot-region{line-height:1.35;margin-top:1px}
+.rice-card .rice-name-wrap{box-sizing:border-box;padding-bottom:22px}
+.rice-card .rice-title{line-height:1.3}
+.rice-card .rice-location{line-height:1.35}
+.rice-card .rice-state{line-height:1.3}
+.card .toggle-hint,.rice-card .rice-hint{position:absolute;right:10px;bottom:5px;left:auto;width:auto;max-width:calc(100% - 20px);margin:0;padding:0;min-height:20px;line-height:1.35}
+@media(max-width:800px){.header-subline{display:flex;flex-wrap:wrap;gap:6px}.header-subline .subtitle{width:100%}}
+</style>
 </head>
 <body>
 <div class="container">
     <header>
-        <div>
+        <div class="header-main">
             <h1>臺灣空拍景點智慧審查與收集資料庫</h1>
-            <div class="subtitle">全臺 40 處頂級航拍秘境</div>
+            <div class="header-subline"><div class="subtitle">全臺 40 處頂級航拍秘境</div>
+            <div class="badge-status">總收錄：40 筆景點 | 手風琴自動收合模式</div></div>
         </div>
-        <div class="badge-status">總收錄：40 筆景點 | 手風琴自動收合模式</div>
+        <div class="header-right">
+            <aside class="photo-rights-notice" aria-label="照片權利聲明">
+                <strong>照片權利聲明</strong>
+                <p>本網站尊重攝影作者及權利人。若您認為本站照片涉及您的著作權，請通知我們並提供照片位置與權利資訊；我們收到通知後將立即下架相關照片並處理。</p>
+            </aside>
+        </div>
     </header>
 
-    <div class="filters">
-        <button class="filter-btn active" onclick="filterRegion('all')">全臺灣 (40)</button>
-        <button class="filter-btn" onclick="filterRegion('north')">北臺灣 (14)</button>
-        <button class="filter-btn" onclick="filterRegion('central')">中臺灣 (8)</button>
-        <button class="filter-btn" onclick="filterRegion('south')">南臺灣 (10)</button>
-        <button class="filter-btn" onclick="filterRegion('east')">東臺灣與離島 (8)</button>
+    <div class="filters" id="legacy-filters">
+        <button class="filter-btn active" type="button" data-region="all" data-label="全臺灣">全臺灣 (40)</button>
+        <button class="filter-btn" type="button" data-region="north" data-label="北臺灣">北臺灣 (14)</button>
+        <button class="filter-btn" type="button" data-region="central" data-label="中臺灣">中臺灣 (8)</button>
+        <button class="filter-btn" type="button" data-region="south" data-label="南臺灣">南臺灣 (10)</button>
+        <button class="filter-btn" type="button" data-region="east" data-label="東臺灣與離島">東臺灣與離島 (8)</button>
+        <button type="button" class="filter-btn mode-btn" data-mode="rice" aria-pressed="false">🌾 花東稻浪 (5)</button>
+        <button type="button" class="filter-btn mode-btn" data-mode="west" aria-pressed="false">🌾 西部稻浪 (2)</button>
     </div>
 
+
+    <section id="rice-zone" class="rice-intro-panel" aria-labelledby="rice-heading" hidden>
+      <h2 id="rice-heading">花東稻浪空拍專區</h2>
+      <p>五處景點，季節與拍攝資訊整理。</p>
+      <p>資料整理：2026-10-26｜稻況待確認，並非即時田況。</p>
+    </section>
+    <div id="rice-controls" class="rice-tools">
+      <label for="rice-county">拍攝地區<select id="rice-county"><option value="all">花東全部</option><option value="花蓮">花蓮</option><option value="台東">台東</option></select></label>
+      <label for="rice-status">近期稻況<select id="rice-status"><option value="all">全部稻況</option><option>綠稻</option><option>轉黃</option><option>金黃</option><option>已收割</option><option>待確認</option></select></label>
+      <span id="rice-count" role="status" aria-live="polite">載入景點中</span>
+    </div>
+    <details id="rice-guide" class="rice-guide">
+      <summary>◈ 出發前的拍攝小抄・攝影師建議與注意事項</summary>
+      <div class="guide-body">
+        <div class="notice tip"><strong>◈ 攝影師怎麼安排光線？</strong>Canon 刊載的攝影師 Matt Cherubino 建議先確定拍攝目標，再安排時段；日出、日落附近通常有較理想的光線。這裡採用他的光線規劃原則，並未套用有人機的快門數值。<br><a href="https://www.canon.com.au/get-inspired/how-to-master-aerial-photography" target="_blank" rel="noopener noreferrer">來源：Canon｜5 Aerial Photography Tips</a>・查閱 2026-10-26</div>
+        <div class="notice tip"><strong>◈ DJI 的錄影設定建議</strong>固定白平衡可減少轉向時色溫跳動；白天盡量使用低 ISO。快門約為幀率的兩倍分母，可作動態模糊的起點：30fps 約 1/60 秒、60fps 約 1/120 秒；依曝光與想要的動感調整，過亮時再考慮 ND。只有打算後製調色時才選 Log。<br><a href="https://app-store.dji.com/au/content/drone-videography-guide?set_region=AU" target="_blank" rel="noopener noreferrer">來源：DJI｜Drone Videography Guide（通用原則，選項依機型而異）</a>・查閱 2026-10-26</div>
+        <div class="notice tip"><strong>◈ 本站稻浪運鏡提案</strong>先拍一段穩定定鏡留住風的波紋，再拍慢速平移，最後用斜俯角帶出山海。每段約 10–15 秒並保留穩定頭尾，方便剪成旅遊精華；這是本站創作建議。</div>
+        <div class="notice care"><strong>⚠ 現場注意｜不要只看月份就出發</strong>看近期照片的拍攝日期與田區位置，舊照片與其他田區都不能證明現況。稻田可能分批收割，抵達前再向農友、旅宿或遊客中心確認；不踩進稻田、不擋農機，照片與肖像先徵得同意。</div>
+        <div class="notice risk"><strong>! 飛行注意｜有風的稻浪不等於可飛</strong>先確認現地陣風、逆風返航、電線、遊客與場地使用，再決定起飛；不要為製造稻浪貼近稻穗。鐵路、鳥群與居民生活區採遠離原則。<br><a href="https://drone.caa.gov.tw/" target="_blank" rel="noopener noreferrer">民航局空域查詢入口</a>・本專區尚未核實各景點當日空域。</div>
+        <p class="rice-source-note">藍色＝拍攝建議・橙色＝現場注意／資料待確認・紅色＝飛行風險。顏色均配合文字標籤；拍攝提案不代表獲准飛行。</p>
+      </div>
+    </details>
+    <p id="legacy-note" class="rice-legacy-note" hidden>共 46 處，含花東稻浪 5 處、西部稻浪 2 處。其餘原有景點資料與空域燈號尚未重新查核，請以出發當日官方公告為準。</p>
+
+
+    <div id="rice-empty" role="status" hidden>這個條件目前沒有已確認的景點。<br>本區近期稻況均待確認，請改選「全部稻況」或「待確認」。</div>
     <div class="grid-container" id="cardGrid">
         <!-- 東臺灣與離島 (8) -->
         <div class="card" data-region="east">
@@ -400,7 +551,7 @@
 
         <div class="card" data-region="east">
             <div class="card-header">
-                <img src="data:image/jpeg;base64,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" class="thumb" alt="三仙台跨海橋實景縮圖" loading="lazy" decoding="async">
+                <img src="./assets/sanxiantai.jpg" class="thumb restored-spot-photo" alt="三仙台跨海橋實景縮圖" decoding="async" width="64" height="64">
                 <div class="title-area">
                     <div class="spot-name-wrapper">
                         <span class="spot-name" onclick="toggleCard(this)">臺東三仙台</span>
@@ -746,7 +897,7 @@
 
         <div class="card" data-region="north">
             <div class="card-header">
-                <img src="data:image/jpeg;base64,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" class="thumb" alt="野柳女王頭實景縮圖" loading="lazy" decoding="async">
+                <img src="./assets/yehliu.jpg" class="thumb restored-spot-photo" alt="野柳女王頭實景縮圖" decoding="async" width="64" height="64">
                 <div class="title-area">
                     <div class="spot-name-wrapper">
                         <span class="spot-name" onclick="toggleCard(this)">野柳地質公園</span>
@@ -1233,7 +1384,7 @@
 </div>
 
 <footer class="image-attribution" style="max-width:1400px;margin:18px auto 0;padding:10px 2px;color:var(--text-muted);font-size:.72rem;line-height:1.6;">
-    景點縮圖（已裁切與縮放）：三仙台照片 <a href="https://commons.wikimedia.org/wiki/File%3ASanxiantai_Eight-arch_Bridge_on_7_October_2011.jpg" target="_blank" rel="noopener">Alan Wu</a>；野柳照片 <a href="https://commons.wikimedia.org/wiki/File%3AQueen%27s_head%2C_Yehliu_Geopark%2C_Taiwan_-_%E9%87%8E%E6%9F%B3%E5%9C%B0%E8%B3%AA%E5%85%AC%E5%9C%92%2C_%E5%8F%B0%E6%B9%BE_%2811353535854%29.jpg" target="_blank" rel="noopener">Romain Pontida</a>。授權：<a href="https://creativecommons.org/licenses/by-sa/2.0/" target="_blank" rel="noopener">CC BY-SA 2.0</a>。
+    景點實景縮圖（按原比例縮放）：三仙台照片 <a href="https://commons.wikimedia.org/wiki/File%3ASanxiantai_Eight-arch_Bridge_on_7_October_2011.jpg" target="_blank" rel="noopener">Alan Wu</a>；野柳照片 <a href="https://commons.wikimedia.org/wiki/File%3AQueen%27s_head%2C_Yehliu_Geopark%2C_Taiwan_-_%E9%87%8E%E6%9F%B3%E5%9C%B0%E8%B3%AA%E5%85%AC%E5%9C%92%2C_%E5%8F%B0%E6%B9%BE_%2811353535854%29.jpg" target="_blank" rel="noopener">Romain Pontida</a>。授權：<a href="https://creativecommons.org/licenses/by-sa/2.0/" target="_blank" rel="noopener">CC BY-SA 2.0</a>。
 </footer>
 
 <script>
@@ -1250,21 +1401,6 @@
         }
     }
 
-    function filterRegion(region) {
-        const cards = document.querySelectorAll('.card');
-        const buttons = document.querySelectorAll('.filter-btn');
-
-        buttons.forEach(btn => btn.classList.remove('active'));
-        event.target.classList.add('active');
-
-        cards.forEach(card => {
-            if (region === 'all' || card.getAttribute('data-region') === region) {
-                card.style.display = 'flex';
-            } else {
-                card.style.display = 'none';
-            }
-        });
-    }
 </script>
 <script>
 // 外部縮圖失效時顯示備援圖，避免公開頁面破圖。
@@ -1274,6 +1410,668 @@ document.querySelectorAll('img.thumb').forEach(img => {
   img.addEventListener('error', useFallback, {once:true});
   if (img.complete && img.naturalWidth === 0) useFallback();
 });
+</script>
+<script id="rice-data" type="application/json">
+[
+  {
+    "id": "chishang",
+    "name": "池上伯朗大道",
+    "county": "台東",
+    "location": "臺東縣池上鄉・伯朗大道／天堂路周邊",
+    "tag": "筆直農路 × 山脈稻田",
+    "status": "待確認",
+    "observationDate": null,
+    "observationSource": null,
+    "intro": "利用農路的延伸線與田區色塊，拍出縱谷的開闊感；天堂路的彎曲線條可作另一組構圖。",
+    "season": "官方旅遊介紹提及5月及10月稻浪；屬往年季節參考，各田區成熟與收割不同步。",
+    "light": "優先考慮日出後或日落前的柔光；依當日山影、雲量與實際照明調整。",
+    "shots": [
+      "先取斜俯角，用道路當引導線，保留遠山與一部分天空。",
+      "再取垂直俯瞰，呈現田塊拼布；穩定懸停錄一段稻浪，不必一直移動。",
+      "本站運鏡提案：每次只做慢速前進或緩升其中一種，收尾停穩，方便後續剪輯。"
+    ],
+    "cautions": [
+      "農路仍有農機、自行車與遊客；勿佔道起降或直接進入稻田。",
+      "農地起降須先取得使用同意；實際空域與適用限制出發前另查。"
+    ],
+    "launch": "先向土地使用者確認可使用的平坦空地；本專區未查證固定起降點。",
+    "verify": "可先開啟天堂路官方即時影像，看可見田區；仍需核對畫面日期，不能代表整片池上。",
+    "sources": [
+      {
+        "name": "觀光署｜池上天堂路・季節參考與即時影像入口",
+        "url": "https://www.taiwan.net.tw/m1.aspx?keystring=10014&sNo=0042331&uid=25012",
+        "accessed": "2026-10-26"
+      },
+      {
+        "name": "花東縱谷管理處｜伯朗大道",
+        "url": "https://www.erv-nsa.gov.tw/zh-tw/attractions/detail/197",
+        "accessed": "2026-10-26"
+      }
+    ],
+    "zone": "east",
+    "mapRegion": "east"
+  },
+  {
+    "id": "changbin",
+    "name": "長濱金剛大道",
+    "county": "台東",
+    "location": "臺東縣長濱鄉・長光部落東13線",
+    "tag": "山海同框 × 海岸梯田",
+    "status": "待確認",
+    "observationDate": null,
+    "observationSource": null,
+    "intro": "道路串起西側金剛山與東側太平洋，兩側梯田提供層次，山向與海向可各成一組畫面。",
+    "season": "官方景點介紹推薦5月底綠稻景色；不能直接套用池上秋季時程，10月底至11月田況仍待現地確認。",
+    "light": "海向可觀察日出後光線；山向依山影調整。海面明亮時，先確認高光沒有大範圍過曝。",
+    "shots": [
+      "本站構圖提案：以道路引向海面，讓梯田留在兩側，先錄穩定定鏡。",
+      "本站運鏡提案：轉向山面後再錄一段慢速後退揭景；先確認後方障礙，勿倒飛靠近電線。",
+      "海風較小時捕捉稻穗波紋；若陣風明顯，改用地面鏡頭。"
+    ],
+    "cautions": [
+      "官方提醒保持道路暢通、降低音量；拍攝住宅與居民前先徵得同意。",
+      "近海需留意陣風及返程逆風；稻穗會動不代表風況適合飛行。"
+    ],
+    "launch": "從合法可停留處步行勘查，向地主／部落確認空地使用；不把大道車道當起降坪。",
+    "verify": "詢問長光部落或當地店家近期同一田區照片，確認拍攝日期與是否已收割。",
+    "sources": [
+      {
+        "name": "東海岸管理處｜金剛大道・梯田與旅遊叮嚀",
+        "url": "https://www.eastcoast-nsa.gov.tw/zh-tw/attractions/detail/236/",
+        "accessed": "2026-10-26"
+      },
+      {
+        "name": "東海岸管理處｜日出月升特輯・金剛大道",
+        "url": "https://www.eastcoast-nsa.gov.tw/zh-tw/travel/sunrise/",
+        "accessed": "2026-10-26"
+      }
+    ],
+    "zone": "east",
+    "mapRegion": "east",
+    "mapEntry": {
+      "url": "https://www.google.com/maps/search/?api=1&query=%E9%87%91%E5%89%9B%E5%A4%A7%E9%81%93%20%E8%87%BA%E6%9D%B1%E7%B8%A3%E9%95%B7%E6%BF%B1%E9%84%89",
+      "query": "金剛大道 臺東縣長濱鄉",
+      "icon": "data:image/svg+xml;base64,PHN2ZyB4bWxucz0iaHR0cDovL3d3dy53My5vcmcvMjAwMC9zdmciIHdpZHRoPSI2NCIgaGVpZ2h0PSI2NCIgdmlld0JveD0iMCAwIDY0IDY0Ij4KICA8cmVjdCB3aWR0aD0iNjQiIGhlaWdodD0iNjQiIHJ4PSI2IiBmaWxsPSIjMTQyNjNkIi8+CiAgPHBhdGggZD0iTTggMjRsMTUtNSAxOCA1IDE1LTV2MjVsLTE1IDUtMTgtNS0xNSA1eiIgZmlsbD0iIzJjNDk2NCIgc3Ryb2tlPSIjNzE5NGI3IiBzdHJva2Utd2lkdGg9IjEuNSIvPgogIDxwYXRoIGQ9Ik0yMyAxOXYyNW0xOC0yMHYyNU05IDM2bDE0LTUgMTggNSAxNC01IiBmaWxsPSJub25lIiBzdHJva2U9IiM3MTk0YjciIHN0cm9rZS13aWR0aD0iMS40Ii8+CiAgPHBhdGggZD0iTTMyIDhhMTEgMTEgMCAwIDAtMTEgMTFjMCA4IDExIDE5IDExIDE5czExLTExIDExLTE5QTExIDExIDAgMCAwIDMyIDh6IiBmaWxsPSIjNjBhNWZhIiBzdHJva2U9IiNjNGRkZmYiIHN0cm9rZS13aWR0aD0iMS4yIi8+CiAgPGNpcmNsZSBjeD0iMzIiIGN5PSIxOSIgcj0iNCIgZmlsbD0iIzE0MjYzZCIvPgo8L3N2Zz4K",
+      "iconAlt": "地圖入口圖示（本站自製，非景點照片）"
+    },
+    "photo": {
+      "sourceUrl": "https://commons.wikimedia.org/wiki/File:%E9%87%91%E5%89%9B%E5%A4%A7%E9%81%93.jpg",
+      "imageSourceUrl": "https://thumb.wikimedia.org/wikipedia/commons/thumb/0/01/%E9%87%91%E5%89%9B%E5%A4%A7%E9%81%93.jpg/960px-%E9%87%91%E5%89%9B%E5%A4%A7%E9%81%93.jpg?utm_source=commons.wikimedia.org&utm_campaign=imageinfo&utm_content=thumbnail",
+      "credit": "Mark 高維隆",
+      "licenseName": "CC0",
+      "licenseUrl": "http://creativecommons.org/publicdomain/zero/1.0/deed.en",
+      "dateLabel": "拍攝：2018-06-06",
+      "caption": "長濱金剛大道稻田與海景實景",
+      "notCurrent": true,
+      "changes": "裁切並縮小為160×160 JPEG；未生成或更換景物",
+      "file": "assets/rice-thumbnails/changbin.jpg",
+      "sha256": "5b9f9d300ebf1fd729fdff57a51878ea81dd94bef909ec075d629e3f7c0f2676",
+      "src": "./assets/rice-thumbnails/changbin.jpg"
+    }
+  },
+  {
+    "id": "kecheng",
+    "name": "玉里客城鐵橋",
+    "county": "花蓮",
+    "location": "花蓮縣玉里鎮・樂樂溪橋周邊",
+    "tag": "紅色鐵橋 × 田園線條",
+    "status": "待確認",
+    "observationDate": null,
+    "observationSource": null,
+    "intro": "紅色鋼拱橋與田區、溪流形成色彩與線條對比；可先以橋和稻田完成構圖，無須等待特定列車。",
+    "season": "各田區耕作與收割不同步；目前未取得近期現地稻況，不預設金黃色。",
+    "light": "選橋體與田區能同時受光的時段；清晨或傍晚先觀察山影，避開明暗反差過大的角度。",
+    "shots": [
+      "本站構圖提案：讓紅橋落在畫面側邊，以稻田作前景，保留橋體完整形狀。",
+      "本站運鏡提案：在已確認允許的側面位置定點錄影，等列車自然入鏡；不追車、不穿橋。"
+    ],
+    "cautions": [
+      "這是使用中的鐵路設施；本站保守拍攝原則：不飛入軌道、橋體或架空電線附近。",
+      "若無法在遠離鐵路的位置安全完成構圖，改採地面拍攝；不要為等車而耗盡返航電量。"
+    ],
+    "launch": "僅考慮遠離鐵路設施且取得土地使用同意的空地；不提供鐵路周邊已核准起降位置。",
+    "verify": "核對近期田區照片與拍攝日期，向在地旅宿／遊客中心詢問收割進度；列車時刻另查當日資訊。",
+    "sources": [
+      {
+        "name": "觀光署開放資料／花蓮縣政府｜樂樂溪橋（客城鐵橋）",
+        "url": "https://media.taiwan.net.tw/en-us/portal/travel/details/attraction_376550000a_000364",
+        "accessed": "2026-10-26"
+      }
+    ],
+    "zone": "east",
+    "mapRegion": "east",
+    "mapEntry": {
+      "url": "https://www.google.com/maps/search/?api=1&query=%E5%AE%A2%E5%9F%8E%E9%90%B5%E6%A9%8B%20%E8%8A%B1%E8%93%AE%E7%B8%A3%E7%8E%89%E9%87%8C%E9%8E%AE",
+      "query": "客城鐵橋 花蓮縣玉里鎮",
+      "icon": "data:image/svg+xml;base64,PHN2ZyB4bWxucz0iaHR0cDovL3d3dy53My5vcmcvMjAwMC9zdmciIHdpZHRoPSI2NCIgaGVpZ2h0PSI2NCIgdmlld0JveD0iMCAwIDY0IDY0Ij4KICA8cmVjdCB3aWR0aD0iNjQiIGhlaWdodD0iNjQiIHJ4PSI2IiBmaWxsPSIjMTQyNjNkIi8+CiAgPHBhdGggZD0iTTggMjRsMTUtNSAxOCA1IDE1LTV2MjVsLTE1IDUtMTgtNS0xNSA1eiIgZmlsbD0iIzJjNDk2NCIgc3Ryb2tlPSIjNzE5NGI3IiBzdHJva2Utd2lkdGg9IjEuNSIvPgogIDxwYXRoIGQ9Ik0yMyAxOXYyNW0xOC0yMHYyNU05IDM2bDE0LTUgMTggNSAxNC01IiBmaWxsPSJub25lIiBzdHJva2U9IiM3MTk0YjciIHN0cm9rZS13aWR0aD0iMS40Ii8+CiAgPHBhdGggZD0iTTMyIDhhMTEgMTEgMCAwIDAtMTEgMTFjMCA4IDExIDE5IDExIDE5czExLTExIDExLTE5QTExIDExIDAgMCAwIDMyIDh6IiBmaWxsPSIjNjBhNWZhIiBzdHJva2U9IiNjNGRkZmYiIHN0cm9rZS13aWR0aD0iMS4yIi8+CiAgPGNpcmNsZSBjeD0iMzIiIGN5PSIxOSIgcj0iNCIgZmlsbD0iIzE0MjYzZCIvPgo8L3N2Zz4K",
+      "iconAlt": "地圖入口圖示（本站自製，非景點照片）"
+    },
+    "photo": {
+      "sourceUrl": "https://commons.wikimedia.org/wiki/File:Kecheng_Bridge_in_the_green_landscape_of_Yuli_Township.jpg",
+      "imageSourceUrl": "https://thumb.wikimedia.org/wikipedia/commons/thumb/3/3f/Kecheng_Bridge_in_the_green_landscape_of_Yuli_Township.jpg/960px-Kecheng_Bridge_in_the_green_landscape_of_Yuli_Township.jpg?utm_source=commons.wikimedia.org&utm_campaign=imageinfo&utm_content=thumbnail",
+      "credit": "大頭家族",
+      "licenseName": "CC BY-SA 2.0",
+      "licenseUrl": "https://creativecommons.org/licenses/by-sa/2.0",
+      "dateLabel": "拍攝：2016-07-24",
+      "caption": "玉里客城鐵橋與稻田實景",
+      "notCurrent": true,
+      "changes": "裁切並縮小為160×160 JPEG；未生成或更換景物",
+      "file": "assets/rice-thumbnails/kecheng.jpg",
+      "sha256": "30f96125d3c5b54642e08c5fcb9c0ace76ad590e6da72f8f50a4d78c68e248f1",
+      "src": "./assets/rice-thumbnails/kecheng.jpg"
+    }
+  },
+  {
+    "id": "cilamitay",
+    "name": "富里吉哈拉艾／吉拉米代梯田",
+    "county": "花蓮",
+    "location": "花蓮縣富里鄉豐南村・梯田區域待現地引導",
+    "tag": "層疊梯田 × 部落文化",
+    "status": "待確認",
+    "observationDate": null,
+    "observationSource": null,
+    "intro": "吉拉米代部落周邊的梯田、水圳與山谷呈現不同層次；吉哈拉艾與吉拉米代具有地理及文化關聯，不將兩個名稱視為完全相同的起降點。",
+    "season": "山谷內田區與作期各異；未取得近期農事紀錄，現況與成熟日期均待確認。",
+    "light": "先看陽光是否已進入目標山谷；柔和側光可呈現田埂層次，深山影時可改拍水圳與地面故事。",
+    "shots": [
+      "本站構圖提案：用斜俯角保留梯田高低落差，讓田埂形成層層曲線。",
+      "本站運鏡提案：先拍一段垂直俯瞰的幾何構圖，再拍慢速側移；全程保持可觀察飛機與地形的位置。"
+    ],
+    "cautions": [
+      "尊重部落、農作與生活空間；拍攝前先詢問，不自行進入田埂、水圳或住宅。",
+      "山谷地形易遮擋視線及通訊；先確認地形、電線與返航路徑，勿繞到山脊後方。"
+    ],
+    "launch": "請在地導覽或地主協助確認可用空地；導航定位僅到部落範圍，非精確起降點。",
+    "verify": "向部落導覽／農友確認目標梯田區位、作期與近期照片，也確認是否接受空拍。",
+    "sources": [
+      {
+        "name": "國家文化記憶庫／花蓮縣文化局｜吉拉米代部落",
+        "url": "https://tcmb.culture.tw/zh-tw/detail?id=596024&indexCode=Culture_Place",
+        "accessed": "2026-10-26"
+      },
+      {
+        "name": "農業部｜吉拉米代與吉哈拉艾地理文化介紹",
+        "url": "https://www.moa.gov.tw/ws.php?id=2506568",
+        "accessed": "2026-10-26"
+      }
+    ],
+    "zone": "east",
+    "mapRegion": "east",
+    "mapEntry": {
+      "url": "https://www.google.com/maps/search/?api=1&query=%E5%90%89%E5%93%88%E6%8B%89%E8%89%BE%E5%A4%A9%E7%A9%BA%E6%A2%AF%E7%94%B0%20%E8%8A%B1%E8%93%AE%E7%B8%A3%E5%AF%8C%E9%87%8C%E9%84%89",
+      "query": "吉哈拉艾天空梯田 花蓮縣富里鄉",
+      "icon": "data:image/svg+xml;base64,PHN2ZyB4bWxucz0iaHR0cDovL3d3dy53My5vcmcvMjAwMC9zdmciIHdpZHRoPSI2NCIgaGVpZ2h0PSI2NCIgdmlld0JveD0iMCAwIDY0IDY0Ij4KICA8cmVjdCB3aWR0aD0iNjQiIGhlaWdodD0iNjQiIHJ4PSI2IiBmaWxsPSIjMTQyNjNkIi8+CiAgPHBhdGggZD0iTTggMjRsMTUtNSAxOCA1IDE1LTV2MjVsLTE1IDUtMTgtNS0xNSA1eiIgZmlsbD0iIzJjNDk2NCIgc3Ryb2tlPSIjNzE5NGI3IiBzdHJva2Utd2lkdGg9IjEuNSIvPgogIDxwYXRoIGQ9Ik0yMyAxOXYyNW0xOC0yMHYyNU05IDM2bDE0LTUgMTggNSAxNC01IiBmaWxsPSJub25lIiBzdHJva2U9IiM3MTk0YjciIHN0cm9rZS13aWR0aD0iMS40Ii8+CiAgPHBhdGggZD0iTTMyIDhhMTEgMTEgMCAwIDAtMTEgMTFjMCA4IDExIDE5IDExIDE5czExLTExIDExLTE5QTExIDExIDAgMCAwIDMyIDh6IiBmaWxsPSIjNjBhNWZhIiBzdHJva2U9IiNjNGRkZmYiIHN0cm9rZS13aWR0aD0iMS4yIi8+CiAgPGNpcmNsZSBjeD0iMzIiIGN5PSIxOSIgcj0iNCIgZmlsbD0iIzE0MjYzZCIvPgo8L3N2Zz4K",
+      "iconAlt": "地圖入口圖示（本站自製，非景點照片）"
+    },
+    "photo": {
+      "sourceUrl": "https://hualien.travel/zh-tw/attraction/415/",
+      "imageSourceUrl": "https://hualien.travel/_api/content/images/attractions/1624/1920x1080_attractions-image-abwqu3yttukpdgsry8fohw.jpg",
+      "credit": "富里鄉公所提供／花蓮縣政府花蓮旅遊網",
+      "licenseName": "花蓮縣政府網站資料開放宣告",
+      "licenseUrl": "https://hualien.travel/zh-tw/government/",
+      "dateLabel": "拍攝日期未提供",
+      "caption": "富里吉哈拉艾／吉拉米代梯田實景",
+      "notCurrent": true,
+      "changes": "裁切並縮小為160×160 JPEG；未生成或更換景物",
+      "file": "assets/rice-thumbnails/cilamitay.jpg",
+      "sha256": "8089d68d1e31e6414f7959f8c92d6472082736d6442f5c427a303da8bfab4712",
+      "src": "./assets/rice-thumbnails/cilamitay.jpg"
+    }
+  },
+  {
+    "id": "guanshan",
+    "name": "關山親水公園周邊稻田",
+    "county": "台東",
+    "location": "臺東縣關山鎮・環鎮自行車道周邊",
+    "tag": "棋盤田區 × 縱谷山線",
+    "status": "待確認",
+    "observationDate": null,
+    "observationSource": null,
+    "intro": "環鎮自行車道串連田野與水道，適合以田塊線條展現縱谷秩序；目標為周邊稻田，園區與農地分別確認。",
+    "season": "官方環鎮行程介紹四季田景；未取得目前田區照片，不能由公園景色推定稻穗成熟。",
+    "light": "日出後或日落前先看田區與山線受光；要拍幾何色塊，可在光線均勻時比較俯拍效果。",
+    "shots": [
+      "本站構圖提案：垂直俯瞰，以田埂、水道分割畫面，留下清楚的幾何主題。",
+      "本站運鏡提案：從安全勘查的位置慢速平移，田野作主體；不沿自行車道低飛追逐遊客。"
+    ],
+    "cautions": [
+      "公園開放不等於允許起降；先確認園區管理規定與周邊農地使用同意。",
+      "園區有賞鳥空間；遠離鳥群與遊客，出現鳥類警戒或靠近飛機時停止拍攝並安全離場。"
+    ],
+    "launch": "先向園區管理方或周邊地主確認；未查證可供無人機起降的固定空地。",
+    "verify": "向關山遊客中心或農友確認周邊實際田區、近期稻色與收割時間。",
+    "sources": [
+      {
+        "name": "花東縱谷管理處｜關山環鎮行程",
+        "url": "https://www.erv-nsa.gov.tw/zh-tw/travel/tour/80",
+        "accessed": "2026-10-26"
+      },
+      {
+        "name": "花東縱谷管理處｜關山親水公園・賞鳥環境",
+        "url": "https://www.erv-nsa.gov.tw/zh-tw/Attractions/Detail/19",
+        "accessed": "2026-10-26"
+      }
+    ],
+    "zone": "east",
+    "mapRegion": "east",
+    "mapEntry": {
+      "url": "https://www.google.com/maps/search/?api=1&query=%E9%97%9C%E5%B1%B1%E8%A6%AA%E6%B0%B4%E5%85%AC%E5%9C%92%20%E8%87%BA%E6%9D%B1%E7%B8%A3%E9%97%9C%E5%B1%B1%E9%8E%AE",
+      "query": "關山親水公園 臺東縣關山鎮",
+      "icon": "data:image/svg+xml;base64,PHN2ZyB4bWxucz0iaHR0cDovL3d3dy53My5vcmcvMjAwMC9zdmciIHdpZHRoPSI2NCIgaGVpZ2h0PSI2NCIgdmlld0JveD0iMCAwIDY0IDY0Ij4KICA8cmVjdCB3aWR0aD0iNjQiIGhlaWdodD0iNjQiIHJ4PSI2IiBmaWxsPSIjMTQyNjNkIi8+CiAgPHBhdGggZD0iTTggMjRsMTUtNSAxOCA1IDE1LTV2MjVsLTE1IDUtMTgtNS0xNSA1eiIgZmlsbD0iIzJjNDk2NCIgc3Ryb2tlPSIjNzE5NGI3IiBzdHJva2Utd2lkdGg9IjEuNSIvPgogIDxwYXRoIGQ9Ik0yMyAxOXYyNW0xOC0yMHYyNU05IDM2bDE0LTUgMTggNSAxNC01IiBmaWxsPSJub25lIiBzdHJva2U9IiM3MTk0YjciIHN0cm9rZS13aWR0aD0iMS40Ii8+CiAgPHBhdGggZD0iTTMyIDhhMTEgMTEgMCAwIDAtMTEgMTFjMCA4IDExIDE5IDExIDE5czExLTExIDExLTE5QTExIDExIDAgMCAwIDMyIDh6IiBmaWxsPSIjNjBhNWZhIiBzdHJva2U9IiNjNGRkZmYiIHN0cm9rZS13aWR0aD0iMS4yIi8+CiAgPGNpcmNsZSBjeD0iMzIiIGN5PSIxOSIgcj0iNCIgZmlsbD0iIzE0MjYzZCIvPgo8L3N2Zz4K",
+      "iconAlt": "地圖入口圖示（本站自製，非景點照片）"
+    },
+    "photo": {
+      "sourceUrl": "https://media.taiwan.net.tw/zh-tw/portal/media/collection/3110241_ph_20260128",
+      "credit": "交通部觀光署花東縱谷國家風景區管理處",
+      "licenseName": "政府資料開放授權條款第1版（OGDL 1.0）",
+      "licenseUrl": "https://data.gov.tw/license",
+      "dateLabel": "素材製作：2023-08-25（拍攝日期未提供）",
+      "caption": "關山環鎮田園空拍實景（區域參考照）",
+      "notCurrent": true,
+      "changes": "裁切並縮小為160×160 JPEG；未生成或更換景物",
+      "file": "assets/rice-thumbnails/guanshan.jpg",
+      "sha256": "cd0b799a00d6c1c28def39366c1397f003ff2a6e6c12543bc9bb796f679e2631",
+      "src": "./assets/rice-thumbnails/guanshan.jpg"
+    }
+  },
+  {
+    "id": "waipu",
+    "name": "外埔忘憂谷",
+    "zone": "west",
+    "mapRegion": "central",
+    "county": "台中",
+    "location": "臺中市外埔區・忘憂谷農田及堤岸周邊",
+    "tag": "閃電農路 × 大地拼布",
+    "status": "待確認",
+    "observationDate": null,
+    "observationSource": null,
+    "intro": "從另一份 Google 景點文件納入西部專區。蜿蜒農路切開平坦田區，適合呈現稻田色塊、道路折線與遠處丘陵。",
+    "season": "外埔區公所介紹提及6月底、11月初金黃或黃綠稻田；是往年參考，並非2026年收割預報。",
+    "light": "本站規劃：日出後或日落前先看側光與田區陰影；要保留黃綠田塊層次時，先選光線較均勻的角度。",
+    "shots": [
+      "本站構圖提案：垂直俯瞰閃電狀農路，讓田區色塊填滿畫面；先錄定鏡觀察稻浪。",
+      "本站運鏡提案：沿與農路平行的方向慢速側移，維持固定角度；不沿車道低飛。",
+      "本站剪輯提案：補拍地面稻穗細節，與俯拍田區交替，增加稻浪影片的節奏。"
+    ],
+    "cautions": [
+      "農路與堤岸仍供通行，不佔道停車或起降，也不踩進稻田；先取得土地使用同意。",
+      "平原視野開闊不等於風小；出發前確認風況，現場留意陣風、農機、電線與自行車。"
+    ],
+    "launch": "先從合法停留處勘查並詢問地主；堤頂道路、自行車道與農路不預設為允許起降場地。",
+    "verify": "向外埔在地農友、店家或區公所確認近期同一田區照片及收割進度；不要以往年11月照片判斷下週。",
+    "sources": [
+      {
+        "name": "外埔區公所｜忘憂谷・季節參考",
+        "url": "https://www.waipu.taichung.gov.tw/1378901/post",
+        "accessed": "2026-10-26"
+      },
+      {
+        "name": "臺中市政府｜忘憂谷自行車道與閃電農路",
+        "url": "https://www.taichung.gov.tw/8868/8872/9962/1978005",
+        "accessed": "2026-10-26"
+      }
+    ],
+    "mapEntry": {
+      "url": "https://www.google.com/maps/search/?api=1&query=%E5%A4%96%E5%9F%94%E5%BF%98%E6%86%82%E8%B0%B7%20%E8%87%BA%E4%B8%AD%E5%B8%82%E5%A4%96%E5%9F%94%E5%8D%80",
+      "query": "外埔忘憂谷 臺中市外埔區",
+      "icon": "data:image/svg+xml;base64,PHN2ZyB4bWxucz0iaHR0cDovL3d3dy53My5vcmcvMjAwMC9zdmciIHdpZHRoPSI2NCIgaGVpZ2h0PSI2NCIgdmlld0JveD0iMCAwIDY0IDY0Ij4KICA8cmVjdCB3aWR0aD0iNjQiIGhlaWdodD0iNjQiIHJ4PSI2IiBmaWxsPSIjMTQyNjNkIi8+CiAgPHBhdGggZD0iTTggMjRsMTUtNSAxOCA1IDE1LTV2MjVsLTE1IDUtMTgtNS0xNSA1eiIgZmlsbD0iIzJjNDk2NCIgc3Ryb2tlPSIjNzE5NGI3IiBzdHJva2Utd2lkdGg9IjEuNSIvPgogIDxwYXRoIGQ9Ik0yMyAxOXYyNW0xOC0yMHYyNU05IDM2bDE0LTUgMTggNSAxNC01IiBmaWxsPSJub25lIiBzdHJva2U9IiM3MTk0YjciIHN0cm9rZS13aWR0aD0iMS40Ii8+CiAgPHBhdGggZD0iTTMyIDhhMTEgMTEgMCAwIDAtMTEgMTFjMCA4IDExIDE5IDExIDE5czExLTExIDExLTE5QTExIDExIDAgMCAwIDMyIDh6IiBmaWxsPSIjNjBhNWZhIiBzdHJva2U9IiNjNGRkZmYiIHN0cm9rZS13aWR0aD0iMS4yIi8+CiAgPGNpcmNsZSBjeD0iMzIiIGN5PSIxOSIgcj0iNCIgZmlsbD0iIzE0MjYzZCIvPgo8L3N2Zz4K",
+      "iconAlt": "地圖入口圖示（本站自製，非景點照片）"
+    },
+    "photo": {
+      "sourceUrl": "https://commons.wikimedia.org/wiki/File:%E5%A4%96%E5%9F%94%E5%BF%98%E6%86%82%E8%B0%B7.jpg",
+      "imageSourceUrl": "https://thumb.wikimedia.org/wikipedia/commons/thumb/5/5b/%E5%A4%96%E5%9F%94%E5%BF%98%E6%86%82%E8%B0%B7.jpg/960px-%E5%A4%96%E5%9F%94%E5%BF%98%E6%86%82%E8%B0%B7.jpg?utm_source=commons.wikimedia.org&utm_campaign=imageinfo&utm_content=thumbnail",
+      "credit": "Fcuk1203",
+      "licenseName": "CC BY-SA 4.0",
+      "licenseUrl": "https://creativecommons.org/licenses/by-sa/4.0",
+      "dateLabel": "拍攝：2017-11-03",
+      "caption": "外埔忘憂谷稻田實景",
+      "notCurrent": true,
+      "changes": "裁切並縮小為160×160 JPEG；未生成或更換景物",
+      "file": "assets/rice-thumbnails/waipu.jpg",
+      "sha256": "cc3bbb77e5bbc3301c6e630505b8a6948dfd3248bd27366670427aacc492aaa1",
+      "src": "./assets/rice-thumbnails/waipu.jpg"
+    }
+  },
+  {
+    "id": "yuanli",
+    "name": "苑裡山腳彩繪稻田",
+    "zone": "west",
+    "mapRegion": "central",
+    "county": "苗栗",
+    "location": "苗栗縣苑裡鎮・藺草文化館／愛情果園周邊田區",
+    "tag": "彩色稻田 × 圖騰地景",
+    "status": "待確認",
+    "observationDate": null,
+    "observationSource": null,
+    "intro": "西部補充景點。彩色水稻形成地景圖案，可與周邊一般稻田比較；彩繪色彩來自品種，不能直接用來判斷成熟程度。",
+    "season": "苗栗縣政府2026-10-17報導稻浪生活節及兩幅彩繪稻田；活動報導只證明當時展出，今日稻色、保存情況及收割日仍待確認。",
+    "light": "本站規劃：選光線均勻、圖案沒有大片陰影的時段；先從官方觀景台觀察圖樣與最佳閱讀角度。",
+    "shots": [
+      "本站構圖提案：先錄完整圖案的穩定畫面，避免只取局部而看不出主題。",
+      "本站運鏡提案：在取得空拍與場地同意後，嘗試斜俯角慢速揭景；透視設計可能從指定觀景台看更完整，不保證正上方最好。",
+      "不具備飛行條件時，改由官方觀景台取景，仍可呈現彩繪與周邊稻田。"
+    ],
+    "cautions": [
+      "彩繪稻田是農作與策展作品；入田、起降及拍攝使用先詢問農會／地主，不自行跨越圍界。",
+      "觀景台可能有遊客，避免在其上方飛行或起降；圖騰色彩不是即時成熟度指標。"
+    ],
+    "launch": "先向苑裡鎮農會確認是否接受空拍及可用場地；導航僅指向景點，非指定起降點。",
+    "verify": "先向苑裡鎮農會確認當期圖樣、觀賞期、近期照片及收割安排，並確認空拍是否被允許。",
+    "sources": [
+      {
+        "name": "苗栗縣政府｜2026-10-17苑裡稻浪生活節報導",
+        "url": "https://www.miaoli.gov.tw/general_affairs/News_Content.aspx?n=851&s=1005342&sms=9702",
+        "accessed": "2026-10-26"
+      },
+      {
+        "name": "農業知識入口網｜稻田彩繪緣起及現況",
+        "url": "https://kmweb.moa.gov.tw/knowledgebase.php?id=421539",
+        "accessed": "2026-10-26"
+      }
+    ],
+    "mapEntry": {
+      "url": "https://www.google.com/maps/search/?api=1&query=%E8%8B%91%E8%A3%A1%E7%A8%BB%E7%94%B0%E5%BD%A9%E7%B9%AA%20%E8%8B%97%E6%A0%97%E7%B8%A3%E8%8B%91%E8%A3%A1%E9%8E%AE",
+      "query": "苑裡稻田彩繪 苗栗縣苑裡鎮",
+      "icon": "data:image/svg+xml;base64,PHN2ZyB4bWxucz0iaHR0cDovL3d3dy53My5vcmcvMjAwMC9zdmciIHdpZHRoPSI2NCIgaGVpZ2h0PSI2NCIgdmlld0JveD0iMCAwIDY0IDY0Ij4KICA8cmVjdCB3aWR0aD0iNjQiIGhlaWdodD0iNjQiIHJ4PSI2IiBmaWxsPSIjMTQyNjNkIi8+CiAgPHBhdGggZD0iTTggMjRsMTUtNSAxOCA1IDE1LTV2MjVsLTE1IDUtMTgtNS0xNSA1eiIgZmlsbD0iIzJjNDk2NCIgc3Ryb2tlPSIjNzE5NGI3IiBzdHJva2Utd2lkdGg9IjEuNSIvPgogIDxwYXRoIGQ9Ik0yMyAxOXYyNW0xOC0yMHYyNU05IDM2bDE0LTUgMTggNSAxNC01IiBmaWxsPSJub25lIiBzdHJva2U9IiM3MTk0YjciIHN0cm9rZS13aWR0aD0iMS40Ii8+CiAgPHBhdGggZD0iTTMyIDhhMTEgMTEgMCAwIDAtMTEgMTFjMCA4IDExIDE5IDExIDE5czExLTExIDExLTE5QTExIDExIDAgMCAwIDMyIDh6IiBmaWxsPSIjNjBhNWZhIiBzdHJva2U9IiNjNGRkZmYiIHN0cm9rZS13aWR0aD0iMS4yIi8+CiAgPGNpcmNsZSBjeD0iMzIiIGN5PSIxOSIgcj0iNCIgZmlsbD0iIzE0MjYzZCIvPgo8L3N2Zz4K",
+      "iconAlt": "地圖入口圖示（本站自製，非景點照片）"
+    },
+    "photo": {
+      "sourceUrl": "https://commons.wikimedia.org/wiki/File:Taiwan,_Miaoli-_Yuanli_tanbo_art_2015_2.jpg",
+      "imageSourceUrl": "https://thumb.wikimedia.org/wikipedia/commons/thumb/b/bc/Taiwan%2C_Miaoli-_Yuanli_tanbo_art_2015_2.jpg/960px-Taiwan%2C_Miaoli-_Yuanli_tanbo_art_2015_2.jpg?utm_source=commons.wikimedia.org&utm_campaign=imageinfo&utm_content=thumbnail",
+      "credit": "Bunkichi  Chang",
+      "licenseName": "CC BY 2.0",
+      "licenseUrl": "https://creativecommons.org/licenses/by/2.0",
+      "dateLabel": "拍攝：2015-10-04",
+      "caption": "苑裡山腳彩繪稻田實景（2015年熊貓圖樣）",
+      "notCurrent": true,
+      "changes": "裁切並縮小為160×160 JPEG；未生成或更換景物",
+      "file": "assets/rice-thumbnails/yuanli.jpg",
+      "sha256": "df13deb84d61a5fb407d3d15bf342512ac49f84c2f90af60af5df400352ddfa2",
+      "src": "./assets/rice-thumbnails/yuanli.jpg"
+    }
+  }
+]
+</script>
+<script>
+(() => {
+  'use strict';
+  const riceData = JSON.parse(document.getElementById('rice-data').textContent);
+  const grid = document.getElementById('cardGrid');
+  const hero = document.getElementById('rice-zone');
+  const controls = document.getElementById('rice-controls');
+  const guide = document.getElementById('rice-guide');
+  const legacy = document.getElementById('legacy-filters');
+  const county = document.getElementById('rice-county');
+  const status = document.getElementById('rice-status');
+  const empty = document.getElementById('rice-empty');
+  const tally = document.getElementById('rice-count');
+  const originalCount = grid.querySelectorAll('.card').length;
+  let mode = 'all';
+  let region = 'all';
+  const esc = value => String(value).replace(/[&<>"']/g, char => ({'&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;',"'":'&#39;'}[char]));
+  const list = values => values.map(value => `<li>${esc(value)}</li>`).join('');
+  riceData.forEach((spot, index) => {
+    let card = [...grid.querySelectorAll('.card')].find(c => c.querySelector('.spot-name')?.textContent.trim() === spot.name);
+    if (!card) { card = document.createElement('div'); card.className='card'; card.dataset.region=spot.mapRegion; grid.appendChild(card); }
+    card.classList.add('rice-card');
+    card.dataset.riceId=spot.id;
+    card.dataset.zone=spot.zone;
+    card.dataset.county=spot.county;
+    card.dataset.status=spot.status;
+    const originalThumb=card.querySelector('img.thumb')?.outerHTML;
+    const mapEntry=spot.mapEntry;
+    const photo=spot.photo;
+    const thumbnail=originalThumb;
+    const links=spot.sources.map(s=>`<li><a href="${esc(s.url)}" target="_blank" rel="noopener noreferrer">${esc(s.name)}</a> <span>｜查閱 ${esc(s.accessed)}</span></li>`).join('');
+    const titleButton=`<button type="button" class="rice-summary" aria-expanded="false" aria-controls="details-${spot.id}">
+      ${mapEntry?'':thumbnail}
+      <span class="rice-name-wrap"><span class="rice-title">${esc(spot.name)}</span><span class="rice-location">${esc(spot.location)}</span><span class="rice-state">◷ 稻況・${esc(spot.status)}</span></span>
+      <span class="rice-chevron" aria-hidden="true">⌄</span></button>`;
+    const header=mapEntry?`<div class="rice-card-header"><a class="maps-entry-thumb" href="${esc(mapEntry.url)}" target="_blank" rel="noopener noreferrer" aria-label="在Google地圖開啟${esc(spot.name)}並查看景點照片" title="前往Google地圖；開啟景點後可選擇相片"><img src="${esc(photo ? photo.src : mapEntry.icon)}" class="${photo ? 'rice-real-photo' : ''}" alt="${esc(photo ? photo.caption : mapEntry.iconAlt)}" title="${esc(photo ? photo.dateLabel + '｜實景參考，非即時稻況' : '前往 Google 地圖')}" width="64" height="64" decoding="async"><span>Google 地圖 ↗</span></a>${titleButton}</div>`:titleButton;
+    card.innerHTML=`${header}
+      <button type="button" class="rice-hint" aria-label="展開或收合${esc(spot.name)}詳細資訊">點擊展開/收合詳細資訊</button>
+      <div class="details-content" id="details-${spot.id}" hidden>
+        <p class="rice-intro">${esc(spot.intro)}</p>
+        ${mapEntry?`<p class="rice-map-note">景點照片：<a href="${esc(mapEntry.url)}" target="_blank" rel="noopener noreferrer">前往 Google 地圖</a>，開啟地點後選「相片」。</p>`:''}
+        <div class="notice care"><strong>◷ 近期稻況：${esc(spot.status)}</strong>尚無可核實的現地觀察日期與來源；2026-10-26 是資料整理日，並非稻況觀察日。<br>${esc(spot.verify)}</div>
+        <div class="rice-facts"><div class="rice-fact"><strong>季節參考｜不能當作即時田況</strong>${esc(spot.season)}</div><div class="rice-fact"><strong>光線安排｜本站依地景整理</strong>${esc(spot.light)}</div></div>
+        <div class="notice tip"><strong>◈ 拍攝與運鏡提案</strong><ol>${list(spot.shots)}</ol><div class="rice-source-note">依景點地貌整理的本站提案；攝影師與 DJI 的通用建議見上方「拍攝小抄」。</div></div>
+        <div class="notice care"><strong>⚠ 現場注意</strong><ul>${list(spot.cautions)}</ul></div>
+        <div class="rice-fact"><strong>起降勘查｜尚未取得場地許可</strong>${esc(spot.launch)}</div>
+        <div class="notice risk"><strong>! 飛行條件：尚未查證</strong>本卡尚未核實該位置、日期與高度的空域及場地限制。先查民航局空域、現場公告與管理方要求，再決定是否飛行；導航點不代表可起降。</div>
+        <div class="rice-actions"><a href="https://www.google.com/maps/search/?api=1&amp;query=${encodeURIComponent(spot.name)}" target="_blank" rel="noopener noreferrer">↗ 景點導航</a><a href="https://drone.caa.gov.tw/" target="_blank" rel="noopener noreferrer">↗ 民航局空域查詢</a></div>
+        <details class="rice-sources"><summary>來源與查閱日期（${spot.sources.length}）</summary><ul>${links}</ul><p>上列來源支持地景與季節介紹；現場勘查與運鏡為本站保守規劃，並非來源對本地點的飛行核准。</p></details>
+      </div>`;
+    card.querySelector('.rice-summary').addEventListener('click',()=>window.toggleCard(card.querySelector('.rice-summary')));
+    card.querySelector('.rice-hint').addEventListener('click',()=>window.toggleCard(card.querySelector('.rice-summary')));
+  });
+  const mapNote=document.createElement('p');
+  mapNote.className='rice-map-footer';
+  mapNote.textContent='已補上六處景點實景參考照片；點擊縮圖可前往 Google 地圖。照片為歷史參考，並非即時稻況。';
+  document.querySelector('footer.image-attribution').appendChild(mapNote);
+  const photoCredits=document.createElement('details');
+  photoCredits.className='rice-photo-footer';
+  photoCredits.innerHTML='<summary>六處實景照片來源、日期與授權</summary><ul>'+riceData.filter(spot=>spot.photo).map(spot=>{
+    const p=spot.photo;
+    return `<li><strong>${esc(spot.name)}</strong>｜${esc(p.caption)}｜${esc(p.dateLabel)}｜${esc(p.credit)}｜<a href="${esc(p.sourceUrl)}" target="_blank" rel="noopener noreferrer">原始來源</a>｜<a href="${esc(p.licenseUrl)}" target="_blank" rel="noopener noreferrer">${esc(p.licenseName)}</a>。${esc(p.changes)}</li>`;
+  }).join('')+'</ul>';
+  document.querySelector('footer.image-attribution').appendChild(photoCredits);
+  const cards=[...grid.querySelectorAll('.card')];
+  const total=originalCount+riceData.length-1;
+  document.querySelector('header .badge-status').textContent=`總收錄 ${total} 處｜花東 5・西部 2 處稻浪`;
+  document.querySelector('header .subtitle').textContent=`全臺 ${total} 處航拍景點｜花東與西部稻浪整合預覽 v2.5.9`;
+  document.querySelector('header h1').textContent='臺灣空拍景點智慧審查與收集資料庫';
+  legacy.querySelectorAll('[data-region]').forEach(button=>{
+    const key=button.dataset.region;
+    const n=cards.filter(c=>key==='all'||c.dataset.region===key).length;
+    button.textContent=button.dataset.label+` (${n})`;
+    button.addEventListener('click',()=>{region=key;setMode('all');});
+  });
+  function applyFilters(){
+    let visible=0;
+    cards.forEach(card=>{
+      const show=mode!=='all'
+        ? Boolean(card.dataset.riceId)&&card.dataset.zone===(mode==='west'?'west':'east')&&(county.value==='all'||card.dataset.county===county.value)&&(status.value==='all'||card.dataset.status===status.value)
+        : region==='all'||card.dataset.region===region;
+      card.hidden=!show;
+      card.style.display=show?'flex':'none';
+      if(show) visible++;
+    });
+    empty.hidden=mode==='all'||visible!==0;
+    const zoneCount=mode==='west'?2:5;
+    tally.textContent=`顯示 ${visible} / ${zoneCount} 處・近期稻況均待確認`;
+    legacy.querySelectorAll('[data-region]').forEach(button=>{
+      const selected=mode==='all'&&button.dataset.region===region;
+      button.classList.toggle('active',selected);button.setAttribute('aria-pressed',String(selected));
+    });
+  }
+  function setMode(next){
+    mode=next;
+    document.body.classList.toggle('rice-mode',mode!=='all');
+    hero.hidden=controls.hidden=guide.hidden=mode==='all';
+    legacy.hidden=false;
+    document.getElementById('legacy-note').hidden=mode!=='all';
+    const isWest=mode==='west';
+    const places=isWest?['台中','苗栗']:['花蓮','台東'];
+    county.innerHTML='<option value="all">'+(isWest?'西部全部':'花東全部')+'</option>'+places.map(x=>'<option>'+esc(x)+'</option>').join('');
+    status.value='all';
+    document.getElementById('rice-heading').textContent=isWest?'西部稻浪空拍專區':'花東稻浪空拍專區';
+    hero.querySelector('p').textContent=isWest?'從外埔的閃電農路，到苑裡的彩繪稻田。西部首批兩處景點，獨立整理季節參考、拍攝提案與注意事項，後續可持續擴充。':'從池上的縱谷線條，到長濱的山海梯田。五處花東稻浪景點，搭配拍攝小抄、現場提醒與查證入口，讓每次出發更有把握。';
+    empty.innerHTML='這個條件目前沒有已確認的景點。<br>本區近期稻況均待確認，請改選「全部稻況」或「待確認」。';
+    document.querySelectorAll('.mode-btn').forEach(button=>button.setAttribute('aria-pressed',String(button.dataset.mode===mode)));
+    cards.forEach(card=>{card.classList.remove('expanded');const b=card.querySelector('.rice-summary');if(b){b.setAttribute('aria-expanded','false');card.querySelector('.details-content').hidden=true;}});
+    applyFilters();
+  }
+  county.addEventListener('change',applyFilters);
+  status.addEventListener('change',applyFilters);
+  document.querySelectorAll('.mode-btn').forEach(button=>button.addEventListener('click',()=>setMode(button.dataset.mode)));
+  window.toggleCard=function(element){
+    const card=element.closest('.card');
+    const wasOpen=card.classList.contains('expanded');
+    cards.forEach(c=>{c.classList.remove('expanded');const b=c.querySelector('.rice-summary');if(b){b.setAttribute('aria-expanded','false');c.querySelector('.details-content').hidden=true;}});
+    if(!wasOpen){card.classList.add('expanded');const b=card.querySelector('.rice-summary');if(b){b.setAttribute('aria-expanded','true');card.querySelector('.details-content').hidden=false;}}
+  };
+  setMode('all');
+})();
+
+</script>
+<noscript><p>本預覽需要啟用 JavaScript 才能顯示稻浪專區；原有景點仍可閱讀。</p></noscript>
+<script>(() => {
+  'use strict';
+  const grid = document.getElementById('cardGrid');
+  const spots = JSON.parse(document.getElementById('rice-data').textContent);
+  const cards = [...grid.querySelectorAll('.card')];
+  const esc = value => String(value ?? '').replace(/[&<>"']/g, c => ({'&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;',"'":'&#39;'}[c]));
+  const list = values => `<ul>${values.map(x => `<li>${esc(x)}</li>`).join('')}</ul>`;
+  const box = (title, content, tone = '') => `<section class="wide-box ${tone}"><h3>${esc(title)}</h3>${content}</section>`;
+  const panel = document.createElement('section');
+  panel.className = 'wide-detail';
+  panel.id = 'wide-detail';
+  panel.hidden = true;
+  panel.setAttribute('aria-labelledby', 'wide-detail-title');
+  grid.append(panel);
+  let active = null;
+  let selectedTab = 'overview';
+  const triggerFor = card => card?.querySelector('.rice-summary, .spot-name');
+  const spotByCard = new Map(cards.map((card, index) => {
+    const rice = spots.find(spot => spot.id === card.dataset.riceId);
+    let spot = rice;
+    if (!spot) {
+      const description = card.querySelector('.hover-tooltip')?.cloneNode(true);
+      description?.querySelector('strong')?.remove();
+      const facts = [...card.querySelectorAll('.meta-info')].map(row => ({
+        label: row.querySelector('strong')?.textContent.trim() || '景點資訊',
+        text: row.textContent.trim()
+      }));
+      spot = {
+        original: true,
+        name: card.querySelector('.spot-name').textContent.trim(),
+        location: card.querySelector('.spot-region')?.textContent.trim() || '',
+        intro: description?.textContent.trim() || '',
+        facts,
+        launch: facts.filter(f => f.label.includes('起降')).map(f => f.text),
+        cautions: facts.filter(f => !f.label.includes('起降')).map(f => f.text),
+        status: card.querySelector('.status-dot')?.title || '未標示',
+        mapEntry: {url: card.querySelector('.map-link')?.getAttribute('href')}
+      };
+      card.querySelectorAll('.spot-name, .toggle-hint').forEach(control => {
+        control.setAttribute('role', 'button');
+        control.tabIndex = 0;
+        control.addEventListener('keydown', event => {
+          if (event.key === 'Enter' || event.key === ' ') {
+            event.preventDefault(); window.toggleCard(control);
+          }
+        });
+      });
+    }
+    card.dataset.wideId = rice?.id || `original-${index}`;
+    const trigger = triggerFor(card);
+    trigger.setAttribute('aria-expanded', 'false');
+    trigger.setAttribute('aria-controls', 'wide-detail');
+    return [card, spot];
+  }));
+
+  function close(returnFocus = false) {
+    const previous = active;
+    cards.forEach(c => {
+      c.classList.remove('wide-selected', 'expanded');
+      const b = triggerFor(c);
+      b?.setAttribute('aria-expanded', 'false');
+    });
+    panel.hidden = true;
+    active = null;
+    if (returnFocus) triggerFor(previous)?.focus({preventScroll:true});
+  }
+
+  function placePanel() {
+    if (!active || active.hidden) return close();
+    const visible = cards.filter(c => !c.hidden && c.style.display !== 'none');
+    const columns = getComputedStyle(grid).gridTemplateColumns.split(' ').filter(Boolean).length;
+    const index = visible.indexOf(active);
+    const rowEnd = Math.min(visible.length - 1, (Math.floor(index / columns) + 1) * columns - 1);
+    visible[rowEnd].after(panel);
+  }
+
+  function content(spot) {
+    if (spot.original) {
+      if (selectedTab === 'shooting') return [
+        box('拍攝介紹', `<p>${esc(spot.intro)}</p>`, 'blue'),
+        box('起降資訊', list(spot.launch), 'amber')
+      ].join('');
+      if (selectedTab === 'safety') return [
+        box('現場注意', list(spot.cautions), 'amber'),
+        box('原有空域標示', `<p>${esc(spot.status)}</p><p class="wide-muted">沿用既有資料，尚未重新查核；請以出發當日官方公告為準。</p>`, 'red'),
+        box('資料與連結', `<p>保留原有景點介紹與風險提示，未新增現地查證日期。</p><a href="${esc(spot.mapEntry.url)}" target="_blank" rel="noopener noreferrer">原有 Google 導航定位 ↗</a><p><a href="https://drone.caa.gov.tw/" target="_blank" rel="noopener noreferrer">民航局空域查詢 ↗</a></p>`)
+      ].join('');
+      return [
+        box('拍攝重點', `<p>${esc(spot.intro)}</p>`, 'blue'),
+        box('出發前先確認', list(spot.facts.map(f => f.text)), 'amber')
+      ].join('');
+    }
+    if (selectedTab === 'shooting') return [
+      box('取景與運鏡', list(spot.shots), 'blue'),
+      box('光線與構圖', `<p>${esc(spot.light)}</p><p class="wide-muted">依地景整理的本站提案；並非現場飛行核准。</p>`, 'blue'),
+      box('起降前勘查', `<p>${esc(spot.launch)}</p><p class="wide-muted">導航點不代表可起降，須另確認場地許可。</p>`, 'amber')
+    ].join('');
+    if (selectedTab === 'safety') return [
+      box('現場注意', list(spot.cautions), 'amber'),
+      box('飛行條件尚未查證', '<p>尚未核實指定位置、日期與高度的空域及場地限制。先查民航局空域、現場公告與管理方要求，再決定是否飛行。</p><a href="https://drone.caa.gov.tw/" target="_blank" rel="noopener noreferrer">民航局空域查詢 ↗</a>', 'red'),
+      box('資料來源與日期', `<ul>${spot.sources.map(s=>`<li><a href="${esc(s.url)}" target="_blank" rel="noopener noreferrer">${esc(s.name)} ↗</a><small>查閱 ${esc(s.accessed)}</small></li>`).join('')}</ul><p class="wide-muted">查閱日不代表拍攝日或稻況觀察日。</p>`)
+    ].join('');
+    return [
+      box('拍攝重點', `<p>${esc(spot.intro)}</p><p>${esc(spot.shots[0])}</p><p class="wide-muted">切換「拍攝規劃」可看完整運鏡與光線資訊。</p>`, 'blue'),
+      box('出發前先確認', `<p>${esc(spot.verify)}</p><p>${esc(spot.cautions[0])}</p><p class="wide-alert">空域與場地許可尚未確認。</p>`, 'amber')
+    ].join('');
+  }
+
+  function render(spot) {
+    const url = spot.mapEntry?.url || `https://www.google.com/maps/search/?api=1&query=${encodeURIComponent(spot.name)}`;
+    const cardPhoto=active?.querySelector('img');
+    const photoSrc=spot.photo?.src || cardPhoto?.getAttribute('src');
+    const photoAlt=spot.photo?.caption || cardPhoto?.getAttribute('alt') || `${spot.name}參考縮圖`;
+    const titlePhoto=photoSrc?`<img class="wide-title-photo" src="${esc(photoSrc)}" alt="${esc(photoAlt)}" title="${esc(spot.photo ? spot.photo.dateLabel + '｜實景參考，非即時稻況' : spot.name + '參考縮圖')}" width="40" height="40" decoding="async">`:'';
+    panel.innerHTML = `<div class="wide-heading"><div class="wide-identity"><div class="wide-place"><span class="wide-eyebrow">景點詳情</span><div class="wide-title-line"><h2 id="wide-detail-title">${esc(spot.name)}</h2>${titlePhoto}</div><p>${esc(spot.location)}</p></div>
+      <div class="wide-actions"><div class="wide-tabs" role="tablist" aria-label="景點資訊分類">${[['overview','重點總覽'],['shooting','拍攝規劃'],['safety','注意與來源']].map(([key,label])=>`<button type="button" role="tab" id="wide-tab-${key}" aria-selected="${selectedTab===key}" aria-controls="wide-body" tabindex="${selectedTab===key?0:-1}" data-tab="${key}">${label}</button>`).join('')}</div><a class="wide-map-link" href="${esc(url)}" target="_blank" rel="noopener noreferrer">Google 地圖與相片 ↗</a></div></div>
+      <div class="wide-box wide-season">${spot.original ? `<h3>景點資訊</h3><span class="wide-status">${esc(spot.location)}</span><p>${esc(spot.cautions.join(' '))}</p>` : `<h3>稻況與季節</h3><span class="wide-status">近期稻況：${esc(spot.status)}</span><p>${esc(spot.season)}</p><p class="wide-muted">無可核實的現地觀察日期；2026-10-26 為資料整理日。</p>`}</div>
+      <button type="button" class="wide-close" aria-label="收合景點詳情">收合 ×</button></div>
+      <div class="wide-body" id="wide-body" data-view="${selectedTab}" role="tabpanel" tabindex="0" aria-labelledby="wide-tab-${selectedTab}">${content(spot)}</div>`;
+    panel.querySelector('.wide-close').addEventListener('click', () => close(true));
+    const tabs = [...panel.querySelectorAll('[role=tab]')];
+    tabs.forEach((button, index) => {
+      button.addEventListener('click', () => { selectedTab=button.dataset.tab; render(spot); panel.querySelector(`[data-tab="${selectedTab}"]`).focus({preventScroll:true}); });
+      button.addEventListener('keydown', e => {
+        let next;
+        if (e.key==='ArrowRight') next=(index+1)%tabs.length;
+        if (e.key==='ArrowLeft') next=(index+tabs.length-1)%tabs.length;
+        if (e.key==='Home') next=0;
+        if (e.key==='End') next=tabs.length-1;
+        if (next!==undefined) { e.preventDefault(); tabs[next].click(); }
+      });
+    });
+  }
+
+  window.toggleCard = element => {
+    const card = element.closest('.card');
+    const spot = spotByCard.get(card);
+    if (!spot) return;
+    if (active===card) return close();
+    close();
+    active=card; selectedTab='overview';
+    card.classList.add('wide-selected');
+    const summary=triggerFor(card);
+    summary.setAttribute('aria-expanded','true'); summary.setAttribute('aria-controls','wide-detail');
+    render(spot); panel.hidden=false; placePanel();
+  };
+  document.querySelectorAll('.filter-btn,.mode-btn,#rice-county,#rice-status').forEach(el => {
+    el.addEventListener(el.tagName==='SELECT'?'change':'click',()=>close());
+  });
+  panel.addEventListener('keydown', e=>{if(e.key==='Escape')close(true);});
+  window.addEventListener('resize', placePanel);
+  if (location.pathname.includes('layout-preview')) {
+    document.querySelector('[data-mode="rice"]').click();
+    window.toggleCard(document.querySelector('[data-rice-id="changbin"] .rice-summary'));
+  }
+})();
 </script>
 </body>
 </html>
